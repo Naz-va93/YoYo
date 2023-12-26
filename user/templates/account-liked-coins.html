@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+<title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+{% load static %}
+{% block content %}
+<main class="main">
+    <section class="account">
+        <div class="hero-banner container">
+            <div class="hero-banner__bg">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                            media="(min-width: 550px)">
+                    <source data-srcset="{% static 'img/index/hero/bg-mob.webp" type="image/webp">
+                    <img data-src="{% static 'img/index/hero/bg.png" alt="" width="0" height="0" class="lazy">
+                </picture>
+            </div>
+            <div class="hero-banner__header">
+                <div class="hero-banner__page-address page-address">
+                    <ul>
+                        <li>
+                            <a href="{% url 'core:index' %}">
+                                {% trans "Home" %}
+                            </a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg#arrow-next' %}"></use>
+                            </svg>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {% trans "Liked Coin" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="hero-banner__btn visible-on-tablet">
+                    <img src="{% static 'img/icons/log-out.svg' %}" width="24" height="24" loading="lazy" alt="">
+                    {% trans "Log out" %}
+                </a>
+            </div>
+            <h1 class="hero-banner__title title">
+                {% trans "My account" %}
+            </h1>
+            <nav class="hero-banner__nav">
+                <ul>
+                    <li>
+                        <a href="{% url 'user:account-liked' pk=user.pk %}" class="current">
+                            <img src="{% static 'img/icons/dollar.svg' %}" width="24" height="24" loading="lazy" alt="">
+                            {% trans "Liked coins" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'user:profile' pk=user.pk %}">
+                            <img src="{% static 'img/icons/profile.svg' %}" width="24" height="24" loading="lazy"
+                                 alt="">
+                            {% trans "Profile" %}
+                        </a>
+                    </li>
+                    <li class="hide-on-tablet">
+                        <a href="{% url 'account_logout' %}" class="hide-on-tablet">
+                            <img src="{% static 'img/icons/log-out.svg' %}" width="24" height="24" loading="lazy"
+                                 alt="">
+                            {% trans "Log out" %}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        {% include 'include/full_coin_table.html' %}
+    </section>
+</main>
+
+{% endblock %}

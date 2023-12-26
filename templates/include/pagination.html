@@ -1,0 +1,54 @@
+{% load static %}
+<div class="table-footer__pagination pagination _end">
+    {% if page_obj.has_previous %}
+    <button type="button" class="pagination__arrow _prev" title="Prev">
+        <svg width="16" height="16" viewBox="0 0 16 16">
+            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
+        </svg>
+    </button>
+    {% endif %}
+    <div class="pagination__list">
+        {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+            <button type="button" data-page="{{ p }}" class="buttonPage" style="background: #1E74FE !important;">
+                {{ p }}
+            </button>
+            {% else %}
+            <button type="button" data-page="{{ p }}" class="buttonPage">
+                {{ p }}
+            </button>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% if page_obj.has_next %}
+    <button type="button" class="pagination__arrow _next" title="Next">
+        <svg width="16" height="16" viewBox="0 0 16 16">
+            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+        </svg>
+    </button>
+    {% endif %}
+</div>
+<script type="text/javascript">
+    $('.buttonPage').on('click', function(e) {
+        var input = $(this).closest('section').find('input.page');
+        input.val($(this).attr('data-page'));
+
+        console.log(input.val());
+
+        sendFormAjax($(this).closest('section').find('form'));
+    });
+
+    $('.pagination__arrow._next').on('click', function(e) {
+        var input = $(this).closest('section').find('input.page');
+        input.val(parseInt(input.val()) + 1);
+
+        sendFormAjax($(this).closest('section').find('form'));
+    });
+
+    $('.pagination__arrow._prev').on('click', function(e) {
+        var input = $(this).closest('section').find('input.page');
+        input.val(parseInt(input.val()) - 1);
+
+        sendFormAjax($(this).closest('section').find('form'));
+    });
+</script>

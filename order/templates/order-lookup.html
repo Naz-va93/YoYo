@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+<title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+
+{% load static %}
+{% block content %}
+<main class="main">
+    <section class="order">
+        <div class="hero-banner container">
+            <div class="hero-banner__bg">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                            media="(min-width: 550px)">
+                    <source data-srcset="{% static 'img/index/hero/bg-mob.webp' %}" type="image/webp">
+                    <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                </picture>
+            </div>
+            <div class="hero-banner__page-address page-address">
+                <ul>
+                    <li>
+                        <a href="{% url 'core:index' %}">
+                            {% trans "Home" %}
+                        </a>
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 16 16">
+                            <use xlink:href="{% static 'img/sprites.svg#arrow-next' %}"></use>
+                        </svg>
+                    </li>
+                    <li>
+                        <a href="#">
+                            {% trans "Order Lookup" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <h1 class="hero-banner__title title">
+                {% trans "Order Lookup" %}
+            </h1>
+        </div>
+        {% if order.status %}
+        <div class="order__container container">
+            <div class="order__main">
+
+                <div class="order__done">
+                    <h2 class="order__done--title title">
+                        {{ page.text_field_2|safe }}
+                    </h2>
+                    <div class="order__done--text">
+                        <p>{{ order.received }} bnb to Received</p>
+                    </div>
+                    <div class="order__done--icon">
+                        <picture>
+                            <source srcset="{% static 'img/order-lookup/done.webp' %}" type="image/webp">
+                            <img src="{% static 'img/order-lookup/done.png' %}" alt="" width="83" height="94"
+                                 loading="lazy">
+                        </picture>
+                    </div>
+
+                </div>
+                {% else %}
+                <div class="order__container container">
+                    <div class="order__main">
+                        <div class="order__wallet">
+                            <span class="order__wallet--text">Please send {{ cart.total_sum }} BNB to</span>
+                            <div class="order__wallet--block">
+                                <label>
+                                    <input type="text" name="wallet" id="wallet" readonly
+                                           value="{{ page.text_field_5 }}"
+                                           class="order__wallet--input">
+                                </label>
+                                <button class="order__wallet--copy" type="button" title="Copy"
+                                        data-clipboard-target="#wallet">
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#copy"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="order__info">
+                            <div class="order__number">
+                                <span>{% trans "Your oder" %}</span>
+                                <strong>{{ order.pk }}</strong>
+                            </div>
+                            <div class="order__status">
+                                <span>{% trans "Status" %}</span>
+                                {% if order.status %}
+								<b class="status-success">Done</b>
+                                {% else %}
+                                <b class="status-secondary">Waiting</b>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="order__payment-info">
+                            <h3 class="title _min">
+                                {% trans "Payment Information" %}
+                            </h3>
+                            <ul>
+                                <li>
+                                    <span>{% trans "Currency" %}</span>
+                                    <b>BNB</b>
+                                </li>
+                                <li>
+                                    <span>{% trans "Total" %}</span>
+                                    <b>{{ cart.total_sum }} BNB</b>
+                                </li>
+                                <li>
+                                    <span>{% trans "Received" %}</span>
+                                    <b>{{ order.received }} BNB</b>
+                                </li>
+                                <li>
+                                    <span>{% trans "Remaining" %}</span>
+                                    <b>{{ order.remaining }} BNB</b>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order__note">
+                            <p>
+                                {{ page.text_field_4|safe }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="order__aside">
+                        <div class="order__block order-block">
+                            <h3 class="order-block__title title _min">
+                                {% trans "Your Order" %}
+                            </h3>
+                            <table class="order-block__table">
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        {% trans "Date" %}
+                                    </th>
+                                    <th>
+                                        {% trans "Type" %}
+                                    </th>
+                                    <th>
+                                        {% trans "Price" %}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in items %}
+                                <tr>
+                                    <td>
+                                        {% for date in item.date %} |
+                                    {{ date|date:"d-m-Y" }}
+									{% endfor %}
+                                    </td>
+                                    <td>
+                                        {{ item.type }}
+                                    </td>
+                                    <td>
+                                        {{ item.sum }}
+                                    </td>
+                                    <td>
+                                        <button class="close" type="button" title="Remove">
+                                            <svg width="8" height="8" viewBox="0 0 8 8">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="order-block__total">
+                                <span>{% trans "Subtotal" %}</span>
+                                <b>{{ cart.total_sum }} BNB</b>
+                            </div>
+                            <div class="order-block__total">
+                                <span>{% trans "Total" %}</span>
+                                <b>{{ cart.total_sum }} BNB</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

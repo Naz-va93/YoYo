@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load i18n %}
+{% load humanize %}
+{% load poll_extras %}
+
+{% block title %}
+<title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <section class="hero container">
+        <div class="hero__bg" aria-hidden="true">
+            <picture>
+                <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                        media="(min-width: 550px)">
+                <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+            </picture>
+        </div>
+        <h1 class="hero__title main-title">
+            {{ page.title }}
+        </h1>
+        <div class="hero__text">
+            <p>
+                {{ page.description|safe }}
+            </p>
+        </div>
+        <div class="hero__image" style="padding-top: 54%;">
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bitcoin.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/bitcoin.png' %}" alt="" width="425"
+                         height="425">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/cursor.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/cursor.png' %}" alt="" width="65" height="65">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/loading.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/loading.png' %}" alt="" width="81"
+                         height="81">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/ethereum.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/ethereum.png' %}" alt="" width="150"
+                         height="150">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/hashtag.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/hashtag.png' %}" alt="" width="202"
+                         height="202">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+    {% with promoted_listing as listing %}
+    {% with listing.get_first_coins as coins %}
+    {% include 'include/full_coin_table.html' %}
+    {% endwith %}
+    {% endwith %}
+
+    <section class="promoted container">
+        <div class="promoted__adv">
+            {% if settings.photo_for_banner %}
+            <picture>
+                <a href="{{ settings.url_for_banner }}"><source data-srcset="{% static 'img/index/a_d_v.webp' %}" type="image/webp">
+                <img data-src="{{ settings.photo_for_banner.url }}" alt="" width="1080" height="118" class="lazy"></a>
+            </picture>
+            {% else %}
+            <picture>
+                <source data-srcset="{% static 'img/index/a_d_v.webp' %}" type="image/webp">
+                <img data-src="{% static 'img/index/a_d_v.jpg' %}" alt="" width="1080" height="118" class="lazy">
+            </picture>
+            {% endif %}
+        </div>
+        <ul class="promoted__info">
+            <li class="promoted__info-card">
+                <div class="promoted__info-card--header">
+                    <a href="{% url 'core:coin-list' 'new-listings' %}"><h3 class="promoted__info-card--title title _min-2">
+                        <img src="{% static 'img/index/promoted/activity.svg' %}" width="24" height="24" loading="lazy"
+                             alt="">
+                        {% trans "New Listings" %}
+                    </h3></a>
+                </div>
+                <ul class="promoted__info-card--list">
+                    {% for coin in new_listing_coin %}
+                    <li>
+                        <div class="promoted__info-card--coin">
+                            <div class="table-coins__coin--avatar">
+                                <picture>
+                                    <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                                    <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32" loading="lazy">
+                                </picture>
+                            </div>
+                            <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
+                            <span>{{ coin.coin_symbol }}</span>
+                        </div>
+                        <div class="promoted__info-card--days">
+                            {{ coin.publish_date|time_since }}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="promoted__info-card">
+                <div class="promoted__info-card--header">
+                    <a href="{% url 'core:coin-list' 'today-s-best' %}"><h3 class="promoted__info-card--title title _min-2">
+                        <img src="{% static 'img/index/promoted/star.svg' %}" width="24" height="24" loading="lazy"
+                             alt="">
+                        {% trans "Top today" %}
+                    </h3></a>
+                </div>
+                <ul class="promoted__info-card--list">
+                    {% for coin in top_today_coin %}
+                    <li>
+                        <div class="promoted__info-card--coin">
+                            <div class="table-coins__coin--avatar">
+                                <picture>
+                                    <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                                    <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32" loading="lazy">
+                                </picture>
+                            </div>
+                            <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
+                            <span>{{ coin.coin_symbol }}</span>
+                        </div>
+
+                        {% if coin.price_24h > 0 %}
+                        <b class="table-coins__value grow-value">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
+                            </svg>
+                            {{ coin.price_24h }}%
+                        </b>
+                        {% else %}
+                        <b class="table-coins__value danger-value">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
+                            </svg>
+                            {{ coin.price_24h|slice:"1:" }}%
+                        </b>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="promoted__info-card">
+                <div class="promoted__info-card--header">
+                    <a href="{% url 'core:coin-list' 'all-time-best' %}"><h3 class="promoted__info-card--title title _min-2">
+                        <img src="{% static 'img/index/promoted/swap.svg' %}" width="24" height="24" loading="lazy"
+                             alt="">
+                        {% trans "Top all time" %}
+                    </h3></a>
+                </div>
+                <ul class="promoted__info-card--list">
+                    {% for coin in top_all_time %}
+                    <li>
+                        <div class="promoted__info-card--coin">
+                            <div class="table-coins__coin--avatar">
+                                <picture>
+                                    <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                                    <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32" loading="lazy">
+                                </picture>
+                            </div>
+                            <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
+                            <span>{{ coin.coin_symbol }}</span>
+                        </div>
+                        {% if coin.price_24h > 0 %}
+                        <b class="table-coins__value grow-value">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
+                            </svg>
+                            {{ coin.price_24h }}%
+                        </b>
+                        {% else %}
+                        <b class="table-coins__value danger-value">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
+                            </svg>
+                            {{ coin.price_24h }}%
+                        </b>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section class="statistics container">
+        <div class="statistics__bg section-bg">
+            <img src="{% static 'img/index/statistics/bg.svg' %}' %}" width="0" height="0" loading="lazy" alt="">
+        </div>
+        <div class="statistics__content">
+            <h2 class="statistics__title main-title">
+                {{ settings.stat_title }}
+            </h2>
+            <div class="statistics__text">
+                <p>
+                    {{ settings.stat_text }}
+                </p>
+            </div>
+            <ul class="statistics__list">
+                <li>
+                    <h3 class="title">
+                        {{ total_currencies }}
+                    </h3>
+                    <span>
+							{% trans "Cryptocurrencies" %}
+						</span>
+                </li>
+                <li>
+                    <h3 class="title">
+                        {{ total_votes }}
+                    </h3>
+                    <span>
+							{% trans "Votes" %}
+						</span>
+                </li>
+                <li>
+                    <h3 class="title">
+                        ${{ total_trading }}
+                    </h3>
+                    <span>
+                            {% trans "Total trading volume" %}
+                        </span>
+                </li>
+                <li>
+                    <h3 class="title">
+                        {{ settings.total_users }}
+                    </h3>
+                    <span>
+							{% trans "Total users on platform" %}
+						</span>
+                </li>
+            </ul>
+        </div>
+        <div class="statistics__image">
+            <div class="statistics__image--body image-body">
+                <picture>
+                    <source data-srcset="{% static 'img/index/statistics/image.webp' %}" type="image/webp">
+                    <img data-src="{% static 'img/index/statistics/image.png' %}" alt="" width="505" height="505"
+                         class="lazy">
+                </picture>
+            </div>
+        </div>
+    </section>
+    
+    {% with best_listing as listing %}
+    {% with listing.get_first_coins as coins %}
+    {% include 'include/full_coin_table.html' %}
+    {% endwith %}
+    {% endwith %}
+
+    {% include 'include/_contact-us.html' %}
+</main>
+
+{% endblock %}
+
+
+
+
+
+
+

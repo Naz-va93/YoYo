@@ -1,0 +1,333 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    <title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+{% load static %}
+{% block content %}
+<main class="main">
+    <section class="hero container">
+        <div class="hero__page-address page-address">
+            <ul>
+                <li>
+                    <a href="{% url 'core:index' %}">
+                        {% trans "Home" %}
+                    </a>
+                </li>
+                <li>
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <use xlink:href="{% static 'img/sprites.svg#arrow-next' %}"></use>
+                    </svg>
+                </li>
+                <li>
+                    <a href="#">
+                        {% trans "Coin List" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="hero__bg" aria-hidden="true">
+            <picture>
+                <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                        media="(min-width: 550px)">
+                <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+            </picture>
+        </div>
+        <h1 class="hero__title main-title">
+            {{ page.title }}
+        </h1>
+        <div class="hero__text">
+            <p>
+                {{ page.description|safe }}
+            </p>
+        </div>
+        <div class="hero__image" style="padding-top: 54%;">
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bitcoin.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/bitcoin.png' %}" alt="" width="425"
+                         height="425">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/cursor.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/cursor.png' %}" alt="" width="65" height="65">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/loading.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/loading.png' %}" alt="" width="81"
+                         height="81">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/ethereum.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/ethereum.png' %}" alt="" width="150"
+                         height="150">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/hashtag.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/hashtag.png' %}" alt="" width="202"
+                         height="202">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+        <section class="best container">
+        <form class="best__filter filter">
+            <h2 class="best__title title">
+                {{ name_filter }}
+            </h2>
+            {% if if_promote %}
+            {% else %}
+            <button class="filter__btn btn _clear" type="button">
+                <svg width="20" height="20" viewBox="0 0 20 20">
+                    <use xlink:href="{% static 'img/sprites.svg' %}#filter"></use>
+                </svg>
+                {% trans "Filter" %}
+            </button>
+           {% if not del_block %}
+            <div class="filter__switch switch">
+                <div class="switch__wrapper">
+                    <div class="switch__pseudo-btn"></div>
+                    {% if today %}
+                    <label class="switch__btn">
+                        <input type="radio" name="time" value="todays"  class="switch__input">
+                        <a href="{% url 'core:coin-list' 'best_today' %}"><span class="switch__element">{% trans "Todays's Best" %}</span></a>
+                    </label>
+                    {% else %}
+                    <label class="switch__btn">
+                        <input type="radio" name="time" value="todays"  class="switch__input">
+                        <a href="{% url 'core:coin-list' 'best_today' %}"><span class="switch__element">{% trans "Todays's Best" %}</span></a>
+                    </label>
+                    {% endif %}
+                    {% if all_time %}
+                    <label class="switch__btn">
+							<input type="radio" name="time" value="todays" checked class="switch__input">
+							<a href="{% url 'core:coin-list' 'all_time_best' %}"><span class="switch__element">{% trans "All Time Best" %}</span></a>
+						</label>
+                    {% else %}
+                    <label class="switch__btn">
+							<input type="radio" name="time" value="todays"  class="switch__input">
+							<a href="{% url 'core:coin-list' 'all_time_best' %}"><span class="switch__element">{% trans "All Time Best" %}</span></a>
+						</label>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="filter__popup custom-scrollbar">
+                <button class="filter__popup--close" type="button" title="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close-2"></use>
+                    </svg>
+                </button>
+                <ul class="filter__list">
+                    <li class="filter__item">
+                        <h3 class="filter__item--title">
+                            <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                            {% trans "Category" %}
+                        </h3>
+                        <ul class="filter__item--list">
+                            <li class="filter__item--element _full">
+                                <label class="filter__item--param">
+                                    <a href="{% url 'core:coin-list' 'all' %}"><input type="radio" name="category" checked value="value">
+                                    <span>{% trans "All" %}</span></a>
+                                </label>
+                            </li>
+                            {% for category in categories %}
+                            <li class="filter__item--element _full">
+                                <label class="filter__item--param">
+                                    <input type="radio" name="category" value="value">
+                                    <a style="color: white;" href="{{ category.get_absolute_url }}"><span>{{ category.name }}</span></a>
+                                </label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="filter__item">
+                        <h3 class="filter__item--title">
+                            <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                            {% trans "Chain" %}
+                        </h3>
+                        <ul class="filter__item--list">
+                            <li class="filter__item--element _full">
+                                <label class="filter__item--param">
+                                    <a href="{% url 'core:coin-list' 'all' %}"><input type="radio" name="chain" checked value="value">
+                                        <span>{% trans "All" %}</span></a>
+                                </label>
+                            </li>
+                            {% for chain in chains %}
+                            <li class="filter__item--element _full">
+                                <label class="filter__item--param">
+                                    <input type="radio" name="chain" value="value">
+                                    <a style="color: white;" href="{{ chain.get_absolute_url }}"><span>{{ chain.name }}</span></a>
+                                </label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="filter__item">
+                        <h3 class="filter__item--title">
+                            <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                            {% trans "Type" %}
+                        </h3>
+                        <ul class="filter__item--list">
+                            <li class="filter__item--element _full">
+                                <label class="filter__item--param">
+                                    <a href="{% url 'core:coin-list' 'all' %}"><input type="radio" checked name="type" value="value">
+                                        <span>{% trans "All" %}</span></a>
+                                </label>
+                            </li>
+                            {% for type in types %}
+                            <li class="filter__item--element _full">
+                                <label class="filter__item--param">
+                                    <input type="radio" name="type" value="value">
+                                    <a style="color: white;" href="{{ type.get_absolute_url }}"><span>{{ type.name }}</span></a>
+                                </label>
+                            </li>
+                             {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </form>
+        <div class="best__table">
+            <div class="best__table--wrapper scroll-wrapper">
+                <table class="table-coins">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>
+                            {% trans "Rank" %}
+                        </th>
+                        <th>
+                            {% trans "Coin" %}
+                        </th>
+                        <th>
+                            {% trans "Category" %}
+                        </th>
+                        <th>
+                            {% trans "Chain" %}
+                        </th>
+                        <th>
+                            <form action="{% url 'core:sort-promote' %}" method="get">
+                                {% csrf_token %}
+                                <input type="hidden" name="sortDirection" value="ascending">
+                                <input type="hidden" name="sort_name" value="price_24h">
+                                <input type="hidden" name="previous_page" value="{{ request.path }}">
+                                <button type="submit" onclick="return toggleSort()">
+                                    24H
+                                    <svg width="10" height="14" viewBox="0 0 10 14">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form action="{% url 'core:sort-promote' %}" method="get">
+                                {% csrf_token %}
+                                <input type="hidden" name="sortDirection" value="ascending">
+                                <input type="hidden" name="sort_name" value="market_cap">
+                                <input type="hidden" name="previous_page" value="{{ request.path }}">
+                                <button type="submit" onclick="return toggleSort()">
+                                    {% trans "Marketcap" %}
+                                    <svg width="10" height="14" viewBox="0 0 10 14">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form action="{% url 'core:sort-promote' %}" method="get">
+                                {% csrf_token %}
+                                <input type="hidden" name="sortDirection" value="ascending">
+                                <input type="hidden" name="sort_name" value="price">
+                                <input type="hidden" name="previous_page" value="{{ request.path }}">
+                                <button type="submit" onclick="return toggleSort()">
+                                    {% trans "Price" %}
+                                    <svg width="10" height="14" viewBox="0 0 10 14">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form action="{% url 'core:sort-promote' %}" method="get">
+                                {% csrf_token %}
+                                <input type="hidden" name="sortDirection" value="ascending">
+                                <input type="hidden" name="sort_name" value="counter_like">
+                                <input type="hidden" name="previous_page" value="{{ request.path }}">
+                                <button type="submit" onclick="return toggleSort()">
+                                    {% trans "Votes" %}
+                                    <svg width="10" height="14" viewBox="0 0 10 14">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% include 'include/_table-coins-item.html' %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="best__footer table-footer">
+
+            {% if is_paginated %}
+            <div class="table-footer__pagination pagination hide-on-tablet">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="pagination__arrow _prev" title="Prev">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
+                    </svg>
+                </a>
+                {% endif %}
+                <div class="pagination__list">
+                    {% for p in page_obj.paginator.page_range %}
+                    <a href="?page={{ p }}">
+                        {{ p }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}  " class="pagination__arrow _next" title="Next">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                    </svg>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

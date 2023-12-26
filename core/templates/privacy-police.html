@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    <title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+
+{% load static %}
+{% block content %}
+
+<style type="text/css">
+    .text-section__container span {
+        font-family: var(--main-font) !important;
+        font-weight: 400;
+        line-height: 150%;
+        color: var(--secondary) !important;
+    }
+
+    .text-section__container li::before {
+        counter-increment: none !important;
+        content: none !important;
+    }
+</style>
+
+<main class="main">
+    <section class="text-section">
+        <div class="hero-banner container _min">
+            <div class="hero-banner__bg">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp" media="(min-width: 550px)">
+                    <source data-srcset="{% static 'img/index/hero/bg-mob.webp' %}" type="image/webp">
+                    <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                </picture>
+            </div>
+            <div class="hero-banner__header">
+                <div class="hero-banner__page-address page-address">
+                    <ul>
+                        <li>
+                            <a href="{% url 'core:index' %}">
+                                {% trans "Home" %}
+                            </a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg#arrow-next' %}"></use>
+                            </svg>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{page.title_seo}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h1 class="hero-banner__title title">
+                {{ page.title|safe }}
+            </h1>
+        </div>
+        <div class="text-section__container container">
+            <p>
+                {{ page.description|safe }}
+            </p>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+{% load static %}
+{% block content %}
+<main class="main">
+    <section class="coin">
+        <div class="hero-banner container">
+            <div class="hero-banner__bg">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp" media="(min-width: 550px)">
+                    <source data-srcset="{% static 'img/index/hero/bg-mob.webp' %}" type="image/webp">
+                    <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                </picture>
+            </div>
+            <div class="hero-banner__page-address page-address">
+                <ul>
+                    <li>
+                        <a href="{% url 'core:index' %}">
+                            {% trans "Home" %}
+                        </a>
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 16 16">
+                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                        </svg>
+                    </li>
+                    <li>
+                        <a href="#">
+                            {% trans "Coin page" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="coin__container container">
+            <div class="coin__header">
+                <div class="coin__avatar">
+                    <picture>
+                        <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                        <img src="{{ coin.photo_coin.url }}" alt="" width="185" height="185" loading="lazy">
+                    </picture>
+                </div>
+                <div class="coin__header-info">
+                    <h2 class="coin__title title">
+                        {{ coin.coin_name }}
+                    </h2>
+                    <span class="coin__name">
+							{{ coin.coin_symbol }}
+						</span>
+                    <span class="coin__category name-section">
+							{{ coin.category }}
+						</span>
+                </div>
+                <div class="coin__vote">
+                    <span class="coin__vote--today">Today's Vote: {{ coin.votes_today }}</span>
+                    <td>
+
+        <a href="#{% if not user.is_authenticated %}authorization-popup{% endif %}" class="{% if coin not in user.vote_coins.all %}canVote{% endif%} vote-btn btn {% if not user.is_authenticated %}open-popup{% endif %}" type="button" data-coin-pk="{{ coin.pk }}">
+                {% if coin not in user.vote_coins.all %}
+                <div class="arrow">
+                    <svg width="10" height="14" viewBox="0 0 10 14">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-to-up"></use>
+                    </svg>
+                </div>
+                {% endif%}
+                {{coin.votes_today}}
+            </a>
+
+        		<script type="text/javascript">
+    $('.canVote').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'core:vote_coin' %}",
+            data: {
+                "coin": $(this).attr('data-coin-pk'),
+            },
+            success: function(data)
+            {}
+        });
+    });
+</script>
+
+                </div>
+            </div>
+            <div class="coin__main">
+					<div class="coin__chain">
+						<div class="coin__chain--block">
+							<div class="coin__chain--avatar">
+                            <img src="{{ coin.network_chain.photo.url }}" width="40" height="40" loading="lazy" alt="">
+                        </div>
+                        <h3 class="coin__chain--title title _min-2">
+                            {{ coin.network_chain.name }} Chain
+                        </h3>
+                        <div class="coin__chain--address">
+                            <label>
+                                <input type="text" name="wallet" id="chain" readonly
+                                       value="{{ coin.binance_smart_chain }}">
+                            </label>
+                            <button type="button" title="Copy" data-clipboard-target="#chain">
+                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                    <use xlink:href="{% static 'img/sprites.svg' %}#copy"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="coin__chain--footer">
+                        <div class="coin__social">
+                            <ul>
+                                {% if coin.website_link %}
+                                <li>
+                                    <a href="{{ coin.website_link }}" target="_blank">
+                                        <svg width="16" height="17" viewBox="0 0 16 17">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#link"></use>
+                                        </svg>
+                                        {% trans "Website" %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if coin.twitter_link %}
+                                <li>
+                                    <a href="{{ coin.twitter_link }}" target="_blank">
+                                        <svg width="16" height="17" viewBox="0 0 16 17">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#twitter"></use>
+                                        </svg>
+                                        {% trans "Twitter" %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if coin.telegram_link %}
+                                <li>
+                                    <a href="{{ coin.telegram_link }}" target="_blank">
+                                        <svg width="16" height="17" viewBox="0 0 16 17">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#telegram"></use>
+                                        </svg>
+                                        {% trans "Telegram" %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if coin.discord_link %}
+                                <li>
+                                    <a href="{{ coin.discord_link }}" target="_blank">
+                                        <svg width="16" height="17" viewBox="0 0 16 17">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#discord"></use>
+                                        </svg>
+                                        {% trans "Discord" %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="coin__descr">
+                    <h3 class="coin__descr--title">
+                        <img src="{% static 'img/icons/descr.svg' %}" width="16" height="16" loading="lazy" alt="">
+                        {% trans "Description" %}
+                    </h3>
+                    <div class="coin__descr--text">
+                        <p>
+                            {{ coin.coin_description }}
+                        </p>
+                    </div>
+                </div>
+                <ul class="coin__min-info">
+                    <li class="coin__min-info--element">
+							<span>
+								{% trans "Marketcap" %}
+							</span>
+                        <b>{{ coin.market_cap }}</b>
+                    </li>
+                    <li class="coin__min-info--element">
+							<span>
+								{% trans "Price" %}
+							</span>
+                        <b>${{ coin.price }}</b>
+                    </li>
+                    <li class="coin__min-info--element">
+							<span>
+								{% trans "Launch Date" %}
+							</span>
+                        <b>{{ coin.publish_date }}</b>
+                    </li>
+                    <li class="coin__min-info--element">
+							<span>
+								24H
+							</span>
+                        {% if coin.price_24h > 0 %}
+                        <b class="grow-value">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
+                            </svg>
+                            {{ coin.price_24h }}%
+                        </b>
+                         {% else %}
+                        <b class="danger-value">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
+                            </svg>
+                            {{ coin.price_24h }}%
+                        </b>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    {% with promoted as listing %}
+    {% include 'include/full_coin_table.html' %}
+    {% endwith %}
+
+</main>
+
+{% endblock %}

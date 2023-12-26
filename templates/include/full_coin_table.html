@@ -1,0 +1,298 @@
+{% load static %}
+{% load i18n %}
+<section class="best container">
+    {% if not is_profile %}
+    <form id="{{listing.slug}}-form" class="best__filter filter" action="{% url 'core:get_coins_table' %}" method="GET">
+        <input type="hidden" name="listing_slug" value="{{listing.slug}}">
+        <input class="sort_name" type="hidden" name="sort_name" value="{{listing.get_sort_name}}">
+        <input class="sort_direction" type="hidden" name="sort_direction" value="asc">
+        {% if is_paginated %}
+        <input class="page" type="hidden" name="page" value="1">
+        <input type="hidden" name="is_paginated" value="True">
+        {% endif %}
+        <h2 class="{% if listing.filter_by == 'best_today' %}today__title{% endif %} best__title title">
+            {{ listing.title }}
+        </h2>
+        {% if not disable_filter %}
+        <button class="filter__btn btn _clear" type="button">
+            <svg width="20" height="20" viewBox="0 0 20 20">
+                <use xlink:href="{% static 'img/sprites.svg' %}#filter"></use>
+            </svg>
+            {% trans "Filter" %}
+        </button>
+        {% endif %}
+        {% if listing.filter_by == 'best_today' or listing.filter_by == 'best_all' %}
+        <div class="filter__switch switch">
+            <div class="switch__wrapper">
+                <div class="switch__pseudo-btn"></div>
+                <label class="switch__btn">
+                    <input type="radio" name="top_type" value="today-s-best" {% if listing.filter_by == 'best_today' %}checked{% endif %} class="switch__input" data-title-id="#best-title" data-title-class="_mode-1" list-url="{% url 'core:coin-list' 'today-s-best' %}">
+                    <div class="switch__element">{% trans "Today's Best" %}</div>
+                </label>
+                <label class="switch__btn">
+                    <input type="radio" name="top_type" value="all-time-best" {% if listing.filter_by == 'best_all' %}checked{% endif %} class="switch__input" data-title-id="#best-title" data-title-class="_mode-2" list-url="{% url 'core:coin-list' 'all-time-best' %}">
+                    <div class="switch__element">{% trans "All Time Best" %}</div>
+                </label>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="filter__popup custom-scrollbar">
+            <button class="filter__popup--close" type="button" title="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="{% static 'img/sprites.svg' %}#close-2"></use>
+                </svg>
+            </button>
+            <ul class="filter__list">
+                <li class="filter__item">
+                    <h3 class="filter__item--title">
+                        <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                        {% trans "Category" %}
+                    </h3>
+                    <ul class="filter__item--list">
+                        <li class="filter__item--element _full">
+                            <label class="filter__item--param">
+                                <input type="radio" name="category" checked value="all">
+                                <span>{% trans "All" %}</span>
+                            </label>
+                        </li>
+                        {% for category in categories %}
+                        <li class="filter__item--element _full">
+                            <label class="filter__item--param">
+                                <input type="radio" name="category" value="{{ category.slug }}">
+                                <span>{{ category.name }}</span>
+                            </label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="filter__item">
+                    <h3 class="filter__item--title">
+                        <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                        {% trans "Chain" %}
+                    </h3>
+                    <ul class="filter__item--list">
+                        <li class="filter__item--element _full">
+                            <label class="filter__item--param">
+                                <input type="radio" name="network_chain" checked value="all">
+                                <span>{% trans "All" %}</span>
+                            </label>
+                        </li>
+                        {% for chain in chains %}
+                        <li class="filter__item--element _full">
+                            <label class="filter__item--param">
+                                <input type="radio" name="network_chain" value="{{ chain.slug }}">
+                                <span>{{ chain.name }}</span>
+                            </label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="filter__item">
+                    <h3 class="filter__item--title">
+                        <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                        {% trans "Type" %}
+                    </h3>
+                    <ul class="filter__item--list">
+                        <li class="filter__item--element _full">
+                            <label class="filter__item--param">
+                                <input type="radio" checked name="type_project" value="all">
+                                <span>{% trans "All" %}</span>
+                            </label>
+                        </li>
+                        {% for type in types %}
+                        <li class="filter__item--element _full">
+                            <label class="filter__item--param">
+                                <input type="radio" name="type_project" value="{{ type.slug }}">
+                                <span>{{ type.name }}</span>
+                            </label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </form>
+    {% endif %}
+    <div class="best__table">
+        <div class="best__table--wrapper scroll-wrapper coin-table-{{listing.slug}}">
+            <table class="table-coins">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        {% trans "Coin" %}
+                    </th>
+                    <th>
+                        {% trans "Category" %}
+                    </th>
+                    <th>
+                        {% trans "Chain" %}
+                    </th>
+                    <th>
+                        {% csrf_token %}
+                        <input type="hidden" name="sortDirection" value="asc">
+                        <input type="hidden" name="sortName" value="price_24h">
+                        <button class="sort_ajax">
+                            24H
+                            <svg width="10" height="14" viewBox="0 0 10 14">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                            </svg>
+                        </button>
+                    </th>
+                    <th>
+                        <input type="hidden" name="sortDirection" value="asc">
+                        <input type="hidden" name="sortName" value="price">
+                        <button class="sort_ajax">
+                            {% trans "Price" %}
+                            <svg width="10" height="14" viewBox="0 0 10 14">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                            </svg>
+                        </button>
+                    </th>
+                    <th>
+                        <input type="hidden" name="sortDirection" value="asc">
+                        <input type="hidden" name="sortName" value="market_cap">
+                        <button class="sort_ajax">
+                            {% trans "Marketcap" %}
+                            <svg width="10" height="14" viewBox="0 0 10 14">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                            </svg>
+                        </button>
+                    </th>
+                    {% if listing.slug == 'new-listings' %}
+                    <th>
+                        <input type="hidden" name="sortDirection" value="asc">
+                        <input type="hidden" name="sortName" value="publish_date">
+                        <button class="sort_ajax">
+                            {% trans "Added" %}
+                            <svg width="10" height="14" viewBox="0 0 10 14">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                            </svg>
+                        </button>
+                    </th>
+                    {% endif %}
+                    <th>
+                        <input type="hidden" name="sortDirection" value="asc">
+                        <input type="hidden" name="sortName" value="votes">
+                        <button class="sort_ajax">
+                            {% trans "Votes" %}
+                            <svg width="10" height="14" viewBox="0 0 10 14">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
+                            </svg>
+                        </button>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% if coins or is_profile %}
+                    {% include 'include/coin_table.html' %}
+                    {% else %}
+                    {% with listing.get_coins as coins %}
+                        {% include 'include/coin_table.html' %}
+                    {% endwith %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="best__footer table-footer">
+        {% if is_paginated %}
+        {% with coins as page_obj %}
+        {% include 'include/pagination.html' %}
+        {% endwith %}
+        {% elif listing.slug != 'promoted' and listing.filter_by != 'new' %}
+        <div class="table-footer__drop-down drop-down">
+            <a class="{% if listing.filter_by == 'best_today' %}today__show{% endif %}"  href="{% url 'core:coin-list' listing.slug %}">
+                <button id="show-more-btn" class="drop-down__target" type="button">
+                    {% trans "Show more" %}
+                    <svg width="17" height="16" viewBox="0 0 16 16">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                    </svg>
+                </button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+<script type="text/javascript">
+    $('.switch__input').on('click', function(e) {
+        $('input[name="listing_slug"]').val($(this).val());
+        console.log($('input[name="listing_slug"]'));
+    });
+</script>
+<script type="text/javascript">
+    function sendFormAjax(form, slug) {
+        var actionUrl = form.attr('action');
+        
+        $.ajax({
+            type: "GET",
+            url: actionUrl,
+            data: form.serialize(),
+            success: function(data)
+            {
+                console.log(data);
+              form.parent().find('.coin-table-' + slug + ' table tbody').empty();
+              form.parent().find('.coin-table-' + slug + ' table tbody').append(data.table);
+
+              if (data.pagination) {
+                form.parent().find('.best__footer').empty();
+                form.parent().find('.best__footer').append(data.pagination);
+              }
+            }
+        });
+    }
+
+    $('form.filter input').change(function (e) {
+        e.preventDefault();
+
+        sendFormAjax($(this).closest('form'), "{{listing.slug}}");
+    });
+</script>
+<script type="text/javascript">
+    $('.sort_ajax').on('click', function(e) {
+        var sort_name = $(this).parent().find('input[name="sortName"]').val();
+        var name = $(this).closest('section').find('.sort_name');
+        var direction = $(this).closest('section').find('.sort_direction');
+        name.val(sort_name);
+
+        if ($(this).hasClass('_active-up')) {
+            direction.val('desc');
+        } else if ($(this).hasClass('_active-down')) {
+            direction.val('asc');
+            name.val('votes');
+        } else {
+            direction.val('asc');
+        }
+
+        sendFormAjax($(this).closest('section').find('form'), "{{listing.slug}}");
+    });
+</script>
+{% if is_paginated %}
+<script type="text/javascript">
+    $('.switch__input').on('click', function(e) {
+        e.preventDefault();
+        window.location.href = $(this).attr('list-url');
+    });
+</script>
+{% else %}
+<script type="text/javascript">
+    $('.switch__input').on('click', function(e) {
+        $('.today__title').text($(this).parent().find('div').text());
+        $('.today__show').attr('href', $(this).attr('list-url'));
+    });
+</script>
+{% endif %}

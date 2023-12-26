@@ -1,0 +1,163 @@
+{% load static %}
+{% load i18n %}
+    <header class="header container">
+        <div class="header__bg"></div>
+        <a href="{% url 'core:index' %}" class="header__logo">
+            <img src="{% static 'img/logo.svg' %}" alt="Logo" width="113" height="25" loading="lazy"
+                 class="header__logo--img">
+        </a>
+        <nav class="header__nav">
+            <div class="header__nav--body">
+                <ul class="header__nav--list">
+                    <li>
+                        <a href="#">
+                            {% trans "All Coins" %}
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                            </svg>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'core:coin-list' 'all-coins' %}">
+                                    <img src="{% static 'img/icons/bomb.svg' %}" width="20" height="20" alt="">
+                                    <b>{% trans "All Coins" %}</b>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'core:coin-list' 'new-listings' %}" aria-label="">
+                                    <span>{% trans "New Listings" %}</span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'core:coin-list' 'today-s-best' %}" aria-label="Лучшие на сегодняшний день">
+                                    <span>{% trans "Today's Best" %}</span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'core:coin-list' 'all-time-best' %}" aria-label="Лучшие за все время">
+                                    <span>{% trans "All Time Best" %}</span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'core:coin-list' 'promoted' %}" aria-label="Продвигаемые">
+                                    <span>{% trans "Promoted" %}</span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#contact">
+                            <img src="{% static 'img/icons/phone.svg' %}" width="20" height="20" loading="lazy" alt=""
+                                 class="visible-on-tablet">
+                            {% trans "Contacts" %}
+                            <svg width="16" height="16" viewBox="0 0 16 16" class="visible-on-tablet">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+                <div class="header__nav--add"></div>
+            </div>
+        </nav>
+        <div class="header__nav-bg"></div>
+        {% if not user.is_authenticated %}
+        <div class="header__mob-add visible-on-tablet">
+            <ul>
+                <li>
+                    <a href="#authorization-popup" class="btn open-popup">
+                        {% trans "Sign up" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="header__mob-add visible-on-tablet">
+            <ul>
+                <li>
+                    <a href="{% url 'user:profile' user.id %}" class="btn">
+                        {% trans "Profile" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+        <div class="header__search check-input-focus-wrapper">
+    <button class="header__search--toggle visible-on-tablet" type="button" title="Search">
+        <svg width="16" height="16" viewBox="0 0 16 16">
+            <use xlink:href="{% static 'img/sprites.svg' %}#search"></use>
+        </svg>
+    </button>
+    <div class="header__search--body">
+        <label class="header__search--label">
+            <form id="search-form" action="{% url 'core:search' %}" method="get">
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                    <use xlink:href="{% static 'img/sprites.svg' %}#search"></use>
+                </svg>
+                <input type="text" name="q" placeholder="Search.." class="header__search--input check-input-focus" autocomplete="off">
+            </form>
+        </label>
+        <div class="header__search--result">
+            <ul id="coin-list" class="header__search--list">
+                <!-- Результаты поиска будут здесь -->
+            </ul>
+            <button class="header__search--hide" type="button">
+                <span>{% trans "Hide search" %}</span>
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                    <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="header__search--bg check-input-focus-bg"></div>
+    </div>
+</div>
+        <div class="header__add">
+            <ul data-append-to-on-tablet=".header__nav--add" style="display: none;">
+                <li>
+                    <a href="{% url 'core:add-coin' %}" class="btn _clear">
+                        <svg width="16" height="16" viewBox="0 0 16 16">
+                            <use xlink:href="{% static 'img/sprites.svg' %}#plus"></use>
+                        </svg>
+                        {% trans "Add coin" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'order:promote' %}" class="btn _clear">
+                        <svg width="16" height="16" viewBox="0 0 24 24">
+                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-link"></use>
+                        </svg>
+                        {% trans "Promote coin" %}
+                    </a>
+                </li>
+                {% if not user.is_authenticated %}
+                <li>
+                    <a href="#authorization-popup" class="btn open-popup">
+                        {% trans "Sign up" %}
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'user:profile' user.id %}" class="btn">
+                        {% trans "Profile" %}
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <button class="header__burger" type="button" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>

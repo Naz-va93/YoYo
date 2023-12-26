@@ -1,0 +1,150 @@
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+{% providers_media_js %}
+
+<footer class="footer">
+    <div class="footer__row container">
+        <a href="{% url 'core:index' %}" class="footer__logo">
+            <img src="{% static 'img/logo.svg' %}" width="143" height="32" loading="lazy" alt="Logo"
+                 class="footer__logo--img">
+        </a>
+        <div class="footer__lang drop-down">
+            <button class="drop-down__target" type="button">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_language_info for LANGUAGE_CODE as lang %}
+                {{ lang.name_local }}
+                <svg width="17" height="16" viewBox="0 0 16 16">
+                    <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                </svg>
+            </button>
+
+            <ul class="drop-down__list">
+                <li>
+                    <a href="{% url 'core:custom_set_language' %}?lang=en">English</a>
+                </li>
+                <li>
+                    <a href="{% url 'core:custom_set_language' %}?lang=ru">Русский</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__accent-text">
+            <b>{{settings.footer_text}}</b>
+        </div>
+    </div>
+    <div id="contact" class="footer__row container">
+        <div class="footer__social">
+            <ul>
+                {% for social in socials %}
+                <li>
+                    <a href="{{ social.url }}" title="{{social.title}}" target="_blank">
+                        {{social.symbol|safe}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="footer__privacy">
+            <ul>
+                <li>
+                    <a href="{% url 'core:page' slug='terms' %}">
+                        {% trans "Terms of Use" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'core:page' slug='privacy' %}">
+                        {% trans "Privacy policy" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__copy">
+            {{settings.copyright}}
+        </div>
+    </div>
+</footer>
+
+
+<div class="authorization-popup popup" style="--container: 344px" id="authorization-popup">
+    <div class="authorization-popup__wrapper popup-wrapper">
+        <div class="authorization-popup__bg popup-bg popup-close"></div>
+        <div class="authorization-popup__body popup-body">
+            <div class="authorization-popup__header popup-header">
+                <h2 class="authorization-popup__title title _min-2">
+                    {% trans "Authorization" %}
+                </h2>
+                <button type="button" class="authorization-popup__close-btn popup-close-btn popup-close" title="Close">
+                    <svg width="14" height="14" viewBox="0 0 8 8">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="authorization-popup__container popup-container">
+                <ul class="authorization-popup__list">
+                    <li>
+                        <a href="{% provider_login_url 'google' %}" class="authorization-popup__card">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0,0,256,256">
+                                <g transform="translate(-30.72,-30.72) scale(1.24,1.24)"><g fill="#1E74FE" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15.00391,3c-6.629,0 -12.00391,5.373 -12.00391,12c0,6.627 5.37491,12 12.00391,12c10.01,0 12.26517,-9.293 11.32617,-14h-1.33008h-2.26758h-7.73242v4h7.73828c-0.88958,3.44825 -4.01233,6 -7.73828,6c-4.418,0 -8,-3.582 -8,-8c0,-4.418 3.582,-8 8,-8c2.009,0 3.83914,0.74575 5.24414,1.96875l2.8418,-2.83984c-2.134,-1.944 -4.96903,-3.12891 -8.08203,-3.12891z"></path></g></g></g>
+                            </svg>
+                            <h3 class="authorization-popup__card--title">
+                                {% trans "Google" %}
+                            </h3>
+                            <p class="authorization-popup__card--text">
+                                {% trans "Connect to Google" %}
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% provider_login_url 'facebook' %}" class="authorization-popup__card">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0,0,256,256">
+                                <g transform="translate(-30.72,-30.72) scale(1.24,1.24)"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M24,5c-10.49341,0 -19,8.50659 -19,19c0,10.49341 8.50659,19 19,19c10.49341,0 19,-8.50659 19,-19c0,-10.49341 -8.50659,-19 -19,-19z" fill="#1E74FE"></path><path d="M26.572,29.036h4.917l0.772,-4.995h-5.69v-2.73c0,-2.075 0.678,-3.915 2.619,-3.915h3.119v-4.359c-0.548,-0.074 -1.707,-0.236 -3.897,-0.236c-4.573,0 -7.254,2.415 -7.254,7.917v3.323h-4.701v4.995h4.701v13.729c0.931,0.14 1.874,0.235 2.842,0.235c0.875,0 1.729,-0.08 2.572,-0.194z" fill="#ffffff"></path></g></g></g>
+                            </svg>
+                            <h3 class="authorization-popup__card--title">
+                                {% trans "Facebook" %}
+                            </h3>
+                            <p class="authorization-popup__card--text">
+                                {% trans "Connect to Facebook" %}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="authorization-popup popup" style="--container: 344px" id="authorization-popup-2">
+		<div class="authorization-popup__wrapper popup-wrapper">
+			<div class="authorization-popup__bg popup-bg popup-close"></div>
+			<div class="authorization-popup__body popup-body">
+				<div class="authorization-popup__header popup-header">
+					<h2 class="authorization-popup__title title _min-2">
+						Captcha
+					</h2>
+					<button type="button" class="authorization-popup__close-btn popup-close-btn popup-close" title="Close">
+						<svg width="14" height="14" viewBox="0 0 8 8">
+							<use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+						</svg>
+					</button>
+				</div>
+				<div class="authorization-popup__container popup-container">
+					<ul class="authorization-popup__list">
+						<li>
+							<a style="padding-left: 10px" class="authorization-popup__card">
+                                <form action="{% url 'core:captcha' %}" method="POST">
+                                {% csrf_token %}
+                                    <input type="hidden" name="previous_page" value="{{ request.path }}">
+                                {{ request.captcha_form.captcha }}
+                                <input type="hidden" name="coin_pk" hidden value="">
+                                    <button type="submit" style="margin-top:8px; background-color: #333; color: #fff; padding: 5px 10px; border: none; border-radius: 3px;">{% trans 'Send' %}</button>
+                            </form>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+

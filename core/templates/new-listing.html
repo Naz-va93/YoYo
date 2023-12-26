@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    <title>{{ page.title_seo }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ page.description_seo }}">
+{% endblock %}
+
+{% load static %}
+{% block content %}
+<main class="main">
+    <section class="hero container">
+        <div class="hero__page-address page-address">
+            <ul>
+                <li>
+                    <a href="{% url 'core:index' %}">
+                        {% trans "Home" %}
+                    </a>
+                </li>
+                <li>
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <use xlink:href="{% static 'img/sprites.svg#arrow-next' %}"></use>
+                    </svg>
+                </li>
+                <li>
+                    <a href="#">
+                        {% trans "Coin List" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="hero__bg" aria-hidden="true">
+            <picture>
+                <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                        media="(min-width: 550px)">
+                <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+            </picture>
+        </div>
+        <h1 class="hero__title main-title">
+            {{ page.title }}
+        </h1>
+        <div class="hero__text">
+            <p>
+                {{ page.description|safe }}
+            </p>
+        </div>
+        <div class="hero__image" style="padding-top: 54%;">
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/bitcoin.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/bitcoin.png' %}" alt="" width="425"
+                         height="425">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/cursor.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/cursor.png' %}" alt="" width="65" height="65">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/loading.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/loading.png' %}" alt="" width="81"
+                         height="81">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/ethereum.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/ethereum.png' %}" alt="" width="150"
+                         height="150">
+                </picture>
+            </div>
+            <div class="hero__image--item">
+                <picture>
+                    <source data-srcset="{% static 'img/index/hero/hashtag.webp' %}" type="image/webp">
+                    <img class="lazy" data-src="{% static 'img/index/hero/hashtag.png' %}" alt="" width="202"
+                         height="202">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+    {% include 'include/full_coin_table.html' %}
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('#search-form input[name="q"]').on('keyup', function() {
+            clearTimeout(typingTimer); // Сбрасываем предыдущий таймер
+
+            var input = $(this).val();
+
+            if (input.length > 0) {
+                typingTimer = setTimeout(function() {
+                    $.ajax({
+                        url: '{% url "core:sort_ajax" %}', // URL для обработки AJAX-запроса
+                        type: 'GET',
+                        data: {q: input},
+                        dataType: 'json',
+                        success: function(response) {
+                            // Очищаем текущий список результатов
+                            $('#coin-list').empty();
+
+                            // Отображаем только первые три результата
+                            for (var i = 0; i < 5 && i < response.length; i++) {
+                                var coin = response[i];
+
+                                // Добавляем элемент списка
+                                var listItem = '<li><a href="' + coin.url + '"><b>' + coin.name + '</b></a>' +
+                                    '<button type="button" aria-label="paste">' +
+                                    '<svg width="24" height="24" viewBox="0 0 24 24">' +
+                                    '<use xlink:href="{% static "img/sprites.svg" %}#arrow-link"></use>' +
+                                    '</svg>' +
+                                    '</button></li>';
+
+                                $('#coin-list').append(listItem);
+                            }
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.log('AJAX Error: ' + errorThrown);
+                        }
+                    });
+                }, doneTypingInterval);
+            }
+        });
+    });
+</script>
+{% endblock %}
