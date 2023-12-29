@@ -235,7 +235,7 @@
     });
 </script>
 <script type="text/javascript">
-    function sendFormAjax(form, slug) {
+    function sendFormAjax(form) {
         var actionUrl = form.attr('action');
         
         $.ajax({
@@ -245,8 +245,8 @@
             success: function(data)
             {
                 console.log(data);
-              form.parent().find('.coin-table-' + slug + ' table tbody').empty();
-              form.parent().find('.coin-table-' + slug + ' table tbody').append(data.table);
+              form.parent().find('.coin-table-{{listing.slug}} table tbody').empty();
+              form.parent().find('.coin-table-{{listing.slug}} table tbody').append(data.table);
 
               if (data.pagination) {
                 form.parent().find('.best__footer').empty();
@@ -259,7 +259,7 @@
     $('form.filter input').change(function (e) {
         e.preventDefault();
 
-        sendFormAjax($(this).closest('form'), "{{listing.slug}}");
+        sendFormAjax($(this).closest('form'));
     });
 </script>
 <script type="text/javascript">
@@ -278,7 +278,7 @@
             direction.val('asc');
         }
 
-        sendFormAjax($(this).closest('section').find('form'), "{{listing.slug}}");
+        sendFormAjax($(this).closest('section').find('form'));
     });
 </script>
 {% if is_paginated %}
