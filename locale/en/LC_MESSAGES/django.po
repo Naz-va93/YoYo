@@ -601,7 +601,7 @@ msgid "Hide search"
 msgstr ""
 
 #: templates/include/_header.html:140
-msgid "Promote coin"
+msgid "Advertising"
 msgstr ""
 
 #: templates/include/full_coin_table.html:181

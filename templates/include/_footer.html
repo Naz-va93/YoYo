@@ -6,41 +6,29 @@
 <footer class="footer">
     <div class="footer__row container">
         <a href="{% url 'core:index' %}" class="footer__logo">
-            <img src="{% static 'img/logo.svg' %}" width="143" height="32" loading="lazy" alt="Logo"
+            <img
+                    src="{% static 'img/logo.svg' %}"
+                    src-light="{% static 'img/logo-light.png' %}"
+                    src-dark="{% static 'img/logo.svg' %}"
+                    width="143"
+                    height="32"
+                    loading="lazy"
+                    alt="Logo"
                  class="footer__logo--img">
         </a>
-        <div class="footer__lang drop-down">
-            <button class="drop-down__target" type="button">
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_language_info for LANGUAGE_CODE as lang %}
-                {{ lang.name_local }}
-                <svg width="17" height="16" viewBox="0 0 16 16">
-                    <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
-                </svg>
-            </button>
-
-            <ul class="drop-down__list">
-                <li>
-                    <a href="{% url 'core:custom_set_language' %}?lang=en">English</a>
-                </li>
-                <li>
-                    <a href="{% url 'core:custom_set_language' %}?lang=ru">Русский</a>
-                </li>
-            </ul>
-        </div>
         <div class="footer__accent-text">
-            <b>{{settings.footer_text}}</b>
+            <b>{{ settings.footer_text }}</b>
         </div>
     </div>
     <div id="contact" class="footer__row container">
         <div class="footer__social">
             <ul>
                 {% for social in socials %}
-                <li>
-                    <a href="{{ social.url }}" title="{{social.title}}" target="_blank">
-                        {{social.symbol|safe}}
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ social.url }}" title="{{ social.title }}" target="_blank">
+                            {{ social.symbol|safe }}
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
@@ -59,7 +47,7 @@
             </ul>
         </div>
         <div class="footer__copy">
-            {{settings.copyright}}
+            {{ settings.copyright }}
         </div>
     </div>
 </footer>
@@ -83,8 +71,18 @@
                 <ul class="authorization-popup__list">
                     <li>
                         <a href="{% provider_login_url 'google' %}" class="authorization-popup__card">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0,0,256,256">
-                                <g transform="translate(-30.72,-30.72) scale(1.24,1.24)"><g fill="#1E74FE" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15.00391,3c-6.629,0 -12.00391,5.373 -12.00391,12c0,6.627 5.37491,12 12.00391,12c10.01,0 12.26517,-9.293 11.32617,-14h-1.33008h-2.26758h-7.73242v4h7.73828c-0.88958,3.44825 -4.01233,6 -7.73828,6c-4.418,0 -8,-3.582 -8,-8c0,-4.418 3.582,-8 8,-8c2.009,0 3.83914,0.74575 5.24414,1.96875l2.8418,-2.83984c-2.134,-1.944 -4.96903,-3.12891 -8.08203,-3.12891z"></path></g></g></g>
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                 viewBox="0,0,256,256">
+                                <g transform="translate(-30.72,-30.72) scale(1.24,1.24)">
+                                    <g fill="#1E74FE" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                       stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                       stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                       font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                        <g transform="scale(8.53333,8.53333)">
+                                            <path d="M15.00391,3c-6.629,0 -12.00391,5.373 -12.00391,12c0,6.627 5.37491,12 12.00391,12c10.01,0 12.26517,-9.293 11.32617,-14h-1.33008h-2.26758h-7.73242v4h7.73828c-0.88958,3.44825 -4.01233,6 -7.73828,6c-4.418,0 -8,-3.582 -8,-8c0,-4.418 3.582,-8 8,-8c2.009,0 3.83914,0.74575 5.24414,1.96875l2.8418,-2.83984c-2.134,-1.944 -4.96903,-3.12891 -8.08203,-3.12891z"></path>
+                                        </g>
+                                    </g>
+                                </g>
                             </svg>
                             <h3 class="authorization-popup__card--title">
                                 {% trans "Google" %}
@@ -94,17 +92,144 @@
                             </p>
                         </a>
                     </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="advertising-popup popup" style="--container: 344px" id="advertising-popup">
+    <div class="advertising-popup__wrapper popup-wrapper">
+        <div class="advertising-popup__bg popup-bg popup-close"></div>
+        <div class="advertising-popup__body popup-body">
+            <div class="advertising-popup__header popup-header">
+                <h2 class="advertising-popup__title title _min-2"></h2>
+                <button type="button" class="advertising-popup__close-btn popup-close-btn popup-close" title="Close">
+                    <svg width="14" height="14" viewBox="0 0 8 8">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="advertising-popup__container popup-container">
+                <h2 class="title _min-2 advertising__title">
+                    {% trans 'Contact us at the' %}
+                    <br>
+                    {% trans 'email address provided' %}
+                </h2>
+                <span class="advertising__line"></span>
+                <form action="#" method="POST" class="advertising__form">
+                    {% csrf_token %}
+                    <label class="advertising-form__label">
+                        <span class="advertising-form__span">{% trans "Name" %}</span>
+                        <input type="text" name="advertising_name" placeholder="{% trans 'Enter your name' %}" required
+                               class="input advertising-input">
+                    </label>
+                    <label class="advertising-form__label">
+                        <span class="advertising-form__span">{% trans "Email" %}</span>
+                        <input type="email" name="advertising_email" placeholder="{% trans 'Enter your email' %}" required
+                               class="input advertising-input">
+                    </label>
+                    <label class="advertising-form__label">
+                        <span class="advertising-form__span">{% trans "Your question" %}</span>
+                        <textarea rows="5" name="advertising_question" placeholder="{% trans 'Add question' %}" required
+                                  class="input advertising-input advertising-form__textarea"></textarea>
+                    </label>
+                    <button class="advertising__form--submit btn" type="submit">
+                        {% trans "Send" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="success-popup popup" style="--container: 344px" id="success-popup">
+    <div class="success-popup__wrapper popup-wrapper">
+        <div class="success-popup__bg popup-bg popup-close"></div>
+        <div class="success-popup__body popup-body">
+            <div class="success-popup__header popup-header">
+                <h2 class="success-popup__title title _min-2"></h2>
+                <button type="button" class="success-popup__close-btn popup-close-btn popup-close" title="Close">
+                    <svg width="14" height="14" viewBox="0 0 8 8">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="success-popup__container popup-container">
+                <svg width="142" height="141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M72.889.636c1.892.082 4.606.246 6.032.41a93.15 93.15 0 0 1 5.483.85c1.59.3 4.305.958 6.032 1.478 1.728.493 4.387 1.397 5.895 1.972 1.508.602 4.168 1.78 5.895 2.656 1.728.876 4.277 2.273 5.621 3.122 1.343.821 3.948 2.629 5.758 3.97 1.809 1.37 4.771 3.971 6.608 5.778 1.809 1.808 4.222 4.464 5.374 5.888 1.124 1.424 2.961 3.97 4.057 5.613 1.097 1.644 2.962 4.984 4.141 7.394 1.179 2.41 2.632 5.86 3.262 7.668.631 1.807 1.481 4.71 1.92 6.435.438 1.725.987 4.381 1.206 5.887.247 1.506.548 4.518.713 6.71a57.865 57.865 0 0 1 0 8.16c-.137 2.272-.439 4.627-.631 5.175-.192.575-.713 1.506-1.151 2.081-.466.575-1.453 1.37-2.194 1.725-.959.466-1.837.658-2.961.658-.85 0-2.029-.192-2.605-.439-.548-.219-1.425-.794-1.919-1.287-.521-.492-1.179-1.369-1.508-1.971-.384-.767-.576-1.588-.548-2.739 0-.903.027-3.998.082-6.845.027-3.752-.082-6.052-.384-8.216-.247-1.67-.822-4.49-1.288-6.298-.439-1.807-1.371-4.71-2.057-6.435-.685-1.725-1.864-4.327-2.632-5.75a92.921 92.921 0 0 0-2.797-4.793c-.795-1.205-2.221-3.176-3.208-4.381-.959-1.205-2.879-3.286-4.222-4.628-1.344-1.342-3.455-3.204-4.661-4.135a90.025 90.025 0 0 0-4.524-3.231c-1.289-.822-3.674-2.19-5.347-3.012-1.672-.822-4.195-1.945-5.62-2.465-1.426-.548-3.784-1.287-5.21-1.643-1.426-.383-3.784-.876-5.21-1.15-1.48-.247-4.797-.52-7.676-.603-3.812-.109-5.923-.027-8.5.302-1.892.246-4.47.712-5.758.986-1.289.3-3.674.985-5.346 1.533-1.673.548-4.497 1.698-6.307 2.547-1.81.876-4.332 2.218-5.62 3.012-1.29.821-3.263 2.163-4.387 3.012-1.125.822-3.345 2.766-4.908 4.272-1.563 1.506-3.537 3.615-4.415 4.655a72.868 72.868 0 0 0-3.07 4.108c-.85 1.205-2.112 3.231-2.824 4.518-.686 1.287-1.81 3.56-2.468 5.066-.63 1.506-1.48 3.724-1.892 4.93a72.446 72.446 0 0 0-1.261 4.517c-.302 1.287-.713 3.615-.96 5.203-.22 1.643-.411 4.902-.411 7.613 0 2.82.164 5.942.439 7.777.219 1.698.822 4.71 1.343 6.654.494 1.944 1.371 4.738 1.92 6.162.575 1.424 1.617 3.779 2.33 5.203.713 1.423 2.303 4.08 3.51 5.887 1.206 1.807 3.207 4.436 4.414 5.833 1.234 1.369 3.454 3.587 4.99 4.901 1.508 1.342 4.085 3.314 5.675 4.409 1.618 1.096 4.36 2.711 6.087 3.587 1.728.877 4.387 2.054 5.895 2.629 1.508.548 4.086 1.369 5.758 1.808 1.673.41 4.305.958 5.895 1.177 1.59.219 4.168.466 5.758.575 1.59.082 4.551.028 6.58-.137 2.03-.164 5.21-.602 7.047-.958 1.864-.384 4.825-1.15 6.58-1.753 1.782-.575 4.77-1.807 6.663-2.711 1.891-.931 4.441-2.245 5.675-2.93 1.947-1.068 2.495-1.232 3.839-1.232 1.124 0 2.001.192 2.961.657.74.356 1.727 1.15 2.166 1.725.466.575.987 1.452 1.179 1.917.192.493.356 1.561.356 2.355 0 1.013-.219 1.862-.74 2.93a7.025 7.025 0 0 1-2.138 2.52c-.768.575-3.044 1.889-5.073 2.93-2.029 1.04-5.045 2.464-6.717 3.121a88.336 88.336 0 0 1-6.444 2.191c-1.892.548-4.716 1.232-6.306 1.533-1.59.302-4.112.685-5.62.877-1.509.191-5.018.328-7.815.328-3.18 0-6.36-.191-8.5-.465-1.891-.247-4.55-.712-5.894-1.013-1.344-.302-3.345-.794-4.387-1.096-1.042-.301-3.345-1.068-5.073-1.67-1.727-.63-4.935-2.026-7.128-3.122-2.194-1.095-5.457-2.985-7.266-4.162-1.81-1.205-4.332-3.04-5.62-4.08-1.29-1.014-3.702-3.204-5.375-4.875-1.672-1.643-3.948-4.189-5.1-5.613-1.151-1.424-2.96-3.944-4.058-5.614-1.069-1.67-2.933-4.984-4.14-7.394-1.261-2.546-2.714-6.079-3.51-8.489-.74-2.245-1.672-5.531-2.056-7.256a90.822 90.822 0 0 1-1.151-6.572c-.274-2.164-.466-5.34-.466-8.626 0-3.313.192-6.435.466-8.626.247-1.89.713-4.546 1.014-5.888.302-1.341.795-3.34 1.097-4.38.302-1.041 1.07-3.342 1.673-5.067.63-1.725 2.083-4.984 3.207-7.257 1.152-2.245 2.962-5.394 4.003-6.982 1.042-1.589 2.88-4.108 4.086-5.614 1.206-1.506 3.482-4.026 5.072-5.614 1.59-1.588 4.085-3.833 5.511-4.983 1.426-1.123 3.976-2.958 5.621-4.053 1.645-1.096 4.99-2.958 7.403-4.135 2.413-1.178 5.867-2.63 7.677-3.259 1.81-.63 4.716-1.479 6.443-1.917 1.728-.41 4.497-.986 6.17-1.232a75.277 75.277 0 0 1 6.031-.685c1.673-.137 4.552-.164 6.444-.11Zm26.184 44.389c.603.082 1.536.328 2.057.547.52.22 1.37.767 1.864 1.26.521.493 1.179 1.37 1.508 1.972.411.794.576 1.588.576 2.875 0 1.187-.165 2.1-.494 2.738-.274.52-9.404 9.858-20.262 20.757-10.885 10.899-20.234 20.018-20.756 20.292-.52.273-1.453.602-2.056.712-.731.127-1.645.036-2.742-.274-1.617-.466-1.754-.548-11.186-9.94-5.374-5.34-9.816-9.996-10.145-10.598-.411-.794-.576-1.588-.576-2.875 0-1.233.165-2.109.521-2.876.302-.575.905-1.424 1.371-1.862.466-.438 1.289-1.04 1.864-1.314.549-.301 1.481-.603 2.057-.685.63-.11 1.645 0 2.66.301 1.59.439 1.836.658 15.216 13.966l16.945-16.868c9.295-9.31 17.356-17.115 17.877-17.389.52-.246 1.343-.575 1.782-.684.439-.11 1.316-.137 1.92-.055Z"
+                          fill="#D1FC26"/>
+                    <path d="m65.074 94.534 7.266-7.311v-.028c4.003-4.025 7.293-7.31 7.32-7.31.056 0 .083.026.083.054 0 .055-3.29 3.34-14.669 14.595Z"
+                          fill="#D1FC26"/>
+                    <path d="m79.606 80.021 11.79-11.83v-.027c6.471-6.49 11.818-11.83 11.845-11.83.055 0 .082.027.082.055 0 .055-5.346 5.367-23.717 23.632ZM77.413 82.486l13.023-13.063v-.027c7.156-7.174 13.051-13.062 13.079-13.062.055 0 .082.027.082.055 0 .055-5.895 5.942-26.184 26.096ZM55.89 94.671c-.083 0-4.086-3.943-8.912-8.762-4.825-4.82-8.691-8.763-8.554-8.763.11 0 4.113 3.943 8.91 8.763 4.772 4.82 8.638 8.762 8.555 8.762ZM60.55 79.61c-.082 0-2.906-2.765-6.306-6.161-3.4-3.395-6.087-6.161-5.95-6.161.11 0 2.934 2.766 6.307 6.161 3.345 3.396 6.032 6.161 5.95 6.161Z"
+                          fill="#D1FC26"/>
+                    <path d="m65.349 94.535 6.032-6.08v-.027c3.317-3.34 6.06-6.079 6.087-6.079.054 0 .082.027.082.055 0 .055-2.742 2.793-12.201 12.13ZM60.413 80.021 77.002 63.4v-.027c9.13-9.146 16.615-16.622 16.642-16.622.055 0 .083.028.083.055 0 .055-7.486 7.53-33.314 33.216ZM55.89 94.398c-.083 0-4.031-3.889-8.774-8.626-4.744-4.738-8.555-8.626-8.418-8.626.11 0 4.058 3.888 8.774 8.626 4.689 4.737 8.5 8.626 8.417 8.626Z"
+                          fill="#D1FC26"/>
+                </svg>
+                <h2 class="success-popup__title title _min-2">{% trans 'Successful' %}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="success-popup popup" style="--container: 344px" id="success-popup-advertising">
+    <div class="success-popup__wrapper popup-wrapper">
+        <div class="success-popup__bg popup-bg popup-close"></div>
+        <div class="success-popup__body popup-body">
+            <div class="success-popup__header popup-header">
+                <h2 class="success-popup__title title _min-2"></h2>
+                <button type="button" class="success-popup__close-btn popup-close-btn popup-close" title="Close">
+                    <svg width="14" height="14" viewBox="0 0 8 8">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="success-popup__container  advertising popup-container">
+                <svg width="142" height="141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M72.889.636c1.892.082 4.606.246 6.032.41a93.15 93.15 0 0 1 5.483.85c1.59.3 4.305.958 6.032 1.478 1.728.493 4.387 1.397 5.895 1.972 1.508.602 4.168 1.78 5.895 2.656 1.728.876 4.277 2.273 5.621 3.122 1.343.821 3.948 2.629 5.758 3.97 1.809 1.37 4.771 3.971 6.608 5.778 1.809 1.808 4.222 4.464 5.374 5.888 1.124 1.424 2.961 3.97 4.057 5.613 1.097 1.644 2.962 4.984 4.141 7.394 1.179 2.41 2.632 5.86 3.262 7.668.631 1.807 1.481 4.71 1.92 6.435.438 1.725.987 4.381 1.206 5.887.247 1.506.548 4.518.713 6.71a57.865 57.865 0 0 1 0 8.16c-.137 2.272-.439 4.627-.631 5.175-.192.575-.713 1.506-1.151 2.081-.466.575-1.453 1.37-2.194 1.725-.959.466-1.837.658-2.961.658-.85 0-2.029-.192-2.605-.439-.548-.219-1.425-.794-1.919-1.287-.521-.492-1.179-1.369-1.508-1.971-.384-.767-.576-1.588-.548-2.739 0-.903.027-3.998.082-6.845.027-3.752-.082-6.052-.384-8.216-.247-1.67-.822-4.49-1.288-6.298-.439-1.807-1.371-4.71-2.057-6.435-.685-1.725-1.864-4.327-2.632-5.75a92.921 92.921 0 0 0-2.797-4.793c-.795-1.205-2.221-3.176-3.208-4.381-.959-1.205-2.879-3.286-4.222-4.628-1.344-1.342-3.455-3.204-4.661-4.135a90.025 90.025 0 0 0-4.524-3.231c-1.289-.822-3.674-2.19-5.347-3.012-1.672-.822-4.195-1.945-5.62-2.465-1.426-.548-3.784-1.287-5.21-1.643-1.426-.383-3.784-.876-5.21-1.15-1.48-.247-4.797-.52-7.676-.603-3.812-.109-5.923-.027-8.5.302-1.892.246-4.47.712-5.758.986-1.289.3-3.674.985-5.346 1.533-1.673.548-4.497 1.698-6.307 2.547-1.81.876-4.332 2.218-5.62 3.012-1.29.821-3.263 2.163-4.387 3.012-1.125.822-3.345 2.766-4.908 4.272-1.563 1.506-3.537 3.615-4.415 4.655a72.868 72.868 0 0 0-3.07 4.108c-.85 1.205-2.112 3.231-2.824 4.518-.686 1.287-1.81 3.56-2.468 5.066-.63 1.506-1.48 3.724-1.892 4.93a72.446 72.446 0 0 0-1.261 4.517c-.302 1.287-.713 3.615-.96 5.203-.22 1.643-.411 4.902-.411 7.613 0 2.82.164 5.942.439 7.777.219 1.698.822 4.71 1.343 6.654.494 1.944 1.371 4.738 1.92 6.162.575 1.424 1.617 3.779 2.33 5.203.713 1.423 2.303 4.08 3.51 5.887 1.206 1.807 3.207 4.436 4.414 5.833 1.234 1.369 3.454 3.587 4.99 4.901 1.508 1.342 4.085 3.314 5.675 4.409 1.618 1.096 4.36 2.711 6.087 3.587 1.728.877 4.387 2.054 5.895 2.629 1.508.548 4.086 1.369 5.758 1.808 1.673.41 4.305.958 5.895 1.177 1.59.219 4.168.466 5.758.575 1.59.082 4.551.028 6.58-.137 2.03-.164 5.21-.602 7.047-.958 1.864-.384 4.825-1.15 6.58-1.753 1.782-.575 4.77-1.807 6.663-2.711 1.891-.931 4.441-2.245 5.675-2.93 1.947-1.068 2.495-1.232 3.839-1.232 1.124 0 2.001.192 2.961.657.74.356 1.727 1.15 2.166 1.725.466.575.987 1.452 1.179 1.917.192.493.356 1.561.356 2.355 0 1.013-.219 1.862-.74 2.93a7.025 7.025 0 0 1-2.138 2.52c-.768.575-3.044 1.889-5.073 2.93-2.029 1.04-5.045 2.464-6.717 3.121a88.336 88.336 0 0 1-6.444 2.191c-1.892.548-4.716 1.232-6.306 1.533-1.59.302-4.112.685-5.62.877-1.509.191-5.018.328-7.815.328-3.18 0-6.36-.191-8.5-.465-1.891-.247-4.55-.712-5.894-1.013-1.344-.302-3.345-.794-4.387-1.096-1.042-.301-3.345-1.068-5.073-1.67-1.727-.63-4.935-2.026-7.128-3.122-2.194-1.095-5.457-2.985-7.266-4.162-1.81-1.205-4.332-3.04-5.62-4.08-1.29-1.014-3.702-3.204-5.375-4.875-1.672-1.643-3.948-4.189-5.1-5.613-1.151-1.424-2.96-3.944-4.058-5.614-1.069-1.67-2.933-4.984-4.14-7.394-1.261-2.546-2.714-6.079-3.51-8.489-.74-2.245-1.672-5.531-2.056-7.256a90.822 90.822 0 0 1-1.151-6.572c-.274-2.164-.466-5.34-.466-8.626 0-3.313.192-6.435.466-8.626.247-1.89.713-4.546 1.014-5.888.302-1.341.795-3.34 1.097-4.38.302-1.041 1.07-3.342 1.673-5.067.63-1.725 2.083-4.984 3.207-7.257 1.152-2.245 2.962-5.394 4.003-6.982 1.042-1.589 2.88-4.108 4.086-5.614 1.206-1.506 3.482-4.026 5.072-5.614 1.59-1.588 4.085-3.833 5.511-4.983 1.426-1.123 3.976-2.958 5.621-4.053 1.645-1.096 4.99-2.958 7.403-4.135 2.413-1.178 5.867-2.63 7.677-3.259 1.81-.63 4.716-1.479 6.443-1.917 1.728-.41 4.497-.986 6.17-1.232a75.277 75.277 0 0 1 6.031-.685c1.673-.137 4.552-.164 6.444-.11Zm26.184 44.389c.603.082 1.536.328 2.057.547.52.22 1.37.767 1.864 1.26.521.493 1.179 1.37 1.508 1.972.411.794.576 1.588.576 2.875 0 1.187-.165 2.1-.494 2.738-.274.52-9.404 9.858-20.262 20.757-10.885 10.899-20.234 20.018-20.756 20.292-.52.273-1.453.602-2.056.712-.731.127-1.645.036-2.742-.274-1.617-.466-1.754-.548-11.186-9.94-5.374-5.34-9.816-9.996-10.145-10.598-.411-.794-.576-1.588-.576-2.875 0-1.233.165-2.109.521-2.876.302-.575.905-1.424 1.371-1.862.466-.438 1.289-1.04 1.864-1.314.549-.301 1.481-.603 2.057-.685.63-.11 1.645 0 2.66.301 1.59.439 1.836.658 15.216 13.966l16.945-16.868c9.295-9.31 17.356-17.115 17.877-17.389.52-.246 1.343-.575 1.782-.684.439-.11 1.316-.137 1.92-.055Z"
+                          fill="#D1FC26"/>
+                    <path d="m65.074 94.534 7.266-7.311v-.028c4.003-4.025 7.293-7.31 7.32-7.31.056 0 .083.026.083.054 0 .055-3.29 3.34-14.669 14.595Z"
+                          fill="#D1FC26"/>
+                    <path d="m79.606 80.021 11.79-11.83v-.027c6.471-6.49 11.818-11.83 11.845-11.83.055 0 .082.027.082.055 0 .055-5.346 5.367-23.717 23.632ZM77.413 82.486l13.023-13.063v-.027c7.156-7.174 13.051-13.062 13.079-13.062.055 0 .082.027.082.055 0 .055-5.895 5.942-26.184 26.096ZM55.89 94.671c-.083 0-4.086-3.943-8.912-8.762-4.825-4.82-8.691-8.763-8.554-8.763.11 0 4.113 3.943 8.91 8.763 4.772 4.82 8.638 8.762 8.555 8.762ZM60.55 79.61c-.082 0-2.906-2.765-6.306-6.161-3.4-3.395-6.087-6.161-5.95-6.161.11 0 2.934 2.766 6.307 6.161 3.345 3.396 6.032 6.161 5.95 6.161Z"
+                          fill="#D1FC26"/>
+                    <path d="m65.349 94.535 6.032-6.08v-.027c3.317-3.34 6.06-6.079 6.087-6.079.054 0 .082.027.082.055 0 .055-2.742 2.793-12.201 12.13ZM60.413 80.021 77.002 63.4v-.027c9.13-9.146 16.615-16.622 16.642-16.622.055 0 .083.028.083.055 0 .055-7.486 7.53-33.314 33.216ZM55.89 94.398c-.083 0-4.031-3.889-8.774-8.626-4.744-4.738-8.555-8.626-8.418-8.626.11 0 4.058 3.888 8.774 8.626 4.689 4.737 8.5 8.626 8.417 8.626Z"
+                          fill="#D1FC26"/>
+                </svg>
+                <h2 class="success-popup__title title _min-2">{% trans 'Successful' %}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="authorization-popup popup" style="--container: 344px" id="authorization-popup-2">
+    <div class="authorization-popup__wrapper popup-wrapper">
+        <div class="authorization-popup__bg popup-bg popup-close"></div>
+        <div class="authorization-popup__body popup-body">
+            <div class="authorization-popup__header popup-header">
+                <h2 class="authorization-popup__title title _min-2">
+                    Captcha
+                </h2>
+                <button type="button" class="authorization-popup__close-btn popup-close-btn popup-close" title="Close">
+                    <svg width="14" height="14" viewBox="0 0 8 8">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="authorization-popup__container popup-container">
+                <ul class="authorization-popup__list">
                     <li>
-                        <a href="{% provider_login_url 'facebook' %}" class="authorization-popup__card">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0,0,256,256">
-                                <g transform="translate(-30.72,-30.72) scale(1.24,1.24)"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M24,5c-10.49341,0 -19,8.50659 -19,19c0,10.49341 8.50659,19 19,19c10.49341,0 19,-8.50659 19,-19c0,-10.49341 -8.50659,-19 -19,-19z" fill="#1E74FE"></path><path d="M26.572,29.036h4.917l0.772,-4.995h-5.69v-2.73c0,-2.075 0.678,-3.915 2.619,-3.915h3.119v-4.359c-0.548,-0.074 -1.707,-0.236 -3.897,-0.236c-4.573,0 -7.254,2.415 -7.254,7.917v3.323h-4.701v4.995h4.701v13.729c0.931,0.14 1.874,0.235 2.842,0.235c0.875,0 1.729,-0.08 2.572,-0.194z" fill="#ffffff"></path></g></g></g>
-                            </svg>
-                            <h3 class="authorization-popup__card--title">
-                                {% trans "Facebook" %}
-                            </h3>
-                            <p class="authorization-popup__card--text">
-                                {% trans "Connect to Facebook" %}
-                            </p>
+                        <a style="padding-left: 10px" class="authorization-popup__card">
+                            <form action="{% url 'core:captcha' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="previous_page" value="{{ request.path }}">
+                                {{ request.captcha_form.captcha }}
+                                <input type="hidden" name="coin_pk" hidden value="">
+                                <button type="submit"
+                                        style="margin-top:8px; background-color: #333; color: #fff; padding: 5px 10px; border: none; border-radius: 3px;">{% trans 'Send' %}</button>
+                            </form>
                         </a>
                     </li>
                 </ul>
@@ -112,39 +237,6 @@
         </div>
     </div>
 </div>
-
-<div class="authorization-popup popup" style="--container: 344px" id="authorization-popup-2">
-		<div class="authorization-popup__wrapper popup-wrapper">
-			<div class="authorization-popup__bg popup-bg popup-close"></div>
-			<div class="authorization-popup__body popup-body">
-				<div class="authorization-popup__header popup-header">
-					<h2 class="authorization-popup__title title _min-2">
-						Captcha
-					</h2>
-					<button type="button" class="authorization-popup__close-btn popup-close-btn popup-close" title="Close">
-						<svg width="14" height="14" viewBox="0 0 8 8">
-							<use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
-						</svg>
-					</button>
-				</div>
-				<div class="authorization-popup__container popup-container">
-					<ul class="authorization-popup__list">
-						<li>
-							<a style="padding-left: 10px" class="authorization-popup__card">
-                                <form action="{% url 'core:captcha' %}" method="POST">
-                                {% csrf_token %}
-                                    <input type="hidden" name="previous_page" value="{{ request.path }}">
-                                {{ request.captcha_form.captcha }}
-                                <input type="hidden" name="coin_pk" hidden value="">
-                                    <button type="submit" style="margin-top:8px; background-color: #333; color: #fff; padding: 5px 10px; border: none; border-radius: 3px;">{% trans 'Send' %}</button>
-                            </form>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 

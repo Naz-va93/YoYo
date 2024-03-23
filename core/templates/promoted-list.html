@@ -34,7 +34,7 @@
             </ul>
         </div>
         <div class="hero__bg" aria-hidden="true">
-            <picture>
+            <picture class="hero__bg-picture">
                 <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
                         media="(min-width: 550px)">
                 <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
@@ -49,14 +49,7 @@
                 {{ page.description|safe }}
             </p>
         </div>
-        <div class="hero__image" style="padding-top: 54%;">
-            <div class="hero__image--item">
-                <picture>
-                    <source data-srcset="{% static 'img/index/hero/bitcoin.webp' %}" type="image/webp">
-                    <img class="lazy" data-src="{% static 'img/index/hero/bitcoin.png' %}" alt="" width="425"
-                         height="425">
-                </picture>
-            </div>
+        <div class="hero__image" style="padding-top: 28%;">
             <div class="hero__image--item">
                 <picture>
                     <source data-srcset="{% static 'img/index/hero/cursor.webp' %}" type="image/webp">
@@ -138,7 +131,15 @@
                 <ul class="filter__list">
                     <li class="filter__item">
                         <h3 class="filter__item--title">
-                            <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                            <img class="filter__item--title-img"
+                                src="{% static 'img/icons/pin.svg' %}"
+                                src-dark="{% static 'img/icons/pin.svg' %}"
+                                src-light="{% static 'img/icons/pin-light.svg' %}"
+                                width="16"
+                                height="16"
+                                loading="lazy"
+                                alt=""
+                            >
                             {% trans "Category" %}
                         </h3>
                         <ul class="filter__item--list">
@@ -160,7 +161,15 @@
                     </li>
                     <li class="filter__item">
                         <h3 class="filter__item--title">
-                            <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                            <img class="filter__item--title-img"
+                                src="{% static 'img/icons/pin.svg' %}"
+                                src-dark="{% static 'img/icons/pin.svg' %}"
+                                src-light="{% static 'img/icons/pin-light.svg' %}"
+                                width="16"
+                                height="16"
+                                loading="lazy"
+                                alt=""
+                            >
                             {% trans "Chain" %}
                         </h3>
                         <ul class="filter__item--list">
@@ -182,7 +191,15 @@
                     </li>
                     <li class="filter__item">
                         <h3 class="filter__item--title">
-                            <img src="{% static 'img/icons/pin.svg' %}" width="16" height="16" loading="lazy" alt="">
+                            <img class="filter__item--title-img"
+                                src="{% static 'img/icons/pin.svg' %}"
+                                src-dark="{% static 'img/icons/pin.svg' %}"
+                                src-light="{% static 'img/icons/pin-light.svg' %}"
+                                width="16"
+                                height="16"
+                                loading="lazy"
+                                alt=""
+                            >
                             {% trans "Type" %}
                         </h3>
                         <ul class="filter__item--list">

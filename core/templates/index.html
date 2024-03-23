@@ -6,269 +6,309 @@
 {% load poll_extras %}
 
 {% block title %}
-<title>{{ page.title_seo }}</title>
+    <title>{{ page.title_seo }}</title>
 {% endblock %}
 
 {% block description %}
-<meta name="description" content="{{ page.description_seo }}">
+    <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
 {% block content %}
-<main class="main">
-    <section class="hero container">
-        <div class="hero__bg" aria-hidden="true">
-            <picture>
-                <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
-                        media="(min-width: 550px)">
-                <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
-                <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
-            </picture>
-        </div>
-        <h1 class="hero__title main-title">
-            {{ page.title }}
-        </h1>
-        <div class="hero__text">
-            <p>
-                {{ page.description|safe }}
-            </p>
-        </div>
-        <div class="hero__image" style="padding-top: 54%;">
-            <div class="hero__image--item">
-                <picture>
-                    <source data-srcset="{% static 'img/index/hero/bitcoin.webp' %}" type="image/webp">
-                    <img class="lazy" data-src="{% static 'img/index/hero/bitcoin.png' %}" alt="" width="425"
-                         height="425">
+    <main class="main">
+        <section class="hero container">
+            <div class="hero__bg" aria-hidden="true">
+                <picture class="hero__bg-picture">
+                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                            media="(min-width: 550px)">
+                    <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                    <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
                 </picture>
             </div>
-            <div class="hero__image--item">
-                <picture>
-                    <source data-srcset="{% static 'img/index/hero/cursor.webp' %}" type="image/webp">
-                    <img class="lazy" data-src="{% static 'img/index/hero/cursor.png' %}" alt="" width="65" height="65">
-                </picture>
-            </div>
-            <div class="hero__image--item">
-                <picture>
-                    <source data-srcset="{% static 'img/index/hero/loading.webp' %}" type="image/webp">
-                    <img class="lazy" data-src="{% static 'img/index/hero/loading.png' %}" alt="" width="81"
-                         height="81">
-                </picture>
-            </div>
-            <div class="hero__image--item">
-                <picture>
-                    <source data-srcset="{% static 'img/index/hero/ethereum.webp' %}" type="image/webp">
-                    <img class="lazy" data-src="{% static 'img/index/hero/ethereum.png' %}" alt="" width="150"
-                         height="150">
-                </picture>
-            </div>
-            <div class="hero__image--item">
-                <picture>
-                    <source data-srcset="{% static 'img/index/hero/hashtag.webp' %}" type="image/webp">
-                    <img class="lazy" data-src="{% static 'img/index/hero/hashtag.png' %}" alt="" width="202"
-                         height="202">
-                </picture>
-            </div>
-        </div>
-    </section>
-
-    {% with promoted_listing as listing %}
-    {% with listing.get_first_coins as coins %}
-    {% include 'include/full_coin_table.html' %}
-    {% endwith %}
-    {% endwith %}
-
-    <section class="promoted container">
-        <div class="promoted__adv">
-            {% if settings.photo_for_banner %}
-            <picture>
-                <a href="{{ settings.url_for_banner }}"><source data-srcset="{% static 'img/index/a_d_v.webp' %}" type="image/webp">
-                <img data-src="{{ settings.photo_for_banner.url }}" alt="" width="1080" height="118" class="lazy"></a>
-            </picture>
-            {% else %}
-            <picture>
-                <source data-srcset="{% static 'img/index/a_d_v.webp' %}" type="image/webp">
-                <img data-src="{% static 'img/index/a_d_v.jpg' %}" alt="" width="1080" height="118" class="lazy">
-            </picture>
-            {% endif %}
-        </div>
-        <ul class="promoted__info">
-            <li class="promoted__info-card">
-                <div class="promoted__info-card--header">
-                    <a href="{% url 'core:coin-list' 'new-listings' %}"><h3 class="promoted__info-card--title title _min-2">
-                        <img src="{% static 'img/index/promoted/activity.svg' %}" width="24" height="24" loading="lazy"
-                             alt="">
-                        {% trans "New Listings" %}
-                    </h3></a>
+            <div class="hero-title-text">
+                <h1 class="hero__title main-title">
+                    {{ page.title }}
+                </h1>
+                <div class="hero__text">
+                    <p>
+                        {{ page.description|safe }}
+                    </p>
                 </div>
-                <ul class="promoted__info-card--list">
-                    {% for coin in new_listing_coin %}
-                    <li>
-                        <div class="promoted__info-card--coin">
-                            <div class="table-coins__coin--avatar">
-                                <picture>
-                                    <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
-                                    <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32" loading="lazy">
-                                </picture>
-                            </div>
-                            <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
-                            <span>{{ coin.coin_symbol }}</span>
-                        </div>
-                        <div class="promoted__info-card--days">
-                            {{ coin.publish_date|time_since }}
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="promoted__info-card">
-                <div class="promoted__info-card--header">
-                    <a href="{% url 'core:coin-list' 'today-s-best' %}"><h3 class="promoted__info-card--title title _min-2">
-                        <img src="{% static 'img/index/promoted/star.svg' %}" width="24" height="24" loading="lazy"
-                             alt="">
-                        {% trans "Top today" %}
-                    </h3></a>
-                </div>
-                <ul class="promoted__info-card--list">
-                    {% for coin in top_today_coin %}
-                    <li>
-                        <div class="promoted__info-card--coin">
-                            <div class="table-coins__coin--avatar">
-                                <picture>
-                                    <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
-                                    <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32" loading="lazy">
-                                </picture>
-                            </div>
-                            <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
-                            <span>{{ coin.coin_symbol }}</span>
-                        </div>
-
-                        {% if coin.price_24h > 0 %}
-                        <b class="table-coins__value grow-value">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
-                            </svg>
-                            {{ coin.price_24h }}%
-                        </b>
-                        {% else %}
-                        <b class="table-coins__value danger-value">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
-                            </svg>
-                            {{ coin.price_24h|slice:"1:" }}%
-                        </b>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="promoted__info-card">
-                <div class="promoted__info-card--header">
-                    <a href="{% url 'core:coin-list' 'all-time-best' %}"><h3 class="promoted__info-card--title title _min-2">
-                        <img src="{% static 'img/index/promoted/swap.svg' %}" width="24" height="24" loading="lazy"
-                             alt="">
-                        {% trans "Top all time" %}
-                    </h3></a>
-                </div>
-                <ul class="promoted__info-card--list">
-                    {% for coin in top_all_time %}
-                    <li>
-                        <div class="promoted__info-card--coin">
-                            <div class="table-coins__coin--avatar">
-                                <picture>
-                                    <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
-                                    <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32" loading="lazy">
-                                </picture>
-                            </div>
-                            <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
-                            <span>{{ coin.coin_symbol }}</span>
-                        </div>
-                        {% if coin.price_24h > 0 %}
-                        <b class="table-coins__value grow-value">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
-                            </svg>
-                            {{ coin.price_24h }}%
-                        </b>
-                        {% else %}
-                        <b class="table-coins__value danger-value">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
-                            </svg>
-                            {{ coin.price_24h }}%
-                        </b>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-        </ul>
-    </section>
-    <section class="statistics container">
-        <div class="statistics__bg section-bg">
-            <img src="{% static 'img/index/statistics/bg.svg' %}' %}" width="0" height="0" loading="lazy" alt="">
-        </div>
-        <div class="statistics__content">
-            <h2 class="statistics__title main-title">
-                {{ settings.stat_title }}
-            </h2>
-            <div class="statistics__text">
-                <p>
-                    {{ settings.stat_text }}
-                </p>
             </div>
-            <ul class="statistics__list">
-                <li>
-                    <h3 class="title">
-                        {{ total_currencies }}
-                    </h3>
-                    <span>
-							{% trans "Cryptocurrencies" %}
-						</span>
+            <div class="hero__image" style="padding-top: 28%;">
+                <div class="hero__image--item">
+                    <picture>
+                        <source data-srcset="{% static 'img/index/hero/cursor.webp' %}" type="image/webp">
+                        <img class="lazy" data-src="{% static 'img/index/hero/cursor.png' %}" alt="" width="65"
+                             height="65">
+                    </picture>
+                </div>
+                <div class="hero__image--item">
+                    <picture>
+                        <source data-srcset="{% static 'img/index/hero/loading.webp' %}" type="image/webp">
+                        <img class="lazy" data-src="{% static 'img/index/hero/loading.png' %}" alt="" width="81"
+                             height="81">
+                    </picture>
+                </div>
+                <div class="hero__image--item">
+                    <picture>
+                        <source data-srcset="{% static 'img/index/hero/ethereum.webp' %}" type="image/webp">
+                        <img class="lazy" data-src="{% static 'img/index/hero/ethereum.png' %}" alt="" width="150"
+                             height="150">
+                    </picture>
+                </div>
+                <div class="hero__image--item">
+                    <picture>
+                        <source data-srcset="{% static 'img/index/hero/hashtag.webp' %}" type="image/webp">
+                        <img class="lazy" data-src="{% static 'img/index/hero/hashtag.png' %}" alt="" width="202"
+                             height="202">
+                    </picture>
+                </div>
+            </div>
+        </section>
+
+        {% with promoted_listing as listing %}
+            {% with listing.get_first_coins as coins %}
+                {% include 'include/full_coin_table.html' %}
+            {% endwith %}
+        {% endwith %}
+
+        <section class="promoted container">
+            <div class="promoted__adv">
+                {% if settings.photo_for_banner %}
+                    <picture>
+                        <a href="{{ settings.url_for_banner }}">
+                            <source data-srcset="{% static 'img/index/a_d_v.webp' %}" type="image/webp">
+                            <img data-src="{{ settings.photo_for_banner.url }}" alt="" width="1080" height="118"
+                                 class="lazy"></a>
+                    </picture>
+                {% else %}
+                    <picture>
+                        <source data-srcset="{% static 'img/index/a_d_v.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/a_d_v.jpg' %}" alt="" width="1080" height="118"
+                             class="lazy">
+                    </picture>
+                {% endif %}
+            </div>
+            <ul class="promoted__info">
+                <li class="promoted__info-card">
+                    <div class="promoted__info-card--header">
+                        <a href="{% url 'core:coin-list' 'new-listings' %}">
+                            <h3 class="promoted__info-card--title title _min-2">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M17.6798 4.41C17.6798 3.08 18.7598 2 20.0898 2C21.4198 2 22.4998 3.08 22.4998 4.41C22.4998 5.74 21.4198 6.82 20.0898 6.82C18.7598 6.82 17.6798 5.74 17.6798 4.41ZM13.8297 14.7593L16.7197 11.0303L16.6797 11.0503C16.8397 10.8303 16.8697 10.5503 16.7597 10.3003C16.6507 10.0503 16.4097 9.8803 16.1507 9.8603C15.8797 9.8303 15.6107 9.9503 15.4497 10.1703L13.0307 13.3003L10.2597 11.1203C10.0897 10.9903 9.88969 10.9393 9.68969 10.9603C9.49069 10.9903 9.31069 11.0993 9.18969 11.2593L6.23069 15.1103L6.16969 15.2003C5.99969 15.5193 6.07969 15.9293 6.37969 16.1503C6.51969 16.2403 6.66969 16.3003 6.83969 16.3003C7.07069 16.3103 7.28969 16.1893 7.42969 16.0003L9.93969 12.7693L12.7897 14.9103L12.8797 14.9693C13.1997 15.1393 13.5997 15.0603 13.8297 14.7593ZM15.9497 3.7803C15.9097 4.0303 15.8897 4.2803 15.8897 4.5303C15.8897 6.7803 17.7097 8.5993 19.9497 8.5993C20.1997 8.5993 20.4397 8.5703 20.6897 8.5303V16.5993C20.6897 19.9903 18.6897 22.0003 15.2897 22.0003H7.90069C4.49969 22.0003 2.49969 19.9903 2.49969 16.5993V9.2003C2.49969 5.8003 4.49969 3.7803 7.90069 3.7803H15.9497Z"
+                                          fill="#D1FC26"/>
+                                </svg>
+                                {% trans "New Listings" %}
+                            </h3>
+                        </a>
+                    </div>
+                    <ul class="promoted__info-card--list">
+                        {% for coin in new_listing_coin %}
+                            <li>
+                                <div class="promoted__info-card--coin">
+                                    <div class="table-coins__coin--avatar">
+                                        <picture>
+                                            <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                                            <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32"
+                                                 loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
+                                    <span>{{ coin.coin_symbol }}</span>
+                                </div>
+                                <div class="promoted__info-card--days">
+                                    {{ coin.publish_date|time_since }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </li>
-                <li>
-                    <h3 class="title">
-                        {{ total_votes }}
-                    </h3>
-                    <span>
-							{% trans "Votes" %}
-						</span>
+                <li class="promoted__info-card">
+                    <div class="promoted__info-card--header">
+                        <a href="{% url 'core:coin-list' 'today-s-best' %}">
+                            <h3
+                                    class="promoted__info-card--title title _min-2">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.4185 14.3201C18.1595 14.5711 18.0405 14.9341 18.0995 15.2901L18.9885 20.2101C19.0635 20.6271 18.8875 21.0491 18.5385 21.2901C18.1965 21.5401 17.7415 21.5701 17.3685 21.3701L12.9395 19.0601C12.7855 18.9781 12.6145 18.9341 12.4395 18.9291H12.1685C12.0745 18.9431 11.9825 18.9731 11.8985 19.0191L7.46851 21.3401C7.24951 21.4501 7.00151 21.4891 6.75851 21.4501C6.16651 21.3381 5.77151 20.7741 5.86851 20.1791L6.75851 15.2591C6.81751 14.9001 6.69851 14.5351 6.43951 14.2801L2.82851 10.7801C2.52651 10.4871 2.42151 10.0471 2.55951 9.65012C2.69351 9.25412 3.03551 8.96512 3.44851 8.90012L8.41851 8.17912C8.79651 8.14012 9.12851 7.91012 9.29851 7.57012L11.4885 3.08012C11.5405 2.98012 11.6075 2.88812 11.6885 2.81012L11.7785 2.74012C11.8255 2.68812 11.8795 2.64512 11.9395 2.61012L12.0485 2.57012L12.2185 2.50012H12.6395C13.0155 2.53912 13.3465 2.76412 13.5195 3.10012L15.7385 7.57012C15.8985 7.89712 16.2095 8.12412 16.5685 8.17912L21.5385 8.90012C21.9585 8.96012 22.3095 9.25012 22.4485 9.65012C22.5795 10.0511 22.4665 10.4911 22.1585 10.7801L18.4185 14.3201Z"
+                                          fill="#D1FC26"/>
+                                </svg>
+                                {% trans "Top today" %}
+                            </h3>
+                        </a>
+                    </div>
+                    <ul class="promoted__info-card--list">
+                        {% for coin in top_today_coin %}
+                            <li>
+                                <div class="promoted__info-card--coin">
+                                    <div class="table-coins__coin--avatar">
+                                        <picture>
+                                            <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                                            <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32"
+                                                 loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
+                                    <span>{{ coin.coin_symbol }}</span>
+                                </div>
+
+                                {% if coin.price_24h > 0 %}
+                                    <b class="table-coins__value grow-value">
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
+                                        </svg>
+                                        {{ coin.price_24h }}%
+                                    </b>
+                                {% else %}
+                                    <b class="table-coins__value danger-value">
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
+                                        </svg>
+                                        {{ coin.price_24h|slice:"1:" }}%
+                                    </b>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </li>
-                <li>
-                    <h3 class="title">
-                        ${{ total_trading }}
-                    </h3>
-                    <span>
-                            {% trans "Total trading volume" %}
-                        </span>
-                </li>
-                <li>
-                    <h3 class="title">
-                        {{ settings.total_users }}
-                    </h3>
-                    <span>
-							{% trans "Total users on platform" %}
-						</span>
+                <li class="promoted__info-card">
+                    <div class="promoted__info-card--header">
+                        <a href="{% url 'core:coin-list' 'all-time-best' %}">
+                            <h3
+                                    class="promoted__info-card--title title _min-2">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M8.04618 3.27793C8.21236 3.39789 8.48037 3.67345 8.48037 3.67345C9.52079 4.64858 11.0879 7.07394 11.5911 8.30444C11.6016 8.30444 11.9001 9.03608 11.9118 9.38409V9.43041C11.9118 9.96371 11.6133 10.4626 11.1335 10.7179C10.9357 10.8232 10.4546 10.9211 10.2224 10.9683C10.1456 10.984 10.096 10.9941 10.0931 10.997C9.40727 11.1016 8.35514 11.1704 7.20003 11.1704C5.98757 11.1704 4.88981 11.1016 4.21453 10.9733C4.20282 10.9733 3.58606 10.8462 3.38009 10.7642C3.08282 10.6372 2.8312 10.4044 2.67087 10.1145C2.55618 9.88294 2.5 9.63827 2.5 9.38409C2.51053 9.11685 2.68257 8.618 2.76215 8.42083C3.26539 7.12026 4.91204 4.6367 5.91852 3.68532C6.02307 3.57922 6.14206 3.46806 6.22485 3.39071C6.26902 3.34945 6.3029 3.3178 6.31877 3.30169C6.57039 3.10452 6.87936 3 7.21173 3C7.50783 3 7.80509 3.09264 8.04618 3.27793ZM18.7286 10.1618C18.7286 10.6856 18.3108 11.1096 17.7947 11.1096C17.2786 11.1096 16.8608 10.6856 16.8608 10.1618L16.6033 5.58295C16.6033 4.91543 17.137 4.375 17.7947 4.375C18.4524 4.375 18.9849 4.91543 18.9849 5.58295L18.7286 10.1618ZM21.6199 13.2356C21.9172 13.3639 22.1688 13.5955 22.3291 13.8853C22.4438 14.1169 22.5 14.3616 22.5 14.617C22.4895 14.883 22.3174 15.3831 22.2367 15.5802C21.7346 16.8797 20.0868 19.3633 19.0815 20.3158C18.9787 20.4194 18.8619 20.5284 18.7793 20.6055L18.7792 20.6055C18.7331 20.6486 18.6976 20.6817 18.6812 20.6983C18.4284 20.8955 18.1206 21 17.7894 21C17.491 21 17.1937 20.9074 16.9538 20.7209C16.7876 20.6021 16.5196 20.3265 16.5196 20.3265C15.478 19.3526 13.9121 16.926 13.4089 15.6954C13.3972 15.6954 13.0999 14.965 13.0882 14.617V14.5706C13.0882 14.0361 13.3855 13.5373 13.8665 13.2819C14.0639 13.1777 14.5435 13.0796 14.7762 13.0319L14.7762 13.0319C14.8539 13.016 14.904 13.0058 14.9069 13.0028C15.5927 12.8983 16.6449 12.8294 17.8 12.8294C19.0124 12.8294 20.1102 12.8983 20.7855 13.0265C20.796 13.0265 21.4139 13.1536 21.6199 13.2356ZM7.20553 12.8905C6.68942 12.8905 6.27161 13.3146 6.27161 13.8383L6.01414 18.4171C6.01414 19.0846 6.54781 19.625 7.20553 19.625C7.86325 19.625 8.39575 19.0846 8.39575 18.4171L8.13945 13.8383C8.13945 13.3146 7.72165 12.8905 7.20553 12.8905Z"
+                                          fill="#D1FC26"/>
+                                </svg>
+                                {% trans "Top all time" %}
+                            </h3>
+                        </a>
+                    </div>
+                    <ul class="promoted__info-card--list">
+                        {% for coin in top_all_time %}
+                            <li>
+                                <div class="promoted__info-card--coin">
+                                    <div class="table-coins__coin--avatar">
+                                        <picture>
+                                            <source srcset="{{ coin.photo_coin.url }}" type="image/webp">
+                                            <img src="{{ coin.photo_coin.url }}" alt="" width="32" height="32"
+                                                 loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <a href="{{ coin.get_absolute_url }}"><h4>{{ coin.coin_name }}</h4></a>
+                                    <span>{{ coin.coin_symbol }}</span>
+                                </div>
+                                {% if coin.price_24h > 0 %}
+                                    <b class="table-coins__value grow-value">
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
+                                        </svg>
+                                        {{ coin.price_24h }}%
+                                    </b>
+                                {% else %}
+                                    <b class="table-coins__value danger-value">
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
+                                        </svg>
+                                        {{ coin.price_24h }}%
+                                    </b>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </li>
             </ul>
-        </div>
-        <div class="statistics__image">
-            <div class="statistics__image--body image-body">
-                <picture>
-                    <source data-srcset="{% static 'img/index/statistics/image.webp' %}" type="image/webp">
-                    <img data-src="{% static 'img/index/statistics/image.png' %}" alt="" width="505" height="505"
-                         class="lazy">
-                </picture>
+        </section>
+        <section class="statistics container">
+            <div class="statistics__bg section-bg">
+                <img class="statistics__bg-img"
+                     src="{% static 'img/index/statistics/bg.svg' %}"
+                     data-src-light="{% static 'img/index/statistics/bg-light.svg' %}"
+                     data-src-dark="{% static 'img/index/statistics/bg.svg' %}"
+                     width="0"
+                     height="0"
+                     loading="lazy"
+                     alt=""
+                >
             </div>
-        </div>
-    </section>
-    
-    {% with best_listing as listing %}
-    {% with listing.get_first_coins as coins %}
-    {% include 'include/full_coin_table.html' %}
-    {% endwith %}
-    {% endwith %}
+            <div class="statistics__content">
+                <h2 class="statistics__title main-title">
+                    {{ settings.stat_title }}
+                </h2>
+                <div class="statistics__text">
+                    <p>
+                        {{ settings.stat_text }}
+                    </p>
+                </div>
+                <ul class="statistics__list">
+                    <li>
+                        <h3 class="title">
+                            {{ total_currencies }}
+                        </h3>
+                        <span>
+							{% trans "Cryptocurrencies" %}
+						</span>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            {{ total_votes }}
+                        </h3>
+                        <span>
+							{% trans "Votes" %}
+						</span>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            ${{ total_trading }}
+                        </h3>
+                        <span>
+                            {% trans "Total trading volume" %}
+                        </span>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            {{ settings.total_users }}
+                        </h3>
+                        <span>
+							{% trans "Total users on platform" %}
+						</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="statistics__image">
+                <div class="statistics__image--body image-body">
+                    <picture>
+                        <source class="statistics__image-webp"
+                                srcset="{% static 'img/index/statistics/image.webp' %}"
+                                data-srcset-light="{% static 'img/index/statistics/image-light.webp' %}"
+                                data-srcset-dark="{% static 'img/index/statistics/image.webp' %}"
+                                type="image/webp"
+                        >
+                        <img src="{% static 'img/index/statistics/image.png' %}"
+                             data-src-light="{% static 'img/index/statistics/image-light.png' %}"
+                             data-src-dark="{% static 'img/index/statistics/image.png' %}"
+                             alt=""
+                             width="505"
+                             height="505"
+                             class="statistics__image-img"
+                        >
+                    </picture>
+                </div>
+            </div>
+        </section>
 
-    {% include 'include/_contact-us.html' %}
-</main>
+        {% with best_listing as listing %}
+            {% with listing.get_first_coins as coins %}
+                {% include 'include/full_coin_table.html' %}
+            {% endwith %}
+        {% endwith %}
+
+        {% include 'include/_contact-us.html' %}
+    </main>
 
 {% endblock %}
 

@@ -10,7 +10,7 @@
     <div class="pagination__list">
         {% for p in page_obj.paginator.page_range %}
         {% if page_obj.number == p %}
-            <button type="button" data-page="{{ p }}" class="buttonPage" style="background: #1E74FE !important;">
+            <button type="button" data-page="{{ p }}" class="buttonPage selected">
                 {{ p }}
             </button>
             {% else %}

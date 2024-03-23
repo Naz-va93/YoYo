@@ -1,34 +1,55 @@
 {% load static %}
 {% load i18n %}
 <section class="contact-us container">
-	<div class="contact-us__bg section-bg">
-		<img src="{% static 'img/index/contact-us/bg.svg' %}" width="0" height="0" loading="lazy" alt="">
-	</div>
-	<div class="contact-us__content">
+    <div class="contact-us__bg section-bg">
+        <img class="contact-us__bg-img"
+            src="{% static 'img/index/contact-us/bg.svg' %}"
+            data-src-light="{% static 'img/index/contact-us/bg-light.svg' %}"
+            data-src-dark="{% static 'img/index/contact-us/bg.svg' %}"
+            width="0"
+            height="0"
+            loading="lazy"
+            alt=""
+        >
+    </div>
+    <div class="contact-us__content">
 		<span class="contact-us__name-section name-section">
 			Contact us
 		</span>
-		<h2 class="contact-us__title main-title">
-			{{settings.contacts_title}}
-		</h2>
-		<div class="contact-us__social">
-			<ul>
-				{% for social in socials %}
-				<li>
-					<a href="{{ social.url }}" title="{{social.title}}" target="_blank">
-						{{social.symbol|safe}}
-					</a>
-				</li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
-	<div class="contact-us__image">
-		<div class="contact-us__image--body image-body" style="padding-top: 100%;">
-			<picture>
-				<source data-srcset="{% static 'img/index/contact-us/image.webp' %}" type="image/webp">
-				<img data-src="{% static 'img/index/contact-us/image.png' %}" alt="" width="329" height="329" class="lazy">
-			</picture>
-		</div>
-	</div>
+        <h2 class="contact-us__title main-title">
+            {{ settings.contacts_title }}
+        </h2>
+        <div class="contact-us__social">
+            <ul>
+                {% for social in socials %}
+                    <li>
+                        <a href="{{ social.url }}" title="{{ social.title }}" target="_blank">
+                            {{ social.symbol|safe }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="contact-us__image">
+        <div class="contact-us__image--body image-body" style="padding-top: 100%;">
+            <picture>
+                <source class="contact-us__image--body-webp"
+                        srcset="{% static 'img/index/contact-us/image.webp' %}"
+                        data-srcset-light="{% static 'img/index/contact-us/image-light.webp' %}"
+                        data-srcset-dark="{% static 'img/index/contact-us/image.webp' %}"
+                        type="image/webp"
+                >
+                <img
+                        src="{% static 'img/index/contact-us/image.png' %}"
+                        data-src-light="{% static 'img/index/contact-us/image-light.png' %}"
+                        data-src-dark="{% static 'img/index/contact-us/image.png' %}"
+                        alt=""
+                        width="329"
+                        height="329"
+                        class="contact-us__image--body-img"
+                >
+            </picture>
+        </div>
+    </div>
 </section>
