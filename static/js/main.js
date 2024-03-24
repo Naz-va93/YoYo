@@ -1,8 +1,8 @@
 /* import {
-	OverlayScrollbars,
-	ScrollbarsHidingPlugin,
-	SizeObserverPlugin,
-	ClickScrollPlugin
+	OverlayScrollbars, 
+	ScrollbarsHidingPlugin, 
+	SizeObserverPlugin, 
+	ClickScrollPlugin  
 } from '../js/libs.min.js'; */
 
 const
@@ -1160,18 +1160,58 @@ headerNavList.forEach(list => {
 
 const advertisingForm = document.querySelector('.advertising__form');
 
-advertisingForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+if (advertisingForm) {
+    advertisingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-    const formData = new FormData(advertisingForm);
+        const formData = new FormData(advertisingForm);
+        const csrftoken = advertisingForm.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    fetch(advertisingForm.action, {
-        method: 'POST',
-        body: formData,
-    })
+        fetch(advertisingForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+        })
 
-    popup.open('#success-popup-advertising');
-});
+        popup.open('#success-popup-advertising');
+    });
+}
+
+// =-=-=-=-=-=-=-=-=-=-=-=- addCoin form submit -=-=-=-=-=-=-=-=-=-=-=-=
+
+const errorPopupText = document.querySelector('.error-popup__container-text');
+
+const addCoinForm = document.querySelector('.add-coin__form');
+if (addCoinForm) {
+    addCoinForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(addCoinForm);
+        const csrftoken = addCoinForm.querySelector('[name=csrfmiddlewaretoken]').value;
+        fetch(addCoinForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    popup.open('#success-popup');
+                } else if (data.status === 'error') {
+                    // errorPopupText.textContent = data.errors;
+                    popup.open('#error-popup');
+                }
+            })
+    });
+}
 
 // =-=-=-=-=-=-=-=-=-=-=-=- <settings in header> -=-=-=-=-=-=-=-=-=-=-=-=
 
