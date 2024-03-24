@@ -286,6 +286,15 @@ class OrderItem(models.Model):
             return self.type
 
 
+class AdvertisingItem(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Имя пользователя")
+    email = models.EmailField(verbose_name="Email пользователя")
+    question = models.TextField(verbose_name="Вопрос пользователя")
+
+    def __str__(self):
+        return f"Сообщение от {self.email}"
+
+
 class Listing(models.Model):
     title = models.CharField('Название', max_length=100)
     slug = models.SlugField(max_length=100, blank=True, null=True)

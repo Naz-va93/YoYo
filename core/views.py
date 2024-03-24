@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 
 from core.forms import CreateCoin, CaptchaForm
-from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing
+from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing, AdvertisingItem
 from core.utils import increment_metrik, increment_counter, get_text_by_number
 
 
@@ -151,6 +151,18 @@ def vote_coin(request):
     return JsonResponse({'status': False})
 
 
+def advertising(request):
+    if request.method == 'POST':
+        name = request.POST.get('advertising_name')
+        email = request.POST.get('advertising_email')
+        question = request.POST.get('advertising_question')
+
+        new_item = AdvertisingItem(name=name, email=email, question=question)
+        new_item.save()
+
+    return JsonResponse({"status": "success"})
+
+
 class Index(TemplateView):
     template_name = 'index.html'
     context_object_name = 'coins'
@@ -202,6 +214,14 @@ class AddCoin(CreateView):
     form_class = CreateCoin
     model = Coin
     success_url = reverse_lazy('core:index')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return JsonResponse({'status': 'success'})
+
+    def form_invalid(self, form):
+        errors = form.errors.as_json()
+        return JsonResponse({'status': 'error', 'errors': errors})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AddCoin, self).get_context_data(**kwargs)
@@ -499,7 +519,6 @@ def get_sort_status_profile(request):
 
 
 def get_sort_status_promote(request):
-
     if request.method == 'GET':
         previous_page = request.GET.get('previous_page')[4:]
         sort_name = request.GET.get('sort_name')
@@ -566,6 +585,3 @@ def get_sorted_mixin(sort_item, sort_status, sort=None, is_promoted: bool = None
     if profile:
         coin = coin.filter(favorite=profile)
     return coin
-
-
-

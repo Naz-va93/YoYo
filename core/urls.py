@@ -15,6 +15,8 @@ urlpatterns = [
     path('coin-list/<slug>/', coin_list, name='list_sorted_item'),
     path('vote-coin/', vote_coin, name='vote_coin'),
 
+    path('advertising/', advertising, name='advertising'),
+
     path('add-coin/', AddCoin.as_view(), name='add-coin'),
     path('coin-page/<slug:slug>/', CoinDetail.as_view(), name='coin-page'),
     path('coin-list/<str:filter_by>/', NewlistingList.as_view(), name='coin-list'),

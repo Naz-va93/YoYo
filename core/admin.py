@@ -84,6 +84,12 @@ class OrderItemAdmin(admin.ModelAdmin):
     exclude = ('cart',)
 
 
+class AdvertisingItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email')
+    list_display_links = ('id', 'name', 'email')
+    search_fields = ('id', 'name', 'email')
+
+
 class CartColdAdmin(admin.ModelAdmin):
     inlines = [OrderInline]
     list_display = ('id',)
@@ -101,6 +107,7 @@ admin.site.register(Page, PageAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(NetworkChain, NetworkChainAdmin)
 admin.site.register(ListingPlatform, ListingPlatformAdmin)
+admin.site.register(AdvertisingItem, AdvertisingItemAdmin)
 admin.site.register(Social)
 admin.site.register(Listing)
 admin.site.register(Setting)

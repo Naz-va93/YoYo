@@ -117,7 +117,7 @@
                     {% trans 'email address provided' %}
                 </h2>
                 <span class="advertising__line"></span>
-                <form action="#" method="POST" class="advertising__form">
+                <form action="{% url 'core:advertising' %}" method="POST" class="advertising__form">
                     {% csrf_token %}
                     <label class="advertising-form__label">
                         <span class="advertising-form__span">{% trans "Name" %}</span>
@@ -172,6 +172,27 @@
         </div>
     </div>
 </div>
+
+<div class="error-popup popup" style="--container: 344px" id="error-popup">
+    <div class="error-popup__wrapper popup-wrapper">
+        <div class="error-popup__bg popup-bg popup-close"></div>
+        <div class="error-popup__body popup-body">
+            <div class="error-popup__header popup-header">
+                <h2 class="error-popup__title title _min-2"></h2>
+                <button type="button" class="error-popup__close-btn popup-close-btn popup-close" title="Close">
+                    <svg width="14" height="14" viewBox="0 0 8 8">
+                        <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="error-popup__container popup-container">
+                <h2 class="error-popup__title">{% trans 'Error' %}</h2>
+                <p class="error-popup__container-text">{% trans 'Invalid input data' %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="success-popup popup" style="--container: 344px" id="success-popup-advertising">
     <div class="success-popup__wrapper popup-wrapper">

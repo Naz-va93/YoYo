@@ -5241,6 +5241,16 @@ input[hidden] {
     padding-bottom: 0px !important;
 }
 
+.error-popup__container-text, .error-popup__title {
+    text-align: center;
+    color: var(--danger);
+}
+
+.error-popup__title {
+    font-size: 25px;
+    font-weight: 700;
+}
+
 .hero__text {
     align-self: self-start;
     padding-top: 0px;

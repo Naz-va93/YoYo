@@ -10,7 +10,7 @@ app_name = 'order'
 
 
 urlpatterns = [
-    path('order-lookup/<int:pk>', OrderLookUpOrDone.as_view(), name='order-lookup'),
+    # path('order-lookup/<int:pk>', OrderLookUpOrDone.as_view(), name='order-lookup'),
     # path('promote/', Promote.as_view(), name='promote'),
     #
     # path('add_item/', add_item, name='add_item'),
