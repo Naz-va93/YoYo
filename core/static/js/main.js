@@ -1264,7 +1264,8 @@ const filterItemTitleImgs = document.querySelectorAll('.filter__item--title-img'
 const contactUsBgImg = document.querySelector('.contact-us__bg-img');
 const contactUsImageBodyWebp = document.querySelector('.contact-us__image--body-webp');
 const contactUsImageBodyImg = document.querySelector('.contact-us__image--body-img');
-const heroBgPictures = document.querySelectorAll('.hero__bg-picture');
+const heroBgPicturesDark = document.querySelectorAll('.hero__bg-picture-dark');
+const heroBgPicturesLight = document.querySelectorAll('.hero__bg-picture-light');
 const headerLogoImg = document.querySelector('.header__logo--img');
 const footerLogoImg = document.querySelector('.footer__logo--img');
 
@@ -1308,8 +1309,12 @@ function updateElementsForLightMode() {
         img.src = img.getAttribute('src-light');
     });
 
-    heroBgPictures.forEach(el => {
+    heroBgPicturesDark.forEach(el => {
         el.classList.add('visually-hidden');
+    });
+
+    heroBgPicturesLight.forEach(el => {
+        el.classList.remove('visually-hidden');
     });
 }
 
@@ -1351,8 +1356,12 @@ function updateElementsForDarkMode() {
         img.src = img.getAttribute('src-dark');
     });
 
-    heroBgPictures.forEach(el => {
+     heroBgPicturesDark.forEach(el => {
         el.classList.remove('visually-hidden');
+    });
+
+    heroBgPicturesLight.forEach(el => {
+        el.classList.add('visually-hidden');
     });
 }
 

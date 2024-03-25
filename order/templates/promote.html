@@ -4,194 +4,210 @@
 {% load i18n %}
 
 {% block title %}
-<title>{{ page.title_seo }}</title>
+    <title>{{ page.title_seo }}</title>
 {% endblock %}
 
 {% block description %}
-<meta name="description" content="{{ page.description_seo }}">
+    <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
 
 {% load static %}
 <style>
-		.image-body {
-			width: 100%;
-			position: relative;
-		}
+    .image-body {
+        width: 100%;
+        position: relative;
+    }
 
-		.image-body img {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
+    .image-body img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-		.lazy {
-			opacity: 0;
-		}
+    .lazy {
+        opacity: 0;
+    }
 
-		.lazy.loaded {
-			opacity: 1;
-		}
+    .lazy.loaded {
+        opacity: 1;
+    }
 
 
-	</style>
+</style>
 {% block content %}
 
-		<main class="main">
-			<section class="promote">
-				<div class="hero-banner container">
-					<div class="hero-banner__bg">
-						<!-- <img src="img/index/hero/bg.svg" width="0" height="0" loading="lazy" alt=""> -->
-						<picture class="hero__bg-picture">
-							<source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp" media="(min-width: 550px)">
-							<source data-srcset="{% static 'img/index/hero/bg-mob.webp' %}" type="image/webp">
-							<img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
-						</picture>
-					</div>
-					<div class="hero-banner__page-address page-address">
-						<ul>
-							<li>
-								<a href="#">
-									Home
-								</a>
-							</li>
-							<li>
-								<svg width="16" height="16" viewBox="0 0 16 16">
-									<use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
-								</svg>
-							</li>
-							<li>
-								<a href="#">
-									Promote
-								</a>
-							</li>
-						</ul>
-					</div>
-					<h1 class="hero-banner__title title">
-						Promote your coin
-					</h1>
-					<div class="hero-banner__text">
-						{{settings.promote_text}}
-					</div>
-				</div>
-				<div class="promote__container container">
-					<div class="promote__main">
-						<div class="promote__social">
-							<ul class="promote__social--list">
-								<li class="promote__social--card">
-									<img src="{% static 'img/icons/user.svg' %}" width="24" height="24" loading="lazy" alt="" class="promote__social--icon">
-									<b class="promote__social--value">{{settings.promote_stat_1}}</b>
-									<span class="promote__social--text">Average daily users</span>
-								</li>
-								<li class="promote__social--card">
-									<img src="{% static 'img/icons/twitter.svg' %}" width="24" height="24" loading="lazy" alt="" class="promote__social--icon">
-									<b class="promote__social--value">{{settings.promote_stat_2}}</b>
-									<span class="promote__social--text">Twitter followers</span>
-								</li>
-								<li class="promote__social--card">
-									<img src="{% static 'img/icons/letter-unread.svg' %}" width="24" height="24" loading="lazy" alt="" class="promote__social--icon">
-									<b class="promote__social--value">{{settings.promote_stat_3}}</b>
-									<span class="promote__social--text">Newsletter subscribers</span>
-								</li>
-							</ul>
-						</div>
-						<div class="promote__list">
-							<form action="{% url 'order:promote' %}" method="post" class="promote__block _active">
-								{% csrf_token %}
-								<div class="promote__block--target">
-									<h3 class="promote__block--title title _min-2">
-										<img src="{% static 'img/icons/promoted-spot.svg' %}" width="24" height="24" loading="lazy" alt="">
-										Promoted Spot
-									</h3>
+    <main class="main">
+        <section class="promote">
+            <div class="hero-banner container">
+                <div class="hero-banner__bg">
+                    <!-- <img src="img/index/hero/bg.svg" width="0" height="0" loading="lazy" alt=""> -->
+                    <picture class="hero__bg-picture-dark">
+                        <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                                media="(min-width: 550px)">
+                        <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                    </picture>
+                    <picture class="hero__bg-picture-light">
+                        <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp"
+                                media="(min-width: 550px)">
+                        <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0"
+                             class="lazy">
+                    </picture>
+                </div>
+                <div class="hero-banner__page-address page-address">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                            </svg>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Promote
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <h1 class="hero-banner__title title">
+                    Promote your coin
+                </h1>
+                <div class="hero-banner__text">
+                    {{ settings.promote_text }}
+                </div>
+            </div>
+            <div class="promote__container container">
+                <div class="promote__main">
+                    <div class="promote__social">
+                        <ul class="promote__social--list">
+                            <li class="promote__social--card">
+                                <img src="{% static 'img/icons/user.svg' %}" width="24" height="24" loading="lazy"
+                                     alt="" class="promote__social--icon">
+                                <b class="promote__social--value">{{ settings.promote_stat_1 }}</b>
+                                <span class="promote__social--text">Average daily users</span>
+                            </li>
+                            <li class="promote__social--card">
+                                <img src="{% static 'img/icons/twitter.svg' %}" width="24" height="24" loading="lazy"
+                                     alt="" class="promote__social--icon">
+                                <b class="promote__social--value">{{ settings.promote_stat_2 }}</b>
+                                <span class="promote__social--text">Twitter followers</span>
+                            </li>
+                            <li class="promote__social--card">
+                                <img src="{% static 'img/icons/letter-unread.svg' %}" width="24" height="24"
+                                     loading="lazy" alt="" class="promote__social--icon">
+                                <b class="promote__social--value">{{ settings.promote_stat_3 }}</b>
+                                <span class="promote__social--text">Newsletter subscribers</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="promote__list">
+                        <form action="{% url 'order:promote' %}" method="post" class="promote__block _active">
+                            {% csrf_token %}
+                            <div class="promote__block--target">
+                                <h3 class="promote__block--title title _min-2">
+                                    <img src="{% static 'img/icons/promoted-spot.svg' %}" width="24" height="24"
+                                         loading="lazy" alt="">
+                                    Promoted Spot
+                                </h3>
 
-									<b class="promote__block--price">0.15 BNB/day</b>
-									<span class="promote__block--arrow">
+                                <b class="promote__block--price">0.15 BNB/day</b>
+                                <span class="promote__block--arrow">
 										<svg width="16" height="16" viewBox="0 0 16 16">
 											<use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
 										</svg>
 									</span>
-								</div>
-								<input name="type" value="Promote Spot" type="hidden">
-								<div class="promote__block--content">
-									<div class="promote__block--text">
-										<p>
-											{{settings.promote_text_spot}}
-										</p>
-									</div>
-									<div class="promote__block--search promote__block--row">
-										<label data-required-text="required">
+                            </div>
+                            <input name="type" value="Promote Spot" type="hidden">
+                            <div class="promote__block--content">
+                                <div class="promote__block--text">
+                                    <p>
+                                        {{ settings.promote_text_spot }}
+                                    </p>
+                                </div>
+                                <div class="promote__block--search promote__block--row">
+                                    <label data-required-text="required">
 											<span>
 												<select name="coin" id="coin-1" required class="custom-select">
 													<option value="" disabled selected>Select coin</option>
-													{% for coin in coins %}
-													<option value="{{ coin.pk }}">{{ coin.coin_name }}</option>
-													{% endfor %}
+                                                    {% for coin in coins %}
+                                                        <option value="{{ coin.pk }}">{{ coin.coin_name }}</option>
+                                                    {% endfor %}
 												</select>
 											</span>
-										</label>
-										<button class="btn _large" type="submit">
-											{% trans 'Add to Cart' %}
-										</button>
-									</div>
-									<div class="promote__block--calendar calendar-wrapper">
-										<div class="promote__block--calendar-header">
-											<span class="promote__block--calendar-current calendar-current"></span>
-											<button type="button" class="promote__block--calendar-arrow calendar-arrow _prev">
-												<svg width="16" height="16" viewBox="0 0 16 16">
-													<use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
-												</svg>
-											</button>
-											<button type="button" class="promote__block--calendar-arrow calendar-arrow _next">
-												<svg width="16" height="16" viewBox="0 0 16 16">
-													<use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
-												</svg>
-											</button>
-										</div>
-										<div class="promote__block--calendar-element calendar" data-coin-id="coin-1" data-base="https://www.domain.com/add_item/"></div>
-									</div>
-								</div>
-							</form>
-							<form action="{% url 'order:promote' %}" method="post" class="promote__block _active">
-								{% csrf_token %}
-								<div class="promote__block--target">
-									<h3 class="promote__block--title title _min-2">
-										<img src="{% static 'img/icons/banner-ads.svg' %}" width="24" height="24" loading="lazy" alt="">
-										Banner ads
-									</h3>
+                                    </label>
+                                    <button class="btn _large" type="submit">
+                                        {% trans 'Add to Cart' %}
+                                    </button>
+                                </div>
+                                <div class="promote__block--calendar calendar-wrapper">
+                                    <div class="promote__block--calendar-header">
+                                        <span class="promote__block--calendar-current calendar-current"></span>
+                                        <button type="button"
+                                                class="promote__block--calendar-arrow calendar-arrow _prev">
+                                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
+                                            </svg>
+                                        </button>
+                                        <button type="button"
+                                                class="promote__block--calendar-arrow calendar-arrow _next">
+                                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="promote__block--calendar-element calendar" data-coin-id="coin-1"
+                                         data-base="https://www.domain.com/add_item/"></div>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="{% url 'order:promote' %}" method="post" class="promote__block _active">
+                            {% csrf_token %}
+                            <div class="promote__block--target">
+                                <h3 class="promote__block--title title _min-2">
+                                    <img src="{% static 'img/icons/banner-ads.svg' %}" width="24" height="24"
+                                         loading="lazy" alt="">
+                                    Banner ads
+                                </h3>
 
 
-									<input name="type" value="Banner" type="hidden">
-									<b class="promote__block--price">0.15 BNB/day</b>
-									<span class="promote__block--arrow">
+                                <input name="type" value="Banner" type="hidden">
+                                <b class="promote__block--price">0.15 BNB/day</b>
+                                <span class="promote__block--arrow">
 										<svg width="16" height="16" viewBox="0 0 16 16">
 											<use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
 										</svg>
 									</span>
-								</div>
-								<div class="promote__block--content">
-									<div class="promote__block--text">
-										<p>
-											{{settings.promote_text_banner}}
-										</p>
-									</div>
+                            </div>
+                            <div class="promote__block--content">
+                                <div class="promote__block--text">
+                                    <p>
+                                        {{ settings.promote_text_banner }}
+                                    </p>
+                                </div>
 
 
-									<div class="promote__block--row">
-											<label>
-												<input type="text" name="url" placeholder="URL" class="input _alt">
-											</label>
-											<button class="btn _large" type="submit">
-												Add to Cart
-											</button>
-										</div>
-										<div class="promote__block--banner">
-											<span>Banner</span>
-											<label aria-label="Add banner image (728x80)">
-												<input name="photo" type="file" required>
-												<span>
+                                <div class="promote__block--row">
+                                    <label>
+                                        <input type="text" name="url" placeholder="URL" class="input _alt">
+                                    </label>
+                                    <button class="btn _large" type="submit">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                                <div class="promote__block--banner">
+                                    <span>Banner</span>
+                                    <label aria-label="Add banner image (728x80)">
+                                        <input name="photo" type="file" required>
+                                        <span>
 													<svg width="40" height="40" viewBox="0 0 40 40">
 														<use xlink:href="img/sprites.svg#upload"></use>
 													</svg>
@@ -199,199 +215,204 @@
 														Add banner image <br> (728x80)
 													</b>
 												</span>
-											</label>
-										</div>
-									<div class="promote__block--calendar calendar-wrapper">
-										<div class="promote__block--calendar-header">
-											<span class="promote__block--calendar-current calendar-current"></span>
-											<button type="button" class="promote__block--calendar-arrow calendar-arrow _prev">
-												<svg width="16" height="16" viewBox="0 0 16 16">
-													<use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
-												</svg>
-											</button>
-											<button type="button" class="promote__block--calendar-arrow calendar-arrow _next">
-												<svg width="16" height="16" viewBox="0 0 16 16">
-													<use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
-												</svg>
-											</button>
-										</div>
-										<div class="promote__block--calendar-element calendar" data-coin-id="redirect-select" data-base="https://www.domain.com/add_item/"></div>
-									</div>
-								</div>
-							</form>
-							<!-- <script>
-							const calendarElements = document.querySelectorAll(".calendar"),
-								  currentDate = new Date();
+                                    </label>
+                                </div>
+                                <div class="promote__block--calendar calendar-wrapper">
+                                    <div class="promote__block--calendar-header">
+                                        <span class="promote__block--calendar-current calendar-current"></span>
+                                        <button type="button"
+                                                class="promote__block--calendar-arrow calendar-arrow _prev">
+                                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
+                                            </svg>
+                                        </button>
+                                        <button type="button"
+                                                class="promote__block--calendar-arrow calendar-arrow _next">
+                                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="promote__block--calendar-element calendar"
+                                         data-coin-id="redirect-select"
+                                         data-base="https://www.domain.com/add_item/"></div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- <script>
+                        const calendarElements = document.querySelectorAll(".calendar"),
+                              currentDate = new Date();
 
 
-							calendarElements.forEach(calendar => {
-								calendar.dataset.calendarDates = "";
+                        calendarElements.forEach(calendar => {
+                            calendar.dataset.calendarDates = "";
 
-								for(let index = 1, lastChar = "", date; index <= 6; index++) {
+                            for(let index = 1, lastChar = "", date; index <= 6; index++) {
 
-									date = new Date()
-									date.setDate(date.getDate()+index);
+                                date = new Date()
+                                date.setDate(date.getDate()+index);
 
-									calendar.dataset.calendarDates += date.getDate() + "/" + (date.getMonth() + 1) + "/" + 2023;
-									calendar.dataset.calendarDates += (index == 6) ? lastChar : ", ";
-								}
-							})
+                                calendar.dataset.calendarDates += date.getDate() + "/" + (date.getMonth() + 1) + "/" + 2023;
+                                calendar.dataset.calendarDates += (index == 6) ? lastChar : ", ";
+                            }
+                        })
 
-						</script> -->
-						</div>
-					</div>
-            {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong>Error:</strong>
-                {% for field, errors in form.errors.items %}
-                <ul>
-                    {% for error in errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div class="promote__aside">
-                <form action="{% url 'order:promote' %}" method="post" class="promote__order" id="order">
-                    {% csrf_token %}
-                    <div class="promote__order--block order-block">
-                        <h3 class="order-block__title title _min">
-                            {% trans "Your Order" %}
-                        </h3>
-                        <table class="order-block__table">
-                            <colgroup>
-                                <col>
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>
-                                    {% trans "Date" %}
-                                </th>
-                                <th>
-                                    {% trans "Type" %}
-                                </th>
-                                <th>
-                                    {% trans "Price" %}
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% if user.is_authenticated %}
-	                            {% for item in items_in_order %}
-	                            <tr>
-	                                <td>
-										{% for date in item.date %} |
-	                                    {{ date|date:"d-m-Y" }}
-										{% endfor %}
-	                                </td>
-	                                <td>
-										{{ item.type }}
-	                                </td>
-	                                <td>
-	                                    {{ item.sum }} BNB
-	                                </td>
-
-	                                <td>
-	                                    <a href="{% url 'order:remove_item' pk=item.pk %}">
-	                                        <button class="close" type="button" title="Remove">
-	                                            <svg width="8" height="8" viewBox="0 0 8 8">
-	                                                <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
-	                                            </svg>
-	                                        </button>
-	                                    </a>
-	                                </td>
-	                            </tr>
-	                            {% endfor %}
-	                        {% else %}
-		                        {% for key, value in items_in_order.items %}
-								{% if key != 'type' %}
-								{% for val in value %}
-								<tr>
-									<td>{% for v in val %} | {{ v }} {% endfor %}</td>
-									{% if key != 'Banner' %}
-									<td>Promote spot</td>
-									{% else %}
-									<td>Banner</td>
-									{% endif %}
-									{% with val_multiplied=False %}
-									{% for coin in coins %}
-									{% if key != 'Banner' %}
-									{% if coin.pk|add:0 == key|add:0 %}
-									<td> {{ coin.price_for_promote|multiply:val }} BNB</td>
-									{% endif %}
-									{% else %}
-									{% if forloop.first and not val_multiplied %}
-									<td> {{ val|multiply_by_0_15 }} BNB</td>
-									{% with val_multiplied=True %}
-									{% endwith %}
-									{% endif %}
-									{% endif %}
-									{% endfor %}
-									{% endwith %}
-									<td>
-										<a href="{% url 'order:remove_item_slug' slug=key %}">
-											<button class="close" type="button" title="Remove">
-												<svg width="8" height="8" viewBox="0 0 8 8">
-													<use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
-												</svg>
-											</button>
-										</a>
-									</td>
-
-		                        </tr>
-		                        {% endfor %}
-								{% endif %}
-		                        {% endfor %}
-		                    {% endif %}
-                            </tbody>
-                        </table>
-                        {% if user.is_authenticated %}
-						<div class="order-block__total">
-								<span>Subtotal</span>
-								<span class="order-block__total--value"></span>
-								<input value="{{ cart.pk }}" type="cart"  name="cart" hidden>
-								<b>{{ cart.total_sum }} BNB</b>
-                    		</div>
-                        <div class="order-block__total">
-                            <span>Total</span>
-                            <b>{{ cart.total_sum }} BNB</b>
-                        </div>
-                        {% else %}
-		                    <div class="order-block__total">
-		                        <span>Subtotal</span>
-		                        <input type="cart" class="input"><b>{{ total_sum }} BNB</b>
-		                    </div>
-		                    <div class="order-block__total">
-		                        <span>{% trans "Total" %}</span>
-		                        <b>{{ total_sum }} BNB</b>
-		                    </div>
-			            {% endif %}
+                    </script> -->
                     </div>
-		            <label class="promote__order--label">
-		                <span style="padding-left: 20px">{% trans "Email" %}</span>
-		                <input type="text" name="email" placeholder="Email" class="input">
-		            </label>
+                </div>
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong>
+                        {% for field, errors in form.errors.items %}
+                            <ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="promote__aside">
+                    <form action="{% url 'order:promote' %}" method="post" class="promote__order" id="order">
+                        {% csrf_token %}
+                        <div class="promote__order--block order-block">
+                            <h3 class="order-block__title title _min">
+                                {% trans "Your Order" %}
+                            </h3>
+                            <table class="order-block__table">
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        {% trans "Date" %}
+                                    </th>
+                                    <th>
+                                        {% trans "Type" %}
+                                    </th>
+                                    <th>
+                                        {% trans "Price" %}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if user.is_authenticated %}
+                                    {% for item in items_in_order %}
+                                        <tr>
+                                            <td>
+                                                {% for date in item.date %} |
+                                                    {{ date|date:"d-m-Y" }}
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {{ item.type }}
+                                            </td>
+                                            <td>
+                                                {{ item.sum }} BNB
+                                            </td>
 
-		            <div class="promote__order--footer">
-		                <button style="margin-left: 10px" class="promote__order--submit btn _large" type="submit">
-		                    {% trans "Reserve and pay" %}
-		                </button>
-		                <span>{% trans "No login required*" %}</span>
-		            </div>
-            	</form>
-        	</div>
-        </div>
-    </section>
-    <a href="#order" class="to-order-btn btn _large btn-to-scroll visible-on-tablet _hidden">
-        {% trans "Go to my order" %}
-        <svg width="16" height="16" viewBox="0 0 16 16">
-            <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
-        </svg>
-    </a>
-</main>
+                                            <td>
+                                                <a href="{% url 'order:remove_item' pk=item.pk %}">
+                                                    <button class="close" type="button" title="Remove">
+                                                        <svg width="8" height="8" viewBox="0 0 8 8">
+                                                            <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for key, value in items_in_order.items %}
+                                        {% if key != 'type' %}
+                                            {% for val in value %}
+                                                <tr>
+                                                    <td>{% for v in val %} | {{ v }} {% endfor %}</td>
+                                                    {% if key != 'Banner' %}
+                                                        <td>Promote spot</td>
+                                                    {% else %}
+                                                        <td>Banner</td>
+                                                    {% endif %}
+                                                    {% with val_multiplied=False %}
+                                                        {% for coin in coins %}
+                                                            {% if key != 'Banner' %}
+                                                                {% if coin.pk|add:0 == key|add:0 %}
+                                                                    <td> {{ coin.price_for_promote|multiply:val }} BNB
+                                                                    </td>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {% if forloop.first and not val_multiplied %}
+                                                                    <td> {{ val|multiply_by_0_15 }} BNB</td>
+                                                                    {% with val_multiplied=True %}
+                                                                    {% endwith %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                    <td>
+                                                        <a href="{% url 'order:remove_item_slug' slug=key %}">
+                                                            <button class="close" type="button" title="Remove">
+                                                                <svg width="8" height="8" viewBox="0 0 8 8">
+                                                                    <use xlink:href="{% static 'img/sprites.svg' %}#close"></use>
+                                                                </svg>
+                                                            </button>
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                            {% if user.is_authenticated %}
+                                <div class="order-block__total">
+                                    <span>Subtotal</span>
+                                    <span class="order-block__total--value"></span>
+                                    <input value="{{ cart.pk }}" type="cart" name="cart" hidden>
+                                    <b>{{ cart.total_sum }} BNB</b>
+                                </div>
+                                <div class="order-block__total">
+                                    <span>Total</span>
+                                    <b>{{ cart.total_sum }} BNB</b>
+                                </div>
+                            {% else %}
+                                <div class="order-block__total">
+                                    <span>Subtotal</span>
+                                    <input type="cart" class="input"><b>{{ total_sum }} BNB</b>
+                                </div>
+                                <div class="order-block__total">
+                                    <span>{% trans "Total" %}</span>
+                                    <b>{{ total_sum }} BNB</b>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <label class="promote__order--label">
+                            <span style="padding-left: 20px">{% trans "Email" %}</span>
+                            <input type="text" name="email" placeholder="Email" class="input">
+                        </label>
+
+                        <div class="promote__order--footer">
+                            <button style="margin-left: 10px" class="promote__order--submit btn _large" type="submit">
+                                {% trans "Reserve and pay" %}
+                            </button>
+                            <span>{% trans "No login required*" %}</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <a href="#order" class="to-order-btn btn _large btn-to-scroll visible-on-tablet _hidden">
+            {% trans "Go to my order" %}
+            <svg width="16" height="16" viewBox="0 0 16 16">
+                <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+            </svg>
+        </a>
+    </main>
 
 {% endblock %}

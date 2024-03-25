@@ -19,11 +19,17 @@
     <section class="account">
         <div class="hero-banner container">
             <div class="hero-banner__bg">
-                <picture class="hero__bg-picture">
+                <picture class="hero__bg-picture-dark">
                     <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
                             media="(min-width: 550px)">
-                    <source data-srcset="{% static 'img/index/hero/bg-mob.webp' %}" type="image/webp">
+                    <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
                     <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                </picture>
+                <picture class="hero__bg-picture-light">
+                    <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp"
+                            media="(min-width: 550px)">
+                    <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp">
+                    <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0" class="lazy">
                 </picture>
             </div>
             <div class="hero-banner__header">
