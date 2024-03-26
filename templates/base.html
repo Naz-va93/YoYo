@@ -52,17 +52,24 @@
             font-weight: 400
         }
     </style>
-    <script>
-        var whiteThemeFileUrl = '{% static "css/light-mode.css" %}';
-    </script>
     <link rel="stylesheet" href="{% static 'css/style-critical.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}" media="print"
           onload="this.media='all'; this.onload=null;">
     <link rel="stylesheet" href="{% static 'css/light-mode.css' %}" id="theme-file" media="all">
+
+    <script>
+        var whiteThemeFileUrl = '{% static "css/light-mode.css" %}';
+        function updateThemeUrl() {
+            if (localStorage.getItem('coinyoyo-theme') === 'dark') {
+                document.getElementById('theme-file').href = '';
+            } else {
+                document.getElementById('theme-file').href = whiteThemeFileUrl;
+            }
+        }
+        updateThemeUrl();
+    </script>
     <script>
         document.querySelector('html').style.setProperty("--vh", window.innerHeight * 0.01 + "px");
-
-
     </script>
 </head>
 <body>
