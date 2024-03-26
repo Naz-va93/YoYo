@@ -1,10 +1,6 @@
 import time
-
-import schedule
 from django.core.management import BaseCommand
-
 from core.models import Coin
-from datetime import datetime
 
 
 def clear():
@@ -16,11 +12,4 @@ def clear():
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        date = datetime.now()
-
-        print(date.hour)
-        print(date.minute)
-        while True:
-            if date.hour == 1 and date.minute == 0:
-                clear()
-            time.sleep(40)
+        clear()
