@@ -1,5 +1,6 @@
 from .models import *
 from django.contrib import admin
+from adminsortable2.admin import SortableAdminMixin
 
 class CoinAdmin(admin.ModelAdmin):
     list_display = ('id', 'coin_name')
@@ -37,13 +38,13 @@ class CoinAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'order')
     list_display_links = ('id', 'name')
     search_fields = ('id', 'name')
 
 
 class NetworkChainAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'order')
     list_display_links = ('id', 'name')
     search_fields = ('id', 'name')
 

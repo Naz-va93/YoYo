@@ -16,11 +16,18 @@ class NetworkChain(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
     slug = models.SlugField(max_length=100, blank=True, null=True)
     photo = models.FileField(blank=False, null=True, verbose_name='Фото')
+    order = models.PositiveIntegerField(blank=True, null=True, verbose_name='Порядок')
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
+        if not self.order:
+            last_order = Category.objects.all().aggregate(largest=models.Max('order'))['largest']
+            self.order = (last_order or 0) + 1
         self.slug = slugify(self.name)
         super(NetworkChain, self).save(*args, **kwargs)
 
@@ -31,11 +38,18 @@ class NetworkChain(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
     slug = models.SlugField(max_length=100, blank=True, null=True)
+    order = models.PositiveIntegerField(blank=True, null=True, verbose_name='Порядок')
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
+        if not self.order:
+            last_order = Category.objects.all().aggregate(largest=models.Max('order'))['largest']
+            self.order = (last_order or 0) + 1
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
