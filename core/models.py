@@ -16,7 +16,7 @@ class NetworkChain(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
     slug = models.SlugField(max_length=100, blank=True, null=True)
     photo = models.FileField(blank=False, null=True, verbose_name='Фото')
-    order = models.PositiveIntegerField(blank=True, null=True, verbose_name='Порядок')
+    order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Порядок')
 
     class Meta:
         ordering = ['order']
@@ -38,7 +38,7 @@ class NetworkChain(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
     slug = models.SlugField(max_length=100, blank=True, null=True)
-    order = models.PositiveIntegerField(blank=True, null=True, verbose_name='Порядок')
+    order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Порядок')
 
     class Meta:
         ordering = ['order']

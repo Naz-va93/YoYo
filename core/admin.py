@@ -37,13 +37,13 @@ class CoinAdmin(admin.ModelAdmin):
     create_multiple_votes_10.short_description = "Добавления 10 голосов"  # Название действия в админ панели
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id', 'name', 'order')
     list_display_links = ('id', 'name')
     search_fields = ('id', 'name')
 
 
-class NetworkChainAdmin(admin.ModelAdmin):
+class NetworkChainAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id', 'name', 'order')
     list_display_links = ('id', 'name')
     search_fields = ('id', 'name')
