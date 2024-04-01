@@ -5356,6 +5356,32 @@ input[hidden] {
     opacity: 0;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.social-block {
+    font-family: Commissioner, sans-serif;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.btn-social {
+    background-color: #1e74fe;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    color: white;
+}
+
+.btn-social:hover {
+    cursor: pointer;
+    background-color: #3C86FF;
+}
+
 @media (max-width: 991px) {
     .header__nav--list > li > a .expand-contact {
         right: 7px;

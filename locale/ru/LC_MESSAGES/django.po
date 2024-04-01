@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-24 19:14+0200\n"
+"POT-Creation-Date: 2024-04-01 20:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\coinjojo\settings.py:132
+msgid "English"
+msgstr ""
+
+#: .\coinjojo\settings.py:133
+msgid "Russia"
+msgstr ""
 
 #: .\core\templates\account\account_inactive.html:5
 #: .\core\templates\account\account_inactive.html:8
@@ -116,6 +124,88 @@ msgstr "Добавить E-mail"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Действительно ли Вы хотите удалить выбранный адрес электронной почты?"
 
+#: .\core\templates\account\email\account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: .\core\templates\account\email\account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
+#: .\core\templates\account\email\base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr ""
+
+#: .\core\templates\account\email\base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+
+#: .\core\templates\account\email\email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+
+#: .\core\templates\account\email\email_confirmation_subject.txt:3
+#, fuzzy
+#| msgid "Confirm E-mail Address"
+msgid "Please Confirm Your E-mail Address"
+msgstr "ПодтверждениеE-mail"
+
+#: .\core\templates\account\email\password_reset_key_message.txt:4
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+
+#: .\core\templates\account\email\password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr ""
+
+#: .\core\templates\account\email\password_reset_key_subject.txt:3
+#: .\core\templates\account\email\unknown_account_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Reset E-mail"
+msgstr "Восстановление пароля"
+
+#: .\core\templates\account\email\unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+
 #: .\core\templates\account\email_confirm.html:6
 #: .\core\templates\account\email_confirm.html:10
 msgid "Confirm E-mail Address"
@@ -126,6 +216,7 @@ msgid "Confirm"
 msgstr "Подтвердить"
 
 #: .\core\templates\account\login.html:25
+#: .\venv\Lib\site-packages\django\utils\text.py:254
 msgid "or"
 msgstr "или"
 
@@ -137,6 +228,57 @@ msgstr "Забыли пароль?"
 #: .\core\templates\account\logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "Вы уверены, что хотите выйти?"
+
+#: .\core\templates\account\messages\cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+
+#: .\core\templates\account\messages\email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr ""
+
+#: .\core\templates\account\messages\email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr ""
+
+#: .\core\templates\account\messages\email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr ""
+
+#: .\core\templates\account\messages\logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr ""
+
+#: .\core\templates\account\messages\logged_out.txt:2
+msgid "You have signed out."
+msgstr ""
+
+#: .\core\templates\account\messages\password_changed.txt:2
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Password successfully changed."
+msgstr "Пароль изменен"
+
+#: .\core\templates\account\messages\password_set.txt:2
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password successfully set."
+msgstr "Восстановление пароля"
+
+#: .\core\templates\account\messages\primary_email_set.txt:2
+#, fuzzy
+#| msgid "email address provided"
+msgid "Primary e-mail address set."
+msgstr "указанный вами email"
+
+#: .\core\templates\account\messages\unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr ""
 
 #: .\core\templates\account\password_change.html:5
 #: .\core\templates\account\password_change.html:8
@@ -227,168 +369,171 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 
-#: .\core\templates\add-coin.html:31 .\core\templates\coin-page.html:29
+#: .\core\templates\add-coin.html:37 .\core\templates\coin-page.html:36
 #: .\core\templates\new-listing.html:21 .\core\templates\privacy-police.html:46
 #: .\core\templates\promoted-list.html:21
 #: .\order\templates\order-lookup.html:31
-#: .\user\templates\account-liked-coins.html:31
-#: .\user\templates\account-profile.html:34
+#: .\user\templates\account-liked-coins.html:38
+#: .\user\templates\account-profile.html:40
 msgid "Home"
 msgstr "Главная"
 
-#: .\core\templates\add-coin.html:41 .\templates\include\_header.html:234
+#: .\core\templates\add-coin.html:47 .\templates\include\_header.html:234
 msgid "Add coin"
 msgstr "Добавить"
 
-#: .\core\templates\add-coin.html:47
+#: .\core\templates\add-coin.html:53
 msgid "Add Your Coin"
 msgstr "Добавить свою монету"
 
-#: .\core\templates\add-coin.html:72
+#: .\core\templates\add-coin.html:78
 msgid "Add coin image"
 msgstr "Добавить изображение монеты"
 
-#: .\core\templates\add-coin.html:80
+#: .\core\templates\add-coin.html:86
 msgid "Coin Name"
 msgstr "Название монеты"
 
-#: .\core\templates\add-coin.html:84
+#: .\core\templates\add-coin.html:90
 msgid "Coin Symbol"
 msgstr "Символ монеты"
 
-#: .\core\templates\add-coin.html:88
+#: .\core\templates\add-coin.html:94
 msgid "Network/Chain"
 msgstr "Сеть Цепь"
 
-#: .\core\templates\add-coin.html:103 .\core\templates\coin-page.html:201
+#: .\core\templates\add-coin.html:109 .\core\templates\coin-page.html:192
 msgid "Launch Date"
 msgstr "Дата запуска"
 
-#: .\core\templates\add-coin.html:110
+#: .\core\templates\add-coin.html:116
 msgid "Project in presale phase?"
 msgstr "Проект на стадии предпродажи?"
 
-#: .\core\templates\add-coin.html:114
+#: .\core\templates\add-coin.html:120
+#: .\venv\Lib\site-packages\django\forms\widgets.py:795
 msgid "Yes"
 msgstr "Да"
 
-#: .\core\templates\add-coin.html:118
+#: .\core\templates\add-coin.html:124
+#: .\venv\Lib\site-packages\django\forms\widgets.py:796
 msgid "No"
 msgstr "Нет"
 
-#: .\core\templates\add-coin.html:126
+#: .\core\templates\add-coin.html:132
 msgid "Listings Platform"
 msgstr "Листинговая платформа"
 
-#: .\core\templates\add-coin.html:141
+#: .\core\templates\add-coin.html:147
 msgid "Listing Link"
 msgstr "Ссылка на листинг"
 
-#: .\core\templates\add-coin.html:146 .\core\templates\promoted-list.html:143
-#: .\core\templates\promoted-list.html:249
+#: .\core\templates\add-coin.html:152 .\core\templates\promoted-list.html:155
+#: .\core\templates\promoted-list.html:267
 #: .\templates\include\full_coin_table.html:65
 #: .\templates\include\full_coin_table.html:171
 msgid "Category"
 msgstr "Категория"
 
-#: .\core\templates\add-coin.html:161
+#: .\core\templates\add-coin.html:167
 msgid "Contract Address"
 msgstr "Адрес контракта"
 
-#: .\core\templates\add-coin.html:165
+#: .\core\templates\add-coin.html:171
 msgid "Coin Description"
 msgstr "Описание монеты"
 
-#: .\core\templates\add-coin.html:174
+#: .\core\templates\add-coin.html:180
 msgid "Website Link"
 msgstr "Ссылка на веб-сайт"
 
-#: .\core\templates\add-coin.html:179
+#: .\core\templates\add-coin.html:185
 msgid "Twitter Link"
 msgstr "Ссылка на Twitter"
 
-#: .\core\templates\add-coin.html:183
+#: .\core\templates\add-coin.html:189
 msgid "Telegram Link"
 msgstr "Ссылка на Telegram"
 
-#: .\core\templates\add-coin.html:187
+#: .\core\templates\add-coin.html:193
 msgid "Discord Link"
 msgstr "Ссылка на Discord"
 
-#: .\core\templates\add-coin.html:191
+#: .\core\templates\add-coin.html:197
 msgid "Telegram Contact"
 msgstr "Telegram Контакт"
 
-#: .\core\templates\add-coin.html:196
+#: .\core\templates\add-coin.html:202
 msgid "Reddit Link"
 msgstr "Ссылка на Reddit"
 
-#: .\core\templates\add-coin.html:202
-msgid "Connect"
-msgstr "Подключение"
+#: .\core\templates\add-coin.html:208 .\templates\include\_footer.html:139
+#: .\templates\include\_footer.html:253
+msgid "Send"
+msgstr "Отправить"
 
-#: .\core\templates\coin-page.html:39
+#: .\core\templates\coin-page.html:46
 msgid "Coin page"
 msgstr "Страница монеты"
 
-#: .\core\templates\coin-page.html:130
+#: .\core\templates\coin-page.html:121
 msgid "Website"
 msgstr "Веб-сайт"
 
-#: .\core\templates\coin-page.html:140
+#: .\core\templates\coin-page.html:131
 msgid "Twitter"
 msgstr ""
 
-#: .\core\templates\coin-page.html:150
+#: .\core\templates\coin-page.html:141
 msgid "Telegram"
 msgstr ""
 
-#: .\core\templates\coin-page.html:160
+#: .\core\templates\coin-page.html:151
 msgid "Discord"
 msgstr ""
 
-#: .\core\templates\coin-page.html:178
+#: .\core\templates\coin-page.html:169
 msgid "Description"
 msgstr "Описание"
 
-#: .\core\templates\coin-page.html:189 .\core\templates\promoted-list.html:275
+#: .\core\templates\coin-page.html:180 .\core\templates\promoted-list.html:293
 #: .\templates\include\full_coin_table.html:201
 msgid "Marketcap"
 msgstr "Капитализация"
 
-#: .\core\templates\coin-page.html:195 .\core\templates\promoted-list.html:289
-#: .\order\templates\order-lookup.html:154 .\order\templates\promote.html:278
+#: .\core\templates\coin-page.html:186 .\core\templates\promoted-list.html:307
+#: .\order\templates\order-lookup.html:154 .\order\templates\promote.html:298
 #: .\templates\include\full_coin_table.html:191
 msgid "Price"
 msgstr "Цена"
 
-#: .\core\templates\index.html:103 .\templates\include\_header.html:43
+#: .\core\templates\index.html:109 .\templates\include\_header.html:43
 msgid "New Listings"
 msgstr "Новые листинги"
 
-#: .\core\templates\index.html:138
+#: .\core\templates\index.html:144
 msgid "Top today"
 msgstr "Сегодня в топе"
 
-#: .\core\templates\index.html:187
+#: .\core\templates\index.html:193
 msgid "Top all time"
 msgstr "Лучшие за все время"
 
-#: .\core\templates\index.html:253
+#: .\core\templates\index.html:259
 msgid "Cryptocurrencies"
 msgstr "Криптовалюты"
 
-#: .\core\templates\index.html:261 .\core\templates\promoted-list.html:303
+#: .\core\templates\index.html:267 .\core\templates\promoted-list.html:321
 #: .\templates\include\full_coin_table.html:223
-#: .\user\templates\account-profile.html:107
+#: .\user\templates\account-profile.html:113
 msgid "Votes"
 msgstr "Голоса"
 
-#: .\core\templates\index.html:269
+#: .\core\templates\index.html:275
 msgid "Total trading volume"
 msgstr "Общий объём торгов"
 
-#: .\core\templates\index.html:277
+#: .\core\templates\index.html:283
 msgid "Total users on platform"
 msgstr "Всего пользователей на платформе"
 
@@ -400,54 +545,54 @@ msgstr "Список монет"
 msgid "OpenID Sign In"
 msgstr "Вход по OpenID"
 
-#: .\core\templates\promoted-list.html:94
+#: .\core\templates\promoted-list.html:102
 #: .\templates\include\full_coin_table.html:22
 msgid "Filter"
 msgstr "Фильтр"
 
-#: .\core\templates\promoted-list.html:103
-#: .\core\templates\promoted-list.html:108
+#: .\core\templates\promoted-list.html:112
+#: .\core\templates\promoted-list.html:118
 msgid "Todays's Best"
 msgstr "Лучшие за сегодня"
 
-#: .\core\templates\promoted-list.html:114
-#: .\core\templates\promoted-list.html:119 .\templates\include\_header.html:59
+#: .\core\templates\promoted-list.html:125
+#: .\core\templates\promoted-list.html:131 .\templates\include\_header.html:59
 #: .\templates\include\full_coin_table.html:41
 msgid "All Time Best"
 msgstr "Лучшие за всё время"
 
-#: .\core\templates\promoted-list.html:149
-#: .\core\templates\promoted-list.html:179
-#: .\core\templates\promoted-list.html:209
+#: .\core\templates\promoted-list.html:162
+#: .\core\templates\promoted-list.html:194
+#: .\core\templates\promoted-list.html:226
 #: .\templates\include\full_coin_table.html:71
 #: .\templates\include\full_coin_table.html:101
 #: .\templates\include\full_coin_table.html:131
 msgid "All"
 msgstr "Все"
 
-#: .\core\templates\promoted-list.html:173
-#: .\core\templates\promoted-list.html:252
+#: .\core\templates\promoted-list.html:187
+#: .\core\templates\promoted-list.html:270
 #: .\templates\include\full_coin_table.html:95
 #: .\templates\include\full_coin_table.html:174
 msgid "Chain"
 msgstr "Цепь"
 
-#: .\core\templates\promoted-list.html:203
-#: .\order\templates\order-lookup.html:151 .\order\templates\promote.html:275
+#: .\core\templates\promoted-list.html:219
+#: .\order\templates\order-lookup.html:151 .\order\templates\promote.html:295
 #: .\templates\include\full_coin_table.html:125
-#: .\user\templates\account-profile.html:104
-#: .\user\templates\account-profile.html:138
-#: .\user\templates\account-profile.html:184
+#: .\user\templates\account-profile.html:110
+#: .\user\templates\account-profile.html:144
+#: .\user\templates\account-profile.html:190
 msgid "Type"
 msgstr "Тип"
 
-#: .\core\templates\promoted-list.html:243
+#: .\core\templates\promoted-list.html:261
 msgid "Rank"
 msgstr "Ранг"
 
-#: .\core\templates\promoted-list.html:246
+#: .\core\templates\promoted-list.html:264
 #: .\templates\include\full_coin_table.html:168
-#: .\user\templates\account-profile.html:95
+#: .\user\templates\account-profile.html:101
 msgid "Coin"
 msgstr "Монета"
 
@@ -471,7 +616,24 @@ msgstr ""
 msgid "Add a 3rd Party Account"
 msgstr "Добавьте стороннюю учетную запись"
 
-#: .\core\templates\socialaccount\login.html:19
+#: .\core\templates\socialaccount\login.html:12
+msgid "Connect"
+msgstr "Подключить"
+
+#: .\core\templates\socialaccount\login.html:14
+msgid "You are about to connect a new third party account from"
+msgstr "Вы собираетесь подключить новую учетную запись третьего лица из"
+
+#: .\core\templates\socialaccount\login.html:16
+msgid "Sign In via social network"
+msgstr "Вход через социальную сеть"
+
+#: .\core\templates\socialaccount\login.html:18
+msgid ""
+"You are about to sign in using a third party account from social network"
+msgstr "Вы собираетесь войти в систему, используя сторонний аккаунт из социальной сети"
+
+#: .\core\templates\socialaccount\login.html:23
 msgid "Continue"
 msgstr "Продолжить"
 
@@ -479,6 +641,22 @@ msgstr "Продолжить"
 #: .\core\templates\socialaccount\login_cancelled.html:9
 msgid "Login Cancelled"
 msgstr "Вход отменен"
+
+#: .\core\templates\socialaccount\messages\account_connected.txt:2
+#, fuzzy
+#| msgid "This account is inactive."
+msgid "The social account has been connected."
+msgstr "Данная учетная запись неактивна."
+
+#: .\core\templates\socialaccount\messages\account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr ""
+
+#: .\core\templates\socialaccount\messages\account_disconnected.txt:2
+#, fuzzy
+#| msgid "This account is inactive."
+msgid "The social account has been disconnected."
+msgstr "Данная учетная запись неактивна."
 
 #: .\order\templates\order-lookup.html:41
 #: .\order\templates\order-lookup.html:47
@@ -502,7 +680,7 @@ msgid "Currency"
 msgstr "Валюта"
 
 #: .\order\templates\order-lookup.html:114
-#: .\order\templates\order-lookup.html:188 .\order\templates\promote.html:369
+#: .\order\templates\order-lookup.html:188 .\order\templates\promote.html:390
 msgid "Total"
 msgstr "Итого"
 
@@ -514,11 +692,11 @@ msgstr "Получено"
 msgid "Remaining"
 msgstr "Остаток"
 
-#: .\order\templates\order-lookup.html:136 .\order\templates\promote.html:260
+#: .\order\templates\order-lookup.html:136 .\order\templates\promote.html:280
 msgid "Your Order"
 msgstr "Ваш заказ"
 
-#: .\order\templates\order-lookup.html:148 .\order\templates\promote.html:272
+#: .\order\templates\order-lookup.html:148 .\order\templates\promote.html:292
 msgid "Date"
 msgstr "Дата"
 
@@ -526,23 +704,23 @@ msgstr "Дата"
 msgid "Subtotal"
 msgstr "Промежуточный итог"
 
-#: .\order\templates\promote.html:136
+#: .\order\templates\promote.html:148
 msgid "Add to Cart"
 msgstr "Добавить в корзину"
 
-#: .\order\templates\promote.html:375 .\templates\include\_footer.html:128
+#: .\order\templates\promote.html:396 .\templates\include\_footer.html:128
 msgid "Email"
 msgstr ""
 
-#: .\order\templates\promote.html:381
+#: .\order\templates\promote.html:402
 msgid "Reserve and pay"
 msgstr "Резервирование и оплата"
 
-#: .\order\templates\promote.html:383
+#: .\order\templates\promote.html:404
 msgid "No login required*"
 msgstr "Вход в систему не требуется"
 
-#: .\order\templates\promote.html:390
+#: .\order\templates\promote.html:411
 msgid "Go to my order"
 msgstr "Перейти к моему заказу"
 
@@ -594,29 +772,33 @@ msgstr "Введите ваше имя"
 msgid "Enter your email"
 msgstr "Введите ваш email"
 
-#: .\templates\include\_footer.html:133
+#: .\templates\include\_footer.html:134
 msgid "Your question"
 msgstr "Ваш вопрос"
 
-#: .\templates\include\_footer.html:134
+#: .\templates\include\_footer.html:135
 msgid "Add question"
 msgstr "Напишите вопрос"
 
-#: .\templates\include\_footer.html:138 .\templates\include\_footer.html:252
-msgid "Send"
-msgstr "Отправить"
-
-#: .\templates\include\_footer.html:170 .\templates\include\_footer.html:221
+#: .\templates\include\_footer.html:171 .\templates\include\_footer.html:222
 msgid "Successful"
 msgstr "Успешно"
 
-#: .\templates\include\_footer.html:189
+#: .\templates\include\_footer.html:190
 msgid "Error"
 msgstr "Ошибка"
 
-#: .\templates\include\_footer.html:190
+#: .\templates\include\_footer.html:191
 msgid "Invalid input data"
 msgstr "Некорректные входные данные"
+
+#: .\templates\include\_footer.html:275
+msgid "Try again in 12 hours"
+msgstr "Попробуйте снова через 12 часов"
+
+#: .\templates\include\_footer.html:297
+msgid "Your vote is accepted"
+msgstr "Ваш голос принят"
 
 #: .\templates\include\_header.html:21 .\templates\include\_header.html:38
 msgid "All Coins"
@@ -640,9 +822,9 @@ msgid "Sign up"
 msgstr "Регистрация"
 
 #: .\templates\include\_header.html:111 .\templates\include\_header.html:254
-#: .\user\templates\account-liked-coins.html:73
-#: .\user\templates\account-profile.html:44
-#: .\user\templates\account-profile.html:69
+#: .\user\templates\account-liked-coins.html:80
+#: .\user\templates\account-profile.html:50
+#: .\user\templates\account-profile.html:75
 msgid "Profile"
 msgstr "Профиль"
 
@@ -674,43 +856,41 @@ msgstr "Добавлено"
 msgid "Show more"
 msgstr "Показать больше"
 
-#: .\user\templates\account-liked-coins.html:41
+#: .\user\templates\account-liked-coins.html:48
 msgid "Liked Coin"
 msgstr "Понравившаяся монета"
 
-#: .\user\templates\account-liked-coins.html:54
-#: .\user\templates\account-liked-coins.html:85
-#: .\user\templates\account-profile.html:51
-#: .\user\templates\account-profile.html:75
+#: .\user\templates\account-liked-coins.html:61
+#: .\user\templates\account-liked-coins.html:92
+#: .\user\templates\account-profile.html:57
+#: .\user\templates\account-profile.html:81
 msgid "Log out"
 msgstr "Выйти из системы"
 
-#: .\user\templates\account-liked-coins.html:58
-#: .\user\templates\account-profile.html:55
+#: .\user\templates\account-liked-coins.html:65
+#: .\user\templates\account-profile.html:61
 msgid "My account"
 msgstr "Мой аккаунт"
 
-#: .\user\templates\account-liked-coins.html:66
-#: .\user\templates\account-profile.html:62
+#: .\user\templates\account-liked-coins.html:73
+#: .\user\templates\account-profile.html:68
 msgid "Liked coins"
 msgstr "Понравившиеся монеты"
 
-#: .\user\templates\account-profile.html:98
-#: .\user\templates\account-profile.html:130
-#: .\user\templates\account-profile.html:176
+#: .\user\templates\account-profile.html:104
+#: .\user\templates\account-profile.html:136
+#: .\user\templates\account-profile.html:182
 msgid "Link usage"
 msgstr "Использование ссылок"
 
-#: .\user\templates\account-profile.html:101
-#: .\user\templates\account-profile.html:134
-#: .\user\templates\account-profile.html:180
+#: .\user\templates\account-profile.html:107
+#: .\user\templates\account-profile.html:140
+#: .\user\templates\account-profile.html:186
 msgid "Finish at"
 msgstr "Закончите в"
 
-#: .\user\templates\account-profile.html:139
-#: .\user\templates\account-profile.html:185
+#: .\user\templates\account-profile.html:145
+#: .\user\templates\account-profile.html:191
 msgid "Promote spot"
 msgstr "Продвигаемое место"
 
-#~ msgid "Connect to Facebook"
-#~ msgstr "Подключиться к Facebook"

@@ -1,21 +1,26 @@
-
 {% load i18n %}
+{% load static %}
 
-
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}">
+{% endblock head %}
 
 {% block content %}
-{% if process == "connect" %}
-<h1>Connect {{ provider.name }}</h1>
+    <div class="center social-block">
+        {% if process == "connect" %}
+            <h1>{% trans 'Connect' %} {{ provider.name }}</h1>
 
-<p>You are about to connect a new third party account from {{ provider.name }}.</p>
-{% else %}
-<h1>Sign In via social network </h1>
+            <p>{% trans 'You are about to connect a new third party account from' %} {{ provider.name }}.</p>
+        {% else %}
+            <h1>{% trans 'Sign In via social network' %}</h1>
 
-<p>You are about to sign in using a third party account from social network</p>
-{% endif %}
+            <p>{% trans 'You are about to sign in using a third party account from social network' %}</p>
+        {% endif %}
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">{% trans "Continue" %}</button>
-</form>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn-social" type="submit">{% trans "Continue" %}</button>
+        </form>
+    </div>
 {% endblock %}
