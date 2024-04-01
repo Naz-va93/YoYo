@@ -5268,6 +5268,93 @@ input[hidden] {
     padding-top: 5px;
 }
 
+.vote-btn {
+    background-color: #9da0a4;
+}
+
+.vote-btn:hover {
+    background-color: #9da0a4;
+    cursor: pointer;
+}
+
+.canVote, .vote-btn.open-popup {
+    background-color: #1e74fe;
+}
+
+.canVote:hover {
+    background-color: var(--primary-hover);
+}
+
+.vote-btn.open-popup:hover {
+    background: var(--primary-hover);
+}
+
+.notification-container {
+    position: fixed;
+    top: 67px;
+    right: 15px;
+    width: 300px;
+    z-index: 3;
+}
+
+.notification-vote-text {
+    padding: 0;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+}
+
+.notification {
+    width: 300px;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.8s, background 0.6s;
+}
+
+.notification-inner {
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.notification.vote-accepted {
+    background: linear-gradient(167.35deg, rgb(17, 20, 27) 44.672%,rgb(86, 157, 93) 127.381%);
+}
+
+.notification.try-vote-later {
+    background: linear-gradient(167.35deg, rgb(17, 20, 27) 44.671%,rgb(52, 118, 245) 127.381%);
+}
+
+.close-notification {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.close-notification:hover {
+    cursor: pointer;
+}
+
+.close-notification.vote-accepted path{
+    fill: #daf959;
+}
+
+.notification.vote-accepted .notification-inner svg path {
+    fill: #daf959;
+}
+
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.hide.try-vote-later {
+    opacity: 0;
+}
 
 @media (max-width: 991px) {
     .header__nav--list > li > a .expand-contact {
