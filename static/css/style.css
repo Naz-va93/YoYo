@@ -5293,7 +5293,6 @@ input[hidden] {
     position: fixed;
     top: 67px;
     right: 15px;
-    width: 300px;
     z-index: 3;
 }
 
@@ -5306,7 +5305,6 @@ input[hidden] {
 }
 
 .notification {
-    width: 300px;
     position: relative;
     margin-bottom: 8px;
     border-radius: 10px;
