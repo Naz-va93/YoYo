@@ -72,35 +72,19 @@
                         <span class="coin__vote--today">Today's Vote: {{ coin.votes_today }}</span>
                         <td>
 
-                            <a href="#{% if not user.is_authenticated %}authorization-popup{% endif %}"
-                               class="{% if coin not in user.vote_coins.all %}canVote{% endif %} vote-btn btn {% if not user.is_authenticated %}open-popup{% endif %}"
+                            <a {% if not user.is_authenticated %}href="#authorization-popup"{% endif %}
+                               class="vote-btn {% if coin not in user.vote_coins.all %}canVote{% endif %} btn {% if not user.is_authenticated %}open-popup{% endif %}"
                                type="button" data-coin-pk="{{ coin.pk }}">
-                                {% if coin not in user.vote_coins.all %}
-                                    <div class="arrow">
-                                        <svg width="10" height="14" viewBox="0 0 10 14">
-                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-to-up"></use>
-                                        </svg>
-                                    </div>
-                                {% endif %}
-                                {{ coin.votes_today }}
+                                <div class="arrow">
+                                    <svg width="10" height="14" viewBox="0 0 10 14">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-to-up"></use>
+                                    </svg>
+                                </div>
+                                <p class="votes-btn-cnt">
+                                    {% if listing.slug == 'today-s-best' %}{{ coin.votes_today }}{% else %}
+                                        {{ coin.votes }}{% endif %}
+                                </p>
                             </a>
-
-                            <script type="text/javascript">
-                                $('.canVote').click(function (e) {
-                                    e.preventDefault();
-
-                                    $.ajax({
-                                        type: "GET",
-                                        url: "{% url 'core:vote_coin' %}",
-                                        data: {
-                                            "coin": $(this).attr('data-coin-pk'),
-                                        },
-                                        success: function (data) {
-                                        }
-                                    });
-                                });
-                            </script>
-
                     </div>
                 </div>
                 <div class="coin__main">

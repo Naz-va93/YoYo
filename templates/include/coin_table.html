@@ -1,10 +1,10 @@
 {% load static %}
 {% load i18n %}
 {% load poll_extras %}
-    {% for coin in coins %}
+{% for coin in coins %}
     <tr>
         <td>
-            <span class="table-coins__number {{listing.slug}}-numbers"></span>
+            <span class="table-coins__number {{ listing.slug }}-numbers"></span>
         </td>
         <td>
             <div class="table-coins__coin">
@@ -35,111 +35,98 @@
                 </svg>
                 {{ coin.price_24h }}%
             </b>
-            {% elif coin.price_24h < 0 %}
+        {% elif coin.price_24h < 0 %}
             <b class="table-coins__value danger-value">
                 <svg width="16" height="16" viewBox="0 0 16 16">
                     <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
                 </svg>
                 {{ coin.price_24h }}%
             </b>
-            {% else %}
+        {% else %}
             ---
-            {% endif %}
+        {% endif %}
         </td>
         <td>
             {% if coin.price %}
-            ${{ coin.get_price }}
+                ${{ coin.get_price }}
             {% else %}
-            ---
+                ---
             {% endif %}
         </td>
         <td>
             {% if coin.market_cap %}
-            ${{ coin.get_market_cap }}
+                ${{ coin.get_market_cap }}
             {% else %}
-            ---
+                ---
             {% endif %}
         </td>
         {% if listing.slug == 'new-listings' %}
-        <td>
-            {{ coin.publish_date|time_since }}
-        </td>
+            <td>
+                {{ coin.publish_date|time_since }}
+            </td>
         {% endif %}
         <td>
-            <a {% if not user.is_authenticated %}href="#authorization-popup"{% endif %} class="{% if coin not in user.vote_coins.all %}canVote{% endif%} vote-btn btn {% if not user.is_authenticated %}open-popup{% endif %}" type="button" data-coin-pk="{{ coin.pk }}">
-                {% if coin not in user.vote_coins.all %}
+            <a {% if not user.is_authenticated %}href="#authorization-popup"{% endif %}
+               class="vote-btn {% if coin not in user.vote_coins.all %}canVote{% endif %} btn {% if not user.is_authenticated %}open-popup{% endif %}"
+               type="button" data-coin-pk="{{ coin.pk }}">
                 <div class="arrow">
                     <svg width="10" height="14" viewBox="0 0 10 14">
                         <use xlink:href="{% static 'img/sprites.svg' %}#arrow-to-up"></use>
                     </svg>
                 </div>
-                {% endif%}
-                {% if listing.slug == 'today-s-best' %}{{coin.votes_today}}{% else %}{{ coin.votes }}{% endif %}
+                <p class="votes-btn-cnt">
+                    {% if listing.slug == 'today-s-best' %}{{ coin.votes_today }}{% else %}{{ coin.votes }}{% endif %}
+                </p>
             </a>
         </td>
         <td>
             {% if user.is_authenticated %}
-            <form class="favorite_ajax{{listing.id}}" action="{% url 'user:add_favorite' pk=coin.pk %}" method="GET">
-                <input type="hidden" name="previous_page" value="{{ request.path }}">
-                <button class="table-coins__favorite favorite-btn {% if user in coin.favorite.all %}_active{% endif %}" title="Add to favorite"
-                        type="submit">
-                    <svg width="20" height="20" viewBox="0 0 20 20">
-                        <use xlink:href="{% static 'img/sprites.svg' %}#star"></use>
-                    </svg>
-                </button>
-            </form>
+                <form class="favorite_ajax{{ listing.id }}" action="{% url 'user:add_favorite' pk=coin.pk %}"
+                      method="GET">
+                    <input type="hidden" name="previous_page" value="{{ request.path }}">
+                    <button class="table-coins__favorite favorite-btn {% if user in coin.favorite.all %}_active{% endif %}"
+                            title="Add to favorite"
+                            type="submit">
+                        <svg width="20" height="20" viewBox="0 0 20 20">
+                            <use xlink:href="{% static 'img/sprites.svg' %}#star"></use>
+                        </svg>
+                    </button>
+                </form>
             {% else %}
-            <a href="#authorization-popup" class="open-popup">
-                <button class="table-coins__favorite favorite-btn ignore-toggle {% if user in coin.favorite.all %}_active{% endif %}" title="Add to favorite"
-                        type="submit">
-                    <svg width="20" height="20" viewBox="0 0 20 20">
-                        <use xlink:href="{% static 'img/sprites.svg' %}#star"></use>
-                    </svg>
-                </button>
-            </a>
+                <a href="#authorization-popup" class="open-popup">
+                    <button class="table-coins__favorite favorite-btn ignore-toggle {% if user in coin.favorite.all %}_active{% endif %}"
+                            title="Add to favorite"
+                            type="submit">
+                        <svg width="20" height="20" viewBox="0 0 20 20">
+                            <use xlink:href="{% static 'img/sprites.svg' %}#star"></use>
+                        </svg>
+                    </button>
+                </a>
             {% endif %}
         </td>
     </tr>
 
-    {% endfor %}
+{% endfor %}
 
 {% if user.is_authenticated %}
-<script type="text/javascript">
-    $('.favorite_ajax{{listing.id}}').on('submit', function(e) {
-       e.preventDefault();
+    <script type="text/javascript">
+        $('.favorite_ajax{{listing.id}}').on('submit', function (e) {
+            e.preventDefault();
 
-        var form = $(this);
-        var actionUrl = form.attr('action');
-        
-        $.ajax({
-            type: "GET",
-            url: actionUrl,
-            data: form.serialize(),
-            success: function(data)
-            {
-                // sendFormAjax($("#{{listing.slug}}-form"));
-            }
+            var form = $(this);
+            var actionUrl = form.attr('action');
+
+            $.ajax({
+                type: "GET",
+                url: actionUrl,
+                data: form.serialize(),
+                success: function (data) {
+                    // sendFormAjax($("#{{listing.slug}}-form"));
+                }
+            });
         });
-    });
-</script>
+    </script>
 {% endif %}
-<script type="text/javascript">
-    $('.canVote').click(function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: "GET",
-            url: "{% url 'core:vote_coin' %}",
-            data: {
-                "coin": $(this).attr('data-coin-pk'),
-            },
-            success: function(data)
-            {
-                sendFormAjax($("#{{listing.slug}}-form"), "{{listing.slug}}");
-            }
-        });
-    });
-</script>
 <script type="text/javascript">
     var page = '{{coins.number}}';
 
@@ -148,7 +135,7 @@
     } else {
         page = parseInt(page);
     }
-    $('.table-coins__number.{{listing.slug}}-numbers').each(function(index) {
+    $('.table-coins__number.{{listing.slug}}-numbers').each(function (index) {
         $(this).text((page - 1) * 30 + (index + 1));
     });
 </script>

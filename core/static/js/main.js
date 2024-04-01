@@ -1356,7 +1356,7 @@ function updateElementsForDarkMode() {
         img.src = img.getAttribute('src-dark');
     });
 
-     heroBgPicturesDark.forEach(el => {
+    heroBgPicturesDark.forEach(el => {
         el.classList.remove('visually-hidden');
     });
 
@@ -1409,6 +1409,100 @@ languagesButton.addEventListener('click', () => {
     languagesExpand.classList.toggle('visually-hidden');
     settingsItemLanguages.classList.toggle('show');
 });
+
+// =-=-=-=-=-=-=-=-=-=-=-=- <voting for coins> -=-=-=-=-=-=-=-=-=-=-=-=
+
+const notificationVoteAccepted = document.getElementById('notification-vote-accepted');
+const notificationVoteTryLater = document.getElementById('notification-try-vote-later');
+const voteCoinButtons = document.querySelectorAll('.vote-btn');
+const closeNotificationsButtons = document.querySelectorAll('.close-notification');
+const containerNotifications = document.getElementById('notification-container');
+
+closeNotificationsButtons.forEach(button => {
+    button.addEventListener('click', function (event) {
+        const notification = event.target.closest('.notification');
+
+        if (notification) {
+            notification.remove();
+        }
+    });
+});
+
+
+function handleVoteClick(e) {
+    e.preventDefault();
+
+    const button = e.target.closest('.vote-btn');
+    const votesCnt = button.querySelector('.votes-btn-cnt');
+    coinId = button.getAttribute('data-coin-pk');
+
+    if (button.classList.contains('canVote')) {
+        fetch(`/vote-coin/?coin=${coinId}`, {method: "GET"})
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                if (data.status) {
+                    button.classList.remove('canVote');
+                    const number = parseInt(votesCnt.textContent.trim(), 10);
+                    if (!isNaN(number)) {
+                        votesCnt.textContent = number + 1;
+                    }
+                    createNotification(true);
+                } else {
+                    createNotification(false);
+                }
+            })
+    } else {
+        if (!button.classList.contains('open-popup')) {
+            console.log(1)
+            console.log(button)
+            createNotification(false);
+        }
+    }
+}
+
+voteCoinButtons.forEach(button => {
+    button.addEventListener('click', handleVoteClick);
+});
+
+containerNotifications.addEventListener('click', function (event) {
+    if (event.target.classList.contains('close-notification') || event.target.closest('.close-notification')) {
+        const notification = event.target.closest('.notification') || event.target.closest('.vote-accepted');
+        if (notification) {
+            containerNotifications.removeChild(notification);
+        }
+    }
+});
+
+function createNotification(isVoted) {
+    const notification = isVoted ? notificationVoteAccepted.cloneNode(true) : notificationVoteTryLater.cloneNode(true);
+
+    if (containerNotifications.children.length >= 5) {
+        containerNotifications.removeChild(containerNotifications.firstChild);
+    }
+
+    setTimeout(() => {
+        if (containerNotifications.children.length >= 5) {
+            containerNotifications.removeChild(containerNotifications.firstChild);
+        }
+
+        containerNotifications.appendChild(notification);
+
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 50);
+
+        setTimeout(() => {
+            notification.classList.add('hide');
+            setTimeout(() => {
+                if (notification.parentNode === containerNotifications) {
+                    containerNotifications.removeChild(notification);
+                }
+            }, 300);
+        }, 5000);
+    }, 50);
+}
 
 // =-=-=-=-=-=-=-=-=-=-=-=- <lozyload> -=-=-=-=-=-=-=-=-=-=-=-=
 

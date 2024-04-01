@@ -130,14 +130,12 @@ def vote_coin(request):
     user = request.user
     coin = Coin.objects.get(id=request.GET.get('coin'))
 
+    if not user.is_authenticated:
+        return JsonResponse({'status': False})
+
     if coin not in user.vote_coins.all():
         if user.vote_count <= 0:
-            if (timezone.now() - user.last_vote).total_seconds() / 60 / 24 > 12:
-                user.vote_count = 5
-                user.save()
-                user.vote_coins.clear()
-            else:
-                return JsonResponse({'status': False})
+            return JsonResponse({'status': False})
 
         coin.votes += 1
         coin.votes_today += 1
@@ -145,9 +143,11 @@ def vote_coin(request):
 
         user.vote_coins.add(coin)
         user.vote_count -= 1
-        user.last_vote = timezone.now()
+        if not user.first_vote:
+            user.first_vote = timezone.now()
         user.save()
         return JsonResponse({'status': True})
+
     return JsonResponse({'status': False})
 
 
