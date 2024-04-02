@@ -5292,6 +5292,7 @@ input[hidden] {
 .notification-container {
     position: fixed;
     top: 67px;
+    margin-left: 18px;
     right: 15px;
     z-index: 3;
 }

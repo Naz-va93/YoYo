@@ -1414,7 +1414,6 @@ languagesButton.addEventListener('click', () => {
 
 const notificationVoteAccepted = document.getElementById('notification-vote-accepted');
 const notificationVoteTryLater = document.getElementById('notification-try-vote-later');
-const voteCoinButtons = document.querySelectorAll('.vote-btn');
 const closeNotificationsButtons = document.querySelectorAll('.close-notification');
 const containerNotifications = document.getElementById('notification-container');
 
@@ -1462,9 +1461,16 @@ function handleVoteClick(e) {
     }
 }
 
-voteCoinButtons.forEach(button => {
-    button.addEventListener('click', handleVoteClick);
-});
+function updateListenersVoteCoinButtons() {
+    const voteCoinButtons = document.querySelectorAll('.vote-btn');
+
+    voteCoinButtons.forEach(button => {
+        button.removeEventListener('click', handleVoteClick);
+        button.addEventListener('click', handleVoteClick);
+    });
+}
+
+updateListenersVoteCoinButtons();
 
 containerNotifications.addEventListener('click', function (event) {
     if (event.target.classList.contains('close-notification') || event.target.closest('.close-notification')) {
