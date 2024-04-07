@@ -2,6 +2,7 @@ from .models import *
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
 
+
 class CoinAdmin(admin.ModelAdmin):
     list_display = ('id', 'coin_name')
     list_display_links = ('id', 'coin_name')
@@ -34,6 +35,7 @@ class CoinAdmin(admin.ModelAdmin):
                 Vote.objects.create(coin=coin)
 
         self.message_user(request, f"Успешное добавление 10 голосов {queryset.count()}")
+
     create_multiple_votes_10.short_description = "Добавления 10 голосов"  # Название действия в админ панели
 
 
@@ -105,9 +107,6 @@ class CartColdAdmin(admin.ModelAdmin):
     exclude = ('live_cart',)
 
 
-admin.site.register(CartCold, CartColdAdmin)
-admin.site.register(OrderItem, OrderItemAdmin)
-admin.site.register(CreateOrder, CreateOrderAdmin)
 admin.site.register(Coin, CoinAdmin)
 admin.site.register(Type, TypeAdmin)
 admin.site.register(Page, PageAdmin)
