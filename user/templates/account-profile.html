@@ -1,243 +1,205 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
+{% load l10n %}
 {% load humanize %}
 
 {% block title %}
-<title>{{ page.title_seo }}</title>
+    <title>{{ page.title_seo }}</title>
 {% endblock %}
 
 {% block description %}
-<meta name="description" content="{{ page.description_seo }}">
+    <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
 
 {% load static %}
 {% block content %}
 
-<main class="main">
-    <section class="account">
-        <div class="hero-banner container">
-            <div class="hero-banner__bg">
-                <picture class="hero__bg-picture-dark">
-                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
-                            media="(min-width: 550px)">
-                    <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
-                    <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
-                </picture>
-                <picture class="hero__bg-picture-light">
-                    <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp"
-                            media="(min-width: 550px)">
-                    <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp">
-                    <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0" class="lazy">
-                </picture>
-            </div>
-            <div class="hero-banner__header">
-                <div class="hero-banner__page-address page-address">
+    <main class="main">
+        <section class="account">
+            <div class="hero-banner container">
+                <div class="hero-banner__bg">
+                    <picture class="hero__bg-picture-dark">
+                        <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                                media="(min-width: 550px)">
+                        <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                    </picture>
+                    <picture class="hero__bg-picture-light">
+                        <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp"
+                                media="(min-width: 550px)">
+                        <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0"
+                             class="lazy">
+                    </picture>
+                </div>
+                <div class="hero-banner__header">
+                    <div class="hero-banner__page-address page-address">
+                        <ul>
+                            <li>
+                                <a href="{% url 'core:index' %}">
+                                    {% trans "Home" %}
+                                </a>
+                            </li>
+                            <li>
+                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                    <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                </svg>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    {% trans "Profile" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'account_logout' %}" class="hero-banner__btn visible-on-tablet">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                            <path fill="#C8C9CA" fill-rule="evenodd"
+                                  d="M9.707 2.409C9 3.036 9 4.183 9 6.476v11.048c0 2.293 0 3.44.707 4.067.707.627 1.788.439 3.95.062l2.33-.406c2.394-.418 3.591-.627 4.302-1.505.711-.879.711-2.149.711-4.69V8.948c0-2.54 0-3.81-.71-4.689-.712-.878-1.91-1.087-4.304-1.504l-2.328-.407c-2.162-.377-3.243-.565-3.95.062ZM12 10.169c.414 0 .75.351.75.784v2.094c0 .433-.336.784-.75.784s-.75-.351-.75-.784v-2.094c0-.433.336-.784.75-.784Z"
+                                  clip-rule="evenodd"/>
+                            <path fill="#C8C9CA"
+                                  d="M7.547 4.5c-2.058.003-3.131.048-3.815.732C3 5.964 3 7.142 3 9.5v5c0 2.357 0 3.535.732 4.268.684.683 1.757.729 3.815.732-.047-.624-.047-1.344-.047-2.123V6.623c0-.78 0-1.5.047-2.123Z"/>
+                        </svg>
+                        {% trans "Log out" %}
+                    </a>
+                </div>
+                <div class="hero-banner__title-wrapper">
+                    <h1 class="hero-banner__title title">
+                        {% trans "My account" %}
+                    </h1>
+                    <h2 class="account-username">{{ user.username }}</h2>
+                </div>
+                <nav class="hero-banner__nav">
                     <ul>
                         <li>
-                            <a href="{% url 'core:index' %}">
-                                {% trans "Home" %}
+                            <a href="{% url 'user:account-liked' pk=user.pk %}">
+                                <img src="{% static 'img/icons/dollar.svg' %}" width="24" height="24" loading="lazy"
+                                     alt="">
+                                {% trans "Liked coins" %}
                             </a>
                         </li>
                         <li>
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
-                            </svg>
-                        </li>
-                        <li>
-                            <a href="#">
+                            <a href="{% url 'user:profile' pk=user.pk %}" class="current">
+                                <img src="{% static 'img/icons/profile.svg' %}" width="24" height="24" loading="lazy"
+                                     alt="">
                                 {% trans "Profile" %}
                             </a>
                         </li>
+                        <li class="hide-on-tablet">
+                            <a href="{% url 'account_logout' %}" class="hide-on-tablet">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                                    <path fill="#C8C9CA" fill-rule="evenodd"
+                                          d="M9.707 2.409C9 3.036 9 4.183 9 6.476v11.048c0 2.293 0 3.44.707 4.067.707.627 1.788.439 3.95.062l2.33-.406c2.394-.418 3.591-.627 4.302-1.505.711-.879.711-2.149.711-4.69V8.948c0-2.54 0-3.81-.71-4.689-.712-.878-1.91-1.087-4.304-1.504l-2.328-.407c-2.162-.377-3.243-.565-3.95.062ZM12 10.169c.414 0 .75.351.75.784v2.094c0 .433-.336.784-.75.784s-.75-.351-.75-.784v-2.094c0-.433.336-.784.75-.784Z"
+                                          clip-rule="evenodd"/>
+                                    <path fill="#C8C9CA"
+                                          d="M7.547 4.5c-2.058.003-3.131.048-3.815.732C3 5.964 3 7.142 3 9.5v5c0 2.357 0 3.535.732 4.268.684.683 1.757.729 3.815.732-.047-.624-.047-1.344-.047-2.123V6.623c0-.78 0-1.5.047-2.123Z"/>
+                                </svg>
+                                {% trans "Log out" %}
+                            </a>
+                        </li>
                     </ul>
-                </div>
-                <a href="{% url 'account_logout' %}" class="hero-banner__btn visible-on-tablet">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="#C8C9CA" fill-rule="evenodd" d="M9.707 2.409C9 3.036 9 4.183 9 6.476v11.048c0 2.293 0 3.44.707 4.067.707.627 1.788.439 3.95.062l2.33-.406c2.394-.418 3.591-.627 4.302-1.505.711-.879.711-2.149.711-4.69V8.948c0-2.54 0-3.81-.71-4.689-.712-.878-1.91-1.087-4.304-1.504l-2.328-.407c-2.162-.377-3.243-.565-3.95.062ZM12 10.169c.414 0 .75.351.75.784v2.094c0 .433-.336.784-.75.784s-.75-.351-.75-.784v-2.094c0-.433.336-.784.75-.784Z" clip-rule="evenodd"/><path fill="#C8C9CA" d="M7.547 4.5c-2.058.003-3.131.048-3.815.732C3 5.964 3 7.142 3 9.5v5c0 2.357 0 3.535.732 4.268.684.683 1.757.729 3.815.732-.047-.624-.047-1.344-.047-2.123V6.623c0-.78 0-1.5.047-2.123Z"/></svg>
-                    {% trans "Log out" %}
-                </a>
+                </nav>
             </div>
-            <h1 class="hero-banner__title title">
-                {% trans "My account" %}
-            </h1>
-            <nav class="hero-banner__nav">
-                <ul>
-                    <li>
-                        <a href="{% url 'user:account-liked' pk=user.pk %}">
-                            <img src="{% static 'img/icons/dollar.svg' %}" width="24" height="24" loading="lazy" alt="">
-                            {% trans "Liked coins" %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'user:profile' pk=user.pk %}" class="current">
-                            <img src="{% static 'img/icons/profile.svg' %}" width="24" height="24" loading="lazy"
-                                 alt="">
-                            {% trans "Profile" %}
-                        </a>
-                    </li>
-                    <li class="hide-on-tablet">
-                        <a href="{% url 'account_logout' %}" class="hide-on-tablet">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="#C8C9CA" fill-rule="evenodd" d="M9.707 2.409C9 3.036 9 4.183 9 6.476v11.048c0 2.293 0 3.44.707 4.067.707.627 1.788.439 3.95.062l2.33-.406c2.394-.418 3.591-.627 4.302-1.505.711-.879.711-2.149.711-4.69V8.948c0-2.54 0-3.81-.71-4.689-.712-.878-1.91-1.087-4.304-1.504l-2.328-.407c-2.162-.377-3.243-.565-3.95.062ZM12 10.169c.414 0 .75.351.75.784v2.094c0 .433-.336.784-.75.784s-.75-.351-.75-.784v-2.094c0-.433.336-.784.75-.784Z" clip-rule="evenodd"/><path fill="#C8C9CA" d="M7.547 4.5c-2.058.003-3.131.048-3.815.732C3 5.964 3 7.142 3 9.5v5c0 2.357 0 3.535.732 4.268.684.683 1.757.729 3.815.732-.047-.624-.047-1.344-.047-2.123V6.623c0-.78 0-1.5.047-2.123Z"/></svg>
-                            {% trans "Log out" %}
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="account__container container">
-            <div class="account__profile-table">
-                <div class="account__profile-table--wrapper scroll-wrapper">
-                    <table>
-                        <colgroup>
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>
-                                {% trans "Coin" %}
-                            </th>
-                            <th>
-                                {% trans "Link usage" %}
-                            </th>
-                            <th>
-                                {% trans "Finish at" %}
-                            </th>
-                            <th>
-                                {% trans "Type" %}
-                            </th>
-                            <!-- <th>
-                                {% trans "Votes" %}
-                            </th> -->
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for coin in orders_with_link_usage %}
-                        {% if order.type != 'Banner' %}
-                        <tr>
-                            <td>
-                                <div class="account__table-coin">
-                                    <div class="account__table-coin--logo">
-                                        <picture>
-                                            <source srcset="{{ coin.coin.photo_coin.url }}" type="image/webp">
-                                            <img src="{{ coin.coin.photo_coin.url }}" alt="" width="32" height="32"
-                                                 loading="lazy">
-                                        </picture>
-                                    </div>
-                                    <a href=""><b class="account__table-coin--name">
-                                        {{ coin.coin.coin_name }}</b></a>
-                                    <span class="account__table-coin--abbreviation">{{ coin.coin.coin_symbol }}</span>
-                                </div>
-                            </td>
-                            <td>
-                                <span>{% trans "Link usage" %}</span>
-                                {{ coin.coin.counter_link_usage }}
-                            </td>
-                            <td>
-                                <span>{% trans "Finish at" %}</span>
-                                {{ coin.date|last }}
-                            </td>
-                            <td>
-                                <span>{% trans "Type" %}</span>
-                                {% trans "Promote spot" %}
-                            </td>
-                            <!-- <td>
-                                <a {% if not user.is_authenticated %}href="#authorization-popup"{% endif %} class="{% if coin not in user.vote_coins.all %}canVote{% endif%} vote-btn btn {% if not user.is_authenticated %}open-popup{% endif %}" type="button" data-coin-pk="{{ coin.pk }}">
-                                    {% if coin not in user.vote_coins.all %}
-                                    <div class="arrow">
-                                        <svg width="10" height="14" viewBox="0 0 10 14">
-                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-to-up"></use>
-                                        </svg>
-                                    </div>
-                                    {% endif%}
-                                    {{ coin.votes }}
-                                </a>
-                            </td> -->
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                        </tbody>
-                        <tbody>
-                        {% for coin in orders %}
-                        {% if order.type != 'Banner' %}
-                        <tr>
-                            <td>
-                                <div class="account__table-coin">
-                                    <div class="account__table-coin--logo">
-                                        <picture>
-                                            <source srcset="{{ coin.coin.photo_coin.url }}" type="image/webp">
-                                            <img src="{{ coin.coin.photo_coin.url }}" alt="" width="32" height="32"
-                                                 loading="lazy">
-                                        </picture>
-                                    </div>
-                                    <a href=""><b class="account__table-coin--name">
-                                        {{ coin.coin.coin_name }}</b></a>
-                                    <span class="account__table-coin--abbreviation">{{ coin.coin.coin_symbol }}</span>
-                                </div>
-                            </td>
-                            <td>
-                                <span>{% trans "Link usage" %}</span>
-                                -
-                            </td>
-                            <td>
-                                <span>{% trans "Finish at" %}</span>
-                                {{ coin.date|last }}
-                            </td>
-                            <td>
-                                <span>{% trans "Type" %}</span>
-                                {% trans "Promote spot" %}
-                            </td>
-                            <!-- <td>
-                                <a {% if not user.is_authenticated %}href="#authorization-popup"{% endif %} class="{% if coin not in user.vote_coins.all %}canVote{% endif%} vote-btn btn {% if not user.is_authenticated %}open-popup{% endif %}" type="button" data-coin-pk="{{ coin.pk }}">
-                                    {% if coin not in user.vote_coins.all %}
-                                    <div class="arrow">
-                                        <svg width="10" height="14" viewBox="0 0 10 14">
-                                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-to-up"></use>
-                                        </svg>
-                                    </div>
-                                    {% endif%}
-                                    {{ coin.votes }}
-                                </a>
-                            </td> -->
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="account__footer table-footer">
-                {% if is_paginated %}
-                <div class="table-footer__pagination pagination hide-on-tablet">
-                    {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}" class="pagination__arrow _prev" title="Prev">
-                        <svg width="16" height="16" viewBox="0 0 16 16">
-                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
-                        </svg>
-                    </a>
-                    {% endif %}
-                    <div class="pagination__list">
-                        {% for p in page_obj.paginator.page_range %}
-                        <a href="?page={{ p }}">
-                            {{ p }}
-                        </a>
-                        {% endfor %}
+            <div class="account__container container">
+                <div class="account__profile-table">
+                    <div class="account__profile-table--wrapper scroll-wrapper">
+                        <table>
+                            <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>
+                                    {% trans "Coin" %}
+                                </th>
+                                <th>
+                                    {% trans "Link usage" %}
+                                </th>
+                                <th>
+                                    {% trans "Start at" %}
+                                </th>
+                                <th>
+                                    {% trans "Finish at" %}
+                                </th>
+                                <th>
+                                    {% trans "Type" %}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <div class="account__table-coin">
+                                            <div class="account__table-coin--logo">
+                                                <picture>
+                                                    <source srcset="{{ order.coin.photo_coin.url }}" type="image/webp">
+                                                    <img src="{{ order.coin.photo_coin.url }}" alt="" width="32"
+                                                         height="32"
+                                                         loading="lazy">
+                                                </picture>
+                                            </div>
+                                            <a href="{{ order.coin.get_absolute_url }}"><b
+                                                    class="account__table-coin--name">
+                                                {{ order.coin.coin_name }}</b></a>
+                                            <span class="account__table-coin--abbreviation">{{ order.coin.coin_symbol }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{ order.coin.counter_link_usage }}
+                                    </td>
+                                    <td>
+                                        {{ order.start_at|date:"d F Y" }}
+                                    </td>
+                                    <td>
+                                        {{ order.finish_at|date:"d F Y" }}
+                                    </td>
+                                    <td>
+                                        {{ order.type }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}  " class="pagination__arrow _next" title="Next">
-                        <svg width="16" height="16" viewBox="0 0 16 16">
-                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
-                        </svg>
-                    </a>
+                </div>
+                <div class="account__footer table-footer">
+                    {% if is_paginated %}
+                        <div class="table-footer__pagination pagination hide-on-tablet">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}" class="pagination__arrow _prev"
+                                   title="Prev">
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-prev"></use>
+                                    </svg>
+                                </a>
+                            {% endif %}
+                            <div class="pagination__list">
+                                {% for p in page_obj.paginator.page_range %}
+                                    <a href="?page={{ p }}">
+                                        {{ p }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}  " class="pagination__arrow _next"
+                                   title="Next">
+                                    <svg width="16" height="16" viewBox="0 0 16 16">
+                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                                    </svg>
+                                </a>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 </div>
-                {% endif %}
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 
 {% endblock %}

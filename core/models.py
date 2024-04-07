@@ -9,7 +9,6 @@ from django.dispatch import receiver
 from django.urls import reverse
 from slugify import slugify
 from django.utils import timezone
-from django.db.models import Count, Q, When, Case, BooleanField
 
 
 class NetworkChain(models.Model):
@@ -307,6 +306,31 @@ class AdvertisingItem(models.Model):
 
     def __str__(self):
         return f"Сообщение от {self.email}"
+
+
+class Order(models.Model):
+    BANNER = 'Banner'
+    PROMOTED = 'Promoted'
+    TYPE_CHOICES = [
+        (BANNER, 'Banner'),
+        (PROMOTED, 'Promoted'),
+    ]
+
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Пользователь')
+    coin = models.ForeignKey(Coin, on_delete=models.CASCADE, null=False, blank=False, verbose_name='Монета')
+
+    start_at = models.DateField(null=True, blank=True, verbose_name='Дата начала продвижения')
+    finish_at = models.DateField(null=True, blank=True, verbose_name='Дата окончания продвижения')
+
+    type = models.CharField(
+        max_length=20,
+        choices=TYPE_CHOICES,
+        default=BANNER,
+        verbose_name='Тип продвижения'
+    )
+
+    def __str__(self):
+        return f'{self.user}-{self.coin}-{self.type}'
 
 
 class Listing(models.Model):

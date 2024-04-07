@@ -272,7 +272,7 @@
                       fill="#3476F5"/>
             </svg>
             <p class="notification-vote-text">
-                {% trans "Try again in 12 hours" %}
+                {% blocktrans with hours=time_until_next_vote %}Try again in {{ hours }} hours{% endblocktrans %}
             </p>
         </div>
         <svg class="close-notification" width="10" height="11" fill="none" xmlns="http://www.w3.org/2000/svg">

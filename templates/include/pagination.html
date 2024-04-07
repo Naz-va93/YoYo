@@ -35,20 +35,20 @@
 
         console.log(input.val());
 
-        sendFormAjax($(this).closest('section').find('form'));
+        sendFormAjax($(this).closest('section').find('form'), '{{ listing.slug }}');
     });
 
     $('.pagination__arrow._next').on('click', function(e) {
         var input = $(this).closest('section').find('input.page');
         input.val(parseInt(input.val()) + 1);
 
-        sendFormAjax($(this).closest('section').find('form'));
+        sendFormAjax($(this).closest('section').find('form'), '{{ listing.slug }}');
     });
 
     $('.pagination__arrow._prev').on('click', function(e) {
         var input = $(this).closest('section').find('input.page');
         input.val(parseInt(input.val()) - 1);
 
-        sendFormAjax($(this).closest('section').find('form'));
+        sendFormAjax($(this).closest('section').find('form'), '{{ listing.slug }}');
     });
 </script>

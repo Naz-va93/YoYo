@@ -91,6 +91,12 @@ class AdvertisingItemAdmin(admin.ModelAdmin):
     search_fields = ('id', 'name', 'email')
 
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'coin', 'type')
+    list_display_links = ('id', 'user', 'coin', 'type')
+    search_fields = ('id', 'user', 'coin', 'type')
+
+
 class CartColdAdmin(admin.ModelAdmin):
     inlines = [OrderInline]
     list_display = ('id',)
@@ -109,6 +115,7 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(NetworkChain, NetworkChainAdmin)
 admin.site.register(ListingPlatform, ListingPlatformAdmin)
 admin.site.register(AdvertisingItem, AdvertisingItemAdmin)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(Social)
 admin.site.register(Listing)
 admin.site.register(Setting)

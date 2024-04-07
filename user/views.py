@@ -2,7 +2,7 @@ from django.db.models import Count, Q
 from django.http import Http404
 from django.views.generic import ListView
 
-from core.models import Page, OrderItem, Cart, Coin, CreateOrder, CartCold, Listing
+from core.models import Page, OrderItem, Cart, Coin, CreateOrder, CartCold, Listing, Order
 from core.views import get_sorted_mixin
 
 
@@ -15,28 +15,7 @@ class ProfileUser(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProfileUser, self).get_context_data(**kwargs)
         context['page'] = Page.objects.get(slug='profile')
-        list_with_link_usage = []
-        for query in CreateOrder.objects.filter(user=self.kwargs['pk'], status=True).order_by('pk'):
-            if query.cart_cold:
-                item = OrderItem.objects.filter(cart_cold=query.cart_cold.pk)
-                for i in item:
-                    if i.type != 'Banner':
-                        list_with_link_usage.append(i)
-
-        coin_list = []
-        for query in CreateOrder.objects.filter(Q(user=self.kwargs['pk']) & (Q(status=None) | Q(status=False))).order_by('pk'):
-            if query.cart_cold:
-                item = OrderItem.objects.filter(cart_cold=query.cart_cold.pk)
-                for i in item:
-                    if i.type != 'Banner':
-                        coin_list.append(i)
-
-        context['orders'] = coin_list
-        context['orders_with_link_usage'] = list_with_link_usage
-        try:
-            context['create_order'] = CartCold.objects.filter(user=self.kwargs['pk'])
-        except:
-            context['create_order'] = ''
+        context['orders'] = Order.objects.filter(user__pk=self.kwargs['pk']).select_related('coin')
         return context
 
 

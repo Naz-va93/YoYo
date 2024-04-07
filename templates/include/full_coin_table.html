@@ -177,7 +177,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="sortDirection" value="asc">
                         <input type="hidden" name="sortName" value="price_24h">
-                        <button class="sort_ajax">
+                        <button class="sort_ajax {{ listing.slug }}-sort">
                             24H
                             <svg width="10" height="14" viewBox="0 0 10 14">
                                 <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
@@ -187,7 +187,7 @@
                     <th>
                         <input type="hidden" name="sortDirection" value="asc">
                         <input type="hidden" name="sortName" value="price">
-                        <button class="sort_ajax">
+                        <button class="sort_ajax {{ listing.slug }}-sort">
                             {% trans "Price" %}
                             <svg width="10" height="14" viewBox="0 0 10 14">
                                 <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
@@ -197,7 +197,7 @@
                     <th>
                         <input type="hidden" name="sortDirection" value="asc">
                         <input type="hidden" name="sortName" value="market_cap">
-                        <button class="sort_ajax">
+                        <button class="sort_ajax {{ listing.slug }}-sort">
                             {% trans "Marketcap" %}
                             <svg width="10" height="14" viewBox="0 0 10 14">
                                 <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
@@ -208,7 +208,7 @@
                         <th>
                             <input type="hidden" name="sortDirection" value="asc">
                             <input type="hidden" name="sortName" value="publish_date">
-                            <button class="sort_ajax">
+                            <button class="sort_ajax {{ listing.slug }}-sort">
                                 {% trans "Added" %}
                                 <svg width="10" height="14" viewBox="0 0 10 14">
                                     <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
@@ -219,7 +219,7 @@
                     <th>
                         <input type="hidden" name="sortDirection" value="asc">
                         <input type="hidden" name="sortName" value="votes">
-                        <button class="sort_ajax">
+                        <button class="sort_ajax {{ listing.slug }}-sort">
                             {% trans "Votes" %}
                             <svg width="10" height="14" viewBox="0 0 10 14">
                                 <use xlink:href="{% static 'img/sprites.svg' %}#arrows-up-down"></use>
@@ -268,35 +268,8 @@
     });
 </script>
 <script type="text/javascript">
-    function sendFormAjax(form) {
-        var actionUrl = form.attr('action');
-
-        $.ajax({
-            type: "GET",
-            url: actionUrl,
-            data: form.serialize(),
-            success: function (data) {
-                console.log(data);
-                form.parent().find('.coin-table-{{listing.slug}} table tbody').empty();
-                form.parent().find('.coin-table-{{listing.slug}} table tbody').append(data.table);
-
-                if (data.pagination) {
-                    form.parent().find('.best__footer').empty();
-                    form.parent().find('.best__footer').append(data.pagination);
-                }
-                updateListenersVoteCoinButtons();
-            }
-        });
-    }
-
-    $('form.filter input').change(function (e) {
-        e.preventDefault();
-
-        sendFormAjax($(this).closest('form'));
-    });
-</script>
-<script type="text/javascript">
-    $('.sort_ajax').on('click', function (e) {
+    $('.sort_ajax.{{ listing.slug }}-sort').on('click', function (e) {
+        console.log('{{ listing.slug }}');
         var sort_name = $(this).parent().find('input[name="sortName"]').val();
         var name = $(this).closest('section').find('.sort_name');
         var direction = $(this).closest('section').find('.sort_direction');
@@ -311,7 +284,35 @@
             direction.val('asc');
         }
 
-        sendFormAjax($(this).closest('section').find('form'));
+        sendFormAjax($(this).closest('section').find('form'), '{{ listing.slug }}');
+    });
+</script>
+<script type="text/javascript">
+    function sendFormAjax(form, slug) {
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+            type: "GET",
+            url: actionUrl,
+            data: form.serialize(),
+            success: function (data) {
+                console.log(data);
+                form.parent().find('.coin-table-' + slug + ' table tbody').empty();
+                form.parent().find('.coin-table-' + slug + ' table tbody').append(data.table);
+
+                if (data.pagination) {
+                    form.parent().find('.best__footer').empty();
+                    form.parent().find('.best__footer').append(data.pagination);
+                }
+                updateListenersVoteCoinButtons();
+            }
+        });
+    }
+
+    $('form.filter input').change(function (e) {
+        e.preventDefault();
+
+        sendFormAjax($(this).closest('form'), '{{ listing.slug }}');
     });
 </script>
 {% if is_paginated %}

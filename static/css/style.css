@@ -5381,6 +5381,21 @@ input[hidden] {
     background-color: #3C86FF;
 }
 
+.account__table-coin--logo picture img {
+    border-radius: 50px;
+}
+
+.hero-banner__title-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 25px
+}
+
+.account-username {
+    font-size: 20px;
+    font-style: italic;
+}
+
 @media (max-width: 991px) {
     .header__nav--list > li > a .expand-contact {
         right: 7px;

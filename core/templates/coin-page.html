@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load l10n %}
 
 {% block title %}
     <title>{{ page.title_seo }}</title>
@@ -179,13 +180,13 @@
 							<span>
 								{% trans "Marketcap" %}
 							</span>
-                            <b>{{ coin.market_cap }}</b>
+                            <b>${{ coin.get_market_cap }}</b>
                         </li>
                         <li class="coin__min-info--element">
 							<span>
 								{% trans "Price" %}
 							</span>
-                            <b>${{ coin.price }}</b>
+                            <b>${{ coin.get_price }}</b>
                         </li>
                         <li class="coin__min-info--element">
 							<span>
@@ -202,14 +203,14 @@
                                     <svg width="16" height="16" viewBox="0 0 16 16">
                                         <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
                                     </svg>
-                                    {{ coin.price_24h }}%
+                                    {{ coin.price_24h|floatformat:2 }}%
                                 </b>
                             {% else %}
                                 <b class="danger-value">
                                     <svg width="16" height="16" viewBox="0 0 16 16">
                                         <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
                                     </svg>
-                                    {{ coin.price_24h }}%
+                                    {{ coin.price_24h|floatformat:2 }}%
                                 </b>
                             {% endif %}
                         </li>

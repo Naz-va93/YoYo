@@ -33,14 +33,14 @@
                 <svg width="16" height="16" viewBox="0 0 16 16">
                     <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
                 </svg>
-                {{ coin.price_24h }}%
+                {{ coin.price_24h|floatformat:2 }}%
             </b>
         {% elif coin.price_24h < 0 %}
             <b class="table-coins__value danger-value">
                 <svg width="16" height="16" viewBox="0 0 16 16">
                     <use xlink:href="{% static 'img/sprites.svg' %}#arrow-drop"></use>
                 </svg>
-                {{ coin.price_24h }}%
+                {{ coin.price_24h|floatformat:2 }}%
             </b>
         {% else %}
             ---
@@ -121,7 +121,7 @@
                 url: actionUrl,
                 data: form.serialize(),
                 success: function (data) {
-                    // sendFormAjax($("#{{listing.slug}}-form"));
+                    // sendFormAjax($("#{{listing.slug}}-form"), '{{listing.slug}}');
                 }
             });
         });

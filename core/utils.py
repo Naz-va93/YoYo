@@ -41,7 +41,7 @@ def increment_counter(request, pk):
 
 def increment_metrik(request, slug):
     coin = get_object_or_404(Coin, slug=slug)
-    if coin.counter_link_usage:
+    if coin.counter_link_usage or coin.counter_link_usage == 0:
         coin.counter_link_usage += 1
     else:
         coin.counter_link_usage = 0
@@ -226,13 +226,38 @@ def get_text_by_number(number):
         return f'{round(number / 1000000, 1)} Million'
 
     if number <= 0.001:
-        import math
-        dynamic_number = number
-        exponent = int(math.log10(dynamic_number))
-        coefficient = dynamic_number / 10**(exponent - 1)
-        formatted_number = f"{round(coefficient, 1)} * 10^{exponent - 1}"
-        return formatted_number
-    return round(number, 1)
+        subscript_dict = {
+            '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
+            '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉'
+        }
+
+        rounded_number = f"{round(number, 7):.7f}"
+        if rounded_number.replace('0', '') == '.':
+            full_number = f"{number:.1000f}".rstrip('0')
+            if full_number.replace('0', '') == '.':
+                return number
+
+            cnt_0_fractional = 0
+            while full_number.split('.')[1][cnt_0_fractional] == '0':
+                cnt_0_fractional += 1
+
+            number_part = full_number.split('.')[1][cnt_0_fractional-1:]
+            nulls_part = f"0{''.join(subscript_dict[char] for char in str(cnt_0_fractional-1) if char in subscript_dict)}"
+            return f"0.{nulls_part}{''.join(number_part[:6-(len(nulls_part)-1)])}".rstrip('0')
+
+        else:
+            cnt_0_fractional = 0
+            while rounded_number.split('.')[1][cnt_0_fractional] == '0':
+                cnt_0_fractional += 1
+
+            if cnt_0_fractional > 3:
+                number_part = rounded_number.split('.')[1][cnt_0_fractional - 1:]
+                nulls_part = f"0{''.join(subscript_dict[char] for char in str(cnt_0_fractional - 1) if char in subscript_dict)}"
+                return f"0.{nulls_part}{''.join(number_part)}"
+
+            return f"{float(rounded_number):.5f}".rstrip('0')
+
+    return round(number, 3 + (1 if number < 0.01 else 0))
 
 
 def num_of_zeros(n):
