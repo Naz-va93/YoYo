@@ -18,7 +18,7 @@
 
     <main class="main">
         <section class="account">
-            <div class="hero-banner container">
+            <div class="hero-banner hero-banner-profile container">
                 <div class="hero-banner__bg">
                     <picture class="hero__bg-picture-dark">
                         <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
@@ -152,16 +152,36 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{ order.coin.counter_link_usage }}
+                                        <div class="account-table-td-h">
+                                            {% trans "Link usage" %}
+                                        </div>
+                                        <div>
+                                            {{ order.coin.counter_link_usage }}
+                                        </div>
                                     </td>
                                     <td>
-                                        {{ order.start_at|date:"d F Y" }}
+                                        <div class="account-table-td-h">
+                                            {% trans "Start at" %}
+                                        </div>
+                                        <div>
+                                            {{ order.start_at|date:"d F Y" }}
+                                        </div>
                                     </td>
                                     <td>
-                                        {{ order.finish_at|date:"d F Y" }}
+                                        <div class="account-table-td-h">
+                                            {% trans "Finish at" %}
+                                        </div>
+                                        <div>
+                                            {{ order.finish_at|date:"d F Y" }}
+                                        </div>
                                     </td>
                                     <td>
-                                        {{ order.type }}
+                                        <div class="account-table-td-h">
+                                            {% trans "Type" %}
+                                        </div>
+                                        <div>
+                                            {{ order.type }}
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}

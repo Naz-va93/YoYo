@@ -257,7 +257,7 @@ def get_text_by_number(number):
 
             return f"{float(rounded_number):.5f}".rstrip('0')
 
-    return round(number, 3 + (1 if number < 0.01 else 0))
+    return str(round(number, 3 + (1 if number < 0.01 else 0)))
 
 
 def num_of_zeros(n):
