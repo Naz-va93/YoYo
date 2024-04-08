@@ -61,9 +61,12 @@
                         {% trans "Log out" %}
                     </a>
                 </div>
-                <h1 class="hero-banner__title title">
-                    {% trans "My account" %}
-                </h1>
+                <div class="hero-banner__title-wrapper">
+                    <h1 class="hero-banner__title title">
+                        {% trans "My account" %}
+                    </h1>
+                    <h2 class="account-username">{{ user.username }}</h2>
+                </div>
                 <nav class="hero-banner__nav">
                     <ul>
                         <li>
