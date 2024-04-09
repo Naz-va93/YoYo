@@ -1,2 +1,3 @@
 coinjojo/settings.py
 venv
+.env

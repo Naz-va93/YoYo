@@ -12,7 +12,7 @@ from core.models import Coin
 load_dotenv()
 
 
-def update_price():
+def update_price_change_24h():
     headers = {
         'x-access-token': os.getenv('COINRANKING_API_KEY')
     }
@@ -25,26 +25,20 @@ def update_price():
             if coin.is_api and coin.uuid:
                 print(f"https://api.coinranking.com/v2/coin/{coin.uuid}")
 
-                response = requests.request(
+                response_price = requests.request(
                     "GET",
-                    f"https://api.coinranking.com/v2/coin/{coin.uuid}",
+                    f"https://api.coinranking.com/v2/coin/{coin.uuid}/history",
                     headers=headers
                 )
 
+                data_price_24 = json.loads(response_price.text)
 
-                data = json.loads(response.text)
-                print(f"https://api.coinranking.com/v2/coin/{coin.uuid}")
-                print(data)
-
-                if data['status'] == 'fail':
-                    continue
-                if data['data']['coin']['price'] == None:
+                if data_price_24['status'] == 'fail':
                     continue
 
-                coin.price = float(data['data']['coin']['price'])
-                coin.coin_name = data['data']['coin']['name']
-                coin.coin_symbol = data['data']['coin']['symbol']
-                coin.market_cap = round(float(data['data']['coin']['marketCap']), 2)
+                if data_price_24['data']['change'] != None:
+                    coin.price_24h = round(float(data_price_24['data']['change']), 2)
+
                 coin.save()
         return 'Done'
     else:
@@ -53,4 +47,4 @@ def update_price():
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        update_price()
+        update_price_change_24h()
