@@ -428,7 +428,7 @@ class SearchList(ListView):
         query = self.request.GET.get('q')
         if query:
             results = Coin.objects.filter(coin_name__icontains=query, is_moderate=True).annotate(
-                counter_like=Count('vote'))
+                counter_like=Count('votes'))
         else:
             results = []
         return results
@@ -436,6 +436,7 @@ class SearchList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SearchList, self).get_context_data(**kwargs)
         context['page'] = Page.objects.get(slug='search')
+        context['listing'] = Listing.objects.get(slug='new-listings')
         return context
 
 
