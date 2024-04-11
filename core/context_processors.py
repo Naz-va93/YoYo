@@ -22,7 +22,7 @@ def context_controller(request):
 
 
 def time_until_next_vote(request):
-    result = None
+    result = 12
     if request.user.is_authenticated:
         user = User.objects.get(pk=request.user.pk)
         if user.first_vote:
