@@ -26,10 +26,6 @@
     padding-top: 41px
 }
 
-.promoted__adv {
-    padding-top: 60px
-}
-
 .promoted__adv img {
     -o-object-fit: cover;
     object-fit: cover;
@@ -40,7 +36,7 @@
 .promoted__info {
     display: grid;
     gap: 8px;
-    padding-top: 8px
+    padding-top: 41px
 }
 
 .promoted__info-card {
@@ -1950,6 +1946,7 @@
     .account-table-td-h {
         display: none
     }
+
     .order__done--text, .text-section__container {
         font-size: 1rem
     }
@@ -1960,7 +1957,7 @@
 
     .promoted__info {
         gap: 20px;
-        padding-top: 20px
+        padding-top: 41px
     }
 
     .contact-us__content, .statistics__content {
@@ -2169,7 +2166,7 @@
 }
 
 .advertising__title {
-    font-size: 26px !important;
+    font-size: 20px !important;
     text-align: center;
     margin-bottom: 30px
 }
@@ -2178,7 +2175,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 90px;
+    top: 97px;
     display: block;
     width: 100%;
     height: 2px;
@@ -2648,6 +2645,39 @@
     background-color: #3c86ff
 }
 
+.table-coins_second-th, .table-coins_second-td {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    padding-left: 5px;
+}
+
+.table-coins_second-td.scroll {
+    background-color: #11141c
+}
+
+.table-coins_second-th.scroll {
+    background-color: #050810
+}
+
+.table-coins_second-th, .table-coins_second-td {
+    transition: border-top 0.2s, box-shadow 0.2s, background-color 0.2s !important;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto -60px auto;
+    max-width: 895px;
+}
+
+.banner img {
+    max-width: 895px;
+    max-height: 100px;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
 @media (max-width: 991px) {
     .settings-list, .settings-list-wrapper {
         background-color: #11141c;
@@ -2736,6 +2766,12 @@
     .languages-list {
         position: static;
         display: none !important
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        margin-bottom: -29px;
     }
 }
 

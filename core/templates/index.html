@@ -13,6 +13,15 @@
     <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
+{% block head %}
+    <meta property="og:title" content="{{ page.title|striptags|truncatechars:50 }}"/>
+    <meta property="og:description"
+          content="{{ page.description|striptags|truncatechars:160 }}"/>
+    <meta property="og:image" content="{% if page.image_url %}{{ page.image_url.url }}{% endif %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:type" content="website"/>
+{% endblock %}
+
 {% block content %}
     <main class="main">
         <section class="hero container">
@@ -69,6 +78,21 @@
                              height="202">
                     </picture>
                 </div>
+            </div>
+        </section>
+
+        <section class="banner-section">
+            <div class="container">
+                {% if banner_under_header %}
+                    <div class="banner">
+                        <a href="{{ banner_under_header.url }}" target="_blank" rel="noopener noreferrer">
+                            <picture>
+                                <source data-srcset="{{ banner_under_header.photo.url }}" type="image/webp">
+                                <img class="lazy" data-src="{{ banner_under_header.photo.url }}" alt="Banner">
+                            </picture>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </section>
 

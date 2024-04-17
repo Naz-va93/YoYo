@@ -9,7 +9,8 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 
 from core.forms import CreateCoin, CaptchaForm
-from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing, AdvertisingItem
+from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing, AdvertisingItem, \
+    Banner
 from core.utils import increment_metrik, increment_counter, get_text_by_number
 
 
@@ -106,6 +107,9 @@ def index(request):
         'promoted_listing': Listing.objects.get(slug='promoted'),
         'best_listing': Listing.objects.get(slug='today-s-best'),
     }
+
+    banners = Banner.objects.filter(location__startswith='index', show=True)
+    context['banner_under_header'] = banners.filter(location='index_under_header').last()
 
     total_crypto = [coin for coin in Coin.objects.all()]
     total_trading = [coin.market_cap for coin in total_crypto]

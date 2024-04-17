@@ -107,6 +107,12 @@ class CartColdAdmin(admin.ModelAdmin):
     exclude = ('live_cart',)
 
 
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'location', 'show')
+    list_display_links = ('id', 'location')
+    list_editable = ('show',)
+
+
 admin.site.register(Coin, CoinAdmin)
 admin.site.register(Type, TypeAdmin)
 admin.site.register(Page, PageAdmin)
@@ -115,6 +121,7 @@ admin.site.register(NetworkChain, NetworkChainAdmin)
 admin.site.register(ListingPlatform, ListingPlatformAdmin)
 admin.site.register(AdvertisingItem, AdvertisingItemAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Banner, BannerAdmin)
 admin.site.register(Social)
 admin.site.register(Listing)
 admin.site.register(Setting)

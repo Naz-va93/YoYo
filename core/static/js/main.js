@@ -1454,8 +1454,6 @@ function handleVoteClick(e) {
             })
     } else {
         if (!button.classList.contains('open-popup')) {
-            console.log(1)
-            console.log(button)
             createNotification(false);
         }
     }
@@ -1509,6 +1507,29 @@ function createNotification(isVoted) {
         }, 5000);
     }, 50);
 }
+
+// =-=-=-=-=-=-=-=-=-=-=-=- <table coins scroll> -=-=-=-=-=-=-=-=-=-=-=-=
+
+var container = document.querySelector('.best__table--wrapper.scroll-wrapper');
+if (container) {
+    container.addEventListener('scroll', function () {
+        var thSecond = document.querySelector('.table-coins_second-th');
+        var tdSecond = document.querySelectorAll('.table-coins_second-td');
+        if (container.scrollLeft > 0) {
+            thSecond.classList.add('scroll');
+            tdSecond.forEach(function (element) {
+                element.classList.add('scroll');
+            });
+        } else {
+            thSecond.classList.remove('scroll');
+            tdSecond.forEach(function (element) {
+                element.classList.remove('scroll');
+            });
+        }
+    });
+}
+
+// =-=-=-=-=-=-=-=-=-=-=-=- </table coins scroll> -=-=-=-=-=-=-=-=-=-=-=-=
 
 // =-=-=-=-=-=-=-=-=-=-=-=- <lozyload> -=-=-=-=-=-=-=-=-=-=-=-=
 

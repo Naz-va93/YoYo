@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-07 21:01+0300\n"
+"POT-Creation-Date: 2024-04-17 22:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,174 +352,174 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 
-#: .\core\templates\add-coin.html:37 .\core\templates\coin-page.html:37
-#: .\core\templates\new-listing.html:21 .\core\templates\privacy-police.html:46
-#: .\core\templates\promoted-list.html:21
+#: .\core\templates\add-coin.html:45 .\core\templates\coin-page.html:46
+#: .\core\templates\new-listing.html:30 .\core\templates\privacy-police.html:54
+#: .\core\templates\promoted-list.html:30
 #: .\order\templates\order-lookup.html:31
 #: .\user\templates\account-liked-coins.html:38
 #: .\user\templates\account-profile.html:42
 msgid "Home"
 msgstr ""
 
-#: .\core\templates\add-coin.html:47 .\templates\include\_header.html:234
+#: .\core\templates\add-coin.html:55 .\templates\include\_header.html:234
 msgid "Add coin"
 msgstr ""
 
-#: .\core\templates\add-coin.html:53
+#: .\core\templates\add-coin.html:61
 msgid "Add Your Coin"
 msgstr ""
 
-#: .\core\templates\add-coin.html:78
+#: .\core\templates\add-coin.html:86
 msgid "Add coin image"
 msgstr ""
 
-#: .\core\templates\add-coin.html:86
+#: .\core\templates\add-coin.html:94
 msgid "Coin Name"
 msgstr ""
 
-#: .\core\templates\add-coin.html:90
+#: .\core\templates\add-coin.html:98
 msgid "Coin Symbol"
 msgstr ""
 
-#: .\core\templates\add-coin.html:94
+#: .\core\templates\add-coin.html:102
 msgid "Network/Chain"
 msgstr ""
 
-#: .\core\templates\add-coin.html:109 .\core\templates\coin-page.html:193
+#: .\core\templates\add-coin.html:117 .\core\templates\coin-page.html:202
 msgid "Launch Date"
 msgstr ""
 
-#: .\core\templates\add-coin.html:116
+#: .\core\templates\add-coin.html:124
 msgid "Project in presale phase?"
 msgstr ""
 
-#: .\core\templates\add-coin.html:120
+#: .\core\templates\add-coin.html:128
 #: .\venv\Lib\site-packages\django\forms\widgets.py:795
 msgid "Yes"
 msgstr ""
 
-#: .\core\templates\add-coin.html:124
+#: .\core\templates\add-coin.html:132
 #: .\venv\Lib\site-packages\django\forms\widgets.py:796
 msgid "No"
 msgstr ""
 
-#: .\core\templates\add-coin.html:132
+#: .\core\templates\add-coin.html:140
 msgid "Listings Platform"
 msgstr ""
 
-#: .\core\templates\add-coin.html:147
+#: .\core\templates\add-coin.html:155
 msgid "Listing Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:152 .\core\templates\promoted-list.html:155
-#: .\core\templates\promoted-list.html:267
+#: .\core\templates\add-coin.html:160 .\core\templates\promoted-list.html:164
+#: .\core\templates\promoted-list.html:276
 #: .\templates\include\full_coin_table.html:65
 #: .\templates\include\full_coin_table.html:171
 msgid "Category"
 msgstr ""
 
-#: .\core\templates\add-coin.html:167
+#: .\core\templates\add-coin.html:175
 msgid "Contract Address"
 msgstr ""
 
-#: .\core\templates\add-coin.html:171
+#: .\core\templates\add-coin.html:179
 msgid "Coin Description"
 msgstr ""
 
-#: .\core\templates\add-coin.html:180
+#: .\core\templates\add-coin.html:188
 msgid "Website Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:185
+#: .\core\templates\add-coin.html:193
 msgid "Twitter Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:189
+#: .\core\templates\add-coin.html:197
 msgid "Telegram Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:193
+#: .\core\templates\add-coin.html:201
 msgid "Discord Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:197
+#: .\core\templates\add-coin.html:205
 msgid "Telegram Contact"
 msgstr ""
 
-#: .\core\templates\add-coin.html:202
+#: .\core\templates\add-coin.html:210
 msgid "Reddit Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:208 .\templates\include\_footer.html:139
-#: .\templates\include\_footer.html:253
+#: .\core\templates\add-coin.html:216 .\templates\include\_footer.html:137
+#: .\templates\include\_footer.html:251
 msgid "Send"
 msgstr ""
 
-#: .\core\templates\coin-page.html:47
+#: .\core\templates\coin-page.html:56
 msgid "Coin page"
 msgstr ""
 
-#: .\core\templates\coin-page.html:122
+#: .\core\templates\coin-page.html:131
 msgid "Website"
 msgstr ""
 
-#: .\core\templates\coin-page.html:132
+#: .\core\templates\coin-page.html:141
 msgid "Twitter"
 msgstr ""
 
-#: .\core\templates\coin-page.html:142
+#: .\core\templates\coin-page.html:151
 msgid "Telegram"
 msgstr ""
 
-#: .\core\templates\coin-page.html:152
+#: .\core\templates\coin-page.html:161
 msgid "Discord"
 msgstr ""
 
-#: .\core\templates\coin-page.html:170
+#: .\core\templates\coin-page.html:179
 msgid "Description"
 msgstr ""
 
-#: .\core\templates\coin-page.html:181 .\core\templates\promoted-list.html:293
+#: .\core\templates\coin-page.html:190 .\core\templates\promoted-list.html:302
 #: .\templates\include\full_coin_table.html:201
 msgid "Marketcap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:187 .\core\templates\promoted-list.html:307
+#: .\core\templates\coin-page.html:196 .\core\templates\promoted-list.html:316
 #: .\order\templates\order-lookup.html:154 .\order\templates\promote.html:298
 #: .\templates\include\full_coin_table.html:191
 msgid "Price"
 msgstr ""
 
-#: .\core\templates\index.html:109 .\templates\include\_header.html:43
+#: .\core\templates\index.html:133 .\templates\include\_header.html:43
 msgid "New Listings"
 msgstr ""
 
-#: .\core\templates\index.html:144
+#: .\core\templates\index.html:168
 msgid "Top today"
 msgstr ""
 
-#: .\core\templates\index.html:193
+#: .\core\templates\index.html:217
 msgid "Top all time"
 msgstr ""
 
-#: .\core\templates\index.html:259
+#: .\core\templates\index.html:283
 msgid "Cryptocurrencies"
 msgstr ""
 
-#: .\core\templates\index.html:267 .\core\templates\promoted-list.html:321
+#: .\core\templates\index.html:291 .\core\templates\promoted-list.html:330
 #: .\templates\include\full_coin_table.html:223
 msgid "Votes"
 msgstr ""
 
-#: .\core\templates\index.html:275
+#: .\core\templates\index.html:299
 msgid "Total trading volume"
 msgstr ""
 
-#: .\core\templates\index.html:283
+#: .\core\templates\index.html:307
 msgid "Total users on platform"
 msgstr ""
 
-#: .\core\templates\new-listing.html:31 .\core\templates\promoted-list.html:31
+#: .\core\templates\new-listing.html:40 .\core\templates\promoted-list.html:40
 msgid "Coin List"
 msgstr ""
 
@@ -527,50 +527,51 @@ msgstr ""
 msgid "OpenID Sign In"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:102
+#: .\core\templates\promoted-list.html:111
 #: .\templates\include\full_coin_table.html:22
 msgid "Filter"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:112
-#: .\core\templates\promoted-list.html:118
+#: .\core\templates\promoted-list.html:121
+#: .\core\templates\promoted-list.html:127
 msgid "Todays's Best"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:125
-#: .\core\templates\promoted-list.html:131 .\templates\include\_header.html:59
+#: .\core\templates\promoted-list.html:134
+#: .\core\templates\promoted-list.html:140 .\templates\include\_header.html:59
 #: .\templates\include\full_coin_table.html:41
 msgid "All Time Best"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:162
-#: .\core\templates\promoted-list.html:194
-#: .\core\templates\promoted-list.html:226
+#: .\core\templates\promoted-list.html:171
+#: .\core\templates\promoted-list.html:203
+#: .\core\templates\promoted-list.html:235
 #: .\templates\include\full_coin_table.html:71
 #: .\templates\include\full_coin_table.html:101
 #: .\templates\include\full_coin_table.html:131
 msgid "All"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:187
-#: .\core\templates\promoted-list.html:270
+#: .\core\templates\promoted-list.html:196
+#: .\core\templates\promoted-list.html:279
 #: .\templates\include\full_coin_table.html:95
 #: .\templates\include\full_coin_table.html:174
 msgid "Chain"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:219
+#: .\core\templates\promoted-list.html:228
 #: .\order\templates\order-lookup.html:151 .\order\templates\promote.html:295
 #: .\templates\include\full_coin_table.html:125
 #: .\user\templates\account-profile.html:131
+#: .\user\templates\account-profile.html:180
 msgid "Type"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:261
+#: .\core\templates\promoted-list.html:270
 msgid "Rank"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:264
+#: .\core\templates\promoted-list.html:273
 #: .\templates\include\full_coin_table.html:168
 #: .\user\templates\account-profile.html:119
 msgid "Coin"
@@ -684,7 +685,7 @@ msgstr ""
 msgid "Add to Cart"
 msgstr ""
 
-#: .\order\templates\promote.html:396 .\templates\include\_footer.html:128
+#: .\order\templates\promote.html:396 .\templates\include\_footer.html:126
 msgid "Email"
 msgstr ""
 
@@ -729,51 +730,48 @@ msgid "Connect to Google"
 msgstr ""
 
 #: .\templates\include\_footer.html:115
-msgid "Contact us at the"
+msgid ""
+"Write to us and we will race with carrier pigeons and get in touch with You"
 msgstr ""
 
-#: .\templates\include\_footer.html:117
-msgid "email address provided"
-msgstr ""
-
-#: .\templates\include\_footer.html:123
+#: .\templates\include\_footer.html:121
 msgid "Name"
 msgstr ""
 
-#: .\templates\include\_footer.html:124
+#: .\templates\include\_footer.html:122
 msgid "Enter your name"
 msgstr ""
 
-#: .\templates\include\_footer.html:129
+#: .\templates\include\_footer.html:127
 msgid "Enter your email"
 msgstr ""
 
-#: .\templates\include\_footer.html:134
+#: .\templates\include\_footer.html:132
 msgid "Your question"
 msgstr ""
 
-#: .\templates\include\_footer.html:135
+#: .\templates\include\_footer.html:133
 msgid "Add question"
 msgstr ""
 
-#: .\templates\include\_footer.html:171 .\templates\include\_footer.html:222
+#: .\templates\include\_footer.html:169 .\templates\include\_footer.html:220
 msgid "Successful"
 msgstr ""
 
-#: .\templates\include\_footer.html:190
+#: .\templates\include\_footer.html:188
 msgid "Error"
 msgstr ""
 
-#: .\templates\include\_footer.html:191
+#: .\templates\include\_footer.html:189
 msgid "Invalid input data"
 msgstr ""
 
-#: .\templates\include\_footer.html:275
+#: .\templates\include\_footer.html:273
 #, python-format
 msgid "Try again in %(hours)s hours"
 msgstr ""
 
-#: .\templates\include\_footer.html:297
+#: .\templates\include\_footer.html:295
 msgid "Your vote is accepted"
 msgstr ""
 
@@ -799,7 +797,7 @@ msgid "Sign up"
 msgstr ""
 
 #: .\templates\include\_header.html:111 .\templates\include\_header.html:254
-#: .\user\templates\account-liked-coins.html:80
+#: .\user\templates\account-liked-coins.html:83
 #: .\user\templates\account-profile.html:52
 #: .\user\templates\account-profile.html:87
 msgid "Profile"
@@ -838,31 +836,34 @@ msgid "Liked Coin"
 msgstr ""
 
 #: .\user\templates\account-liked-coins.html:61
-#: .\user\templates\account-liked-coins.html:92
+#: .\user\templates\account-liked-coins.html:95
 #: .\user\templates\account-profile.html:65
 #: .\user\templates\account-profile.html:99
 msgid "Log out"
 msgstr ""
 
-#: .\user\templates\account-liked-coins.html:65
+#: .\user\templates\account-liked-coins.html:66
 #: .\user\templates\account-profile.html:70
 msgid "My account"
 msgstr ""
 
-#: .\user\templates\account-liked-coins.html:73
+#: .\user\templates\account-liked-coins.html:76
 #: .\user\templates\account-profile.html:80
 msgid "Liked coins"
 msgstr ""
 
 #: .\user\templates\account-profile.html:122
+#: .\user\templates\account-profile.html:156
 msgid "Link usage"
 msgstr ""
 
 #: .\user\templates\account-profile.html:125
+#: .\user\templates\account-profile.html:164
 msgid "Start at"
 msgstr ""
 
 #: .\user\templates\account-profile.html:128
+#: .\user\templates\account-profile.html:172
 msgid "Finish at"
 msgstr ""
 

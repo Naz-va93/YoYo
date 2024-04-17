@@ -10,6 +10,15 @@
     <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
+{% block head %}
+    <meta property="og:title" content="{{ coin.coin_name|striptags|truncatechars:50 }}"/>
+    <meta property="og:description"
+          content="{{ coin.coin_description|striptags|truncatechars:160 }}"/>
+    <meta property="og:image" content="{% if coin.image_url %}{{ coin.image_url.url }}{% endif %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:type" content="website"/>
+{% endblock %}
+
 {% load static %}
 {% block content %}
     <main class="main">

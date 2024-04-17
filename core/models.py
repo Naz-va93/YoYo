@@ -82,6 +82,7 @@ class Coin(models.Model):
     # seo
     title_seo = models.CharField(max_length=150, blank=True, null=True, verbose_name='Название для seo')
     description_seo = models.CharField(max_length=250, blank=True, null=True, verbose_name='Описание для seo')
+    image_url = models.ImageField(upload_to='coins/', blank=True, null=True, verbose_name='Изображение для url')
 
     # for form only
     coin_name = models.CharField(max_length=50, blank=False, verbose_name='Название')
@@ -195,6 +196,7 @@ def set_moderation_date(sender, instance, **kwargs):
 class Page(models.Model):
     title_seo = models.CharField(max_length=150, blank=True, null=True, verbose_name='Название для seo')
     description_seo = models.CharField(max_length=250, blank=True, null=True, verbose_name='Описание для seo')
+    image_url = models.ImageField(upload_to='pages/', blank=True, null=True, verbose_name='Изображение для url')
 
     slug = models.SlugField(null=True, blank=True, )
     title = models.TextField(max_length=250, blank=True, default='', verbose_name='Заголовок')
@@ -412,3 +414,20 @@ class Setting(models.Model):
             settings = Setting()
             settings.save()
             return settings
+
+
+class Banner(models.Model):
+    photo = models.ImageField(upload_to='banners/', verbose_name='Фото')
+
+    LOCATION_CHOICES = [
+        ('index_under_header', 'На главной странице, под шапкой'),
+    ]
+    location = models.CharField(max_length=50, choices=LOCATION_CHOICES, default='index_under_header', verbose_name='Расположение')
+    url = models.URLField(max_length=250, verbose_name='Ссылка')
+    show = models.BooleanField(default=True, verbose_name='Показ')
+
+    def __str__(self):
+        return f"Баннер {self.get_location_display()}"
+
+
+
