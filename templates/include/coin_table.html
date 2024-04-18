@@ -15,11 +15,13 @@
                              loading="lazy">
                     </picture>
                 </div>
-                <a href="{{ coin.get_absolute_url }}"><h3 class="table-coins__coin--name">{{ coin.coin_name }}</h3></a>
-                <span class="table-coins__coin--abbreviation">{{ coin.coin_symbol }}</span>
             </div>
         </td>
         <td class="table-coins_third-td">
+            <a href="{{ coin.get_absolute_url }}"><h3 class="table-coins__coin--name">{{ coin.coin_name }}</h3></a>
+                <span class="table-coins__coin--abbreviation">{{ coin.coin_symbol }}</span>
+        </td>
+        <td>
             {{ coin.category.name }}
         </td>
         <td>

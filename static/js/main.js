@@ -1516,33 +1516,15 @@ containers.forEach(function(container) {
     container.addEventListener('scroll', function() {
         var thSecond = container.querySelector('.table-coins_second-th');
         var tdSecond = container.querySelectorAll('.table-coins_second-td');
-        var thThird = container.querySelector('.table-coins_third-th');
-        var tdThird = container.querySelectorAll('.table-coins_third-td');
 
         if (container.scrollLeft > 0) {
             thSecond.classList.add('scroll');
-            thThird.classList.add('scroll');
             tdSecond.forEach(function(element) {
-                element.classList.add('scroll');
-                var h3 = element.querySelector('.table-coins__coin--name');
-                var span = element.querySelector('.table-coins__coin--abbreviation');
-                if (h3) h3.classList.add('visually-hidden');
-                if (span) span.classList.add('visually-hidden');
-            });
-            tdThird.forEach(function(element) {
                 element.classList.add('scroll');
             });
         } else {
             thSecond.classList.remove('scroll');
-            thThird.classList.remove('scroll');
             tdSecond.forEach(function(element) {
-                element.classList.remove('scroll');
-                var h3 = element.querySelector('.table-coins__coin--name');
-                var span = element.querySelector('.table-coins__coin--abbreviation');
-                if (h3) h3.classList.remove('visually-hidden');
-                if (span) span.classList.remove('visually-hidden');
-            });
-            tdThird.forEach(function(element) {
                 element.classList.remove('scroll');
             });
         }
