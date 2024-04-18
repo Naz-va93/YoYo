@@ -2292,11 +2292,7 @@
     cursor: pointer
 }
 
-.header__nav {
-    background-color: #050810
-}
-
-.table-coins tbody td, .table-coins thead th {
+.header__nav, .table-coins tbody td, .table-coins thead th {
     background-color: #050810
 }
 
@@ -2655,21 +2651,20 @@
 .table-coins_second-td, .table-coins_second-th {
     position: sticky;
     left: 0;
-    z-index: 2;
+    z-index: 2
 }
 
 .banner {
-    display: flex;
-    justify-content: center;
-    margin: 15px auto -60px;
-    max-width: 895px
+    margin: 15px 0;
+    margin-bottom: -60px;
 }
 
 .banner img {
-    max-width: 895px;
-    max-height: 100px;
-    border-radius: 4px;
-    object-fit: contain
+    width: 1080px;
+    height: 118px;
+    object-fit: cover;
+    max-width: 100%;
+    border-radius: 12px;
 }
 
 @media (max-width: 991px) {
