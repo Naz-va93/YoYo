@@ -1,3 +1,7 @@
+.promoted, .promoted__info {
+    padding-top: 41px
+}
+
 .add-coin__avatar label > *, .add-coin__question--btn > *, .filter__item--param > *, .promote__block--banner label > *, .promote__block--search .select-2 select, .promote__block--search .select-2 svg, .switch__btn > *, .title-switch > * {
     grid-area: 1/1
 }
@@ -22,10 +26,6 @@
     object-fit: cover
 }
 
-.promoted {
-    padding-top: 41px
-}
-
 .promoted__adv img {
     -o-object-fit: cover;
     object-fit: cover;
@@ -35,8 +35,7 @@
 
 .promoted__info {
     display: grid;
-    gap: 8px;
-    padding-top: 41px
+    gap: 8px
 }
 
 .promoted__info-card {
@@ -2293,7 +2292,7 @@
     cursor: pointer
 }
 
-.header__nav {
+.header__nav, .table-coins_second-th.scroll {
     background-color: #050810
 }
 
@@ -2645,7 +2644,11 @@
     background-color: #3c86ff
 }
 
-.table-coins_second-th, .table-coins_second-td {
+.table-coins tbody td, .table-coins thead th {
+    transition: border-top .3s, box-shadow .3s, background-color .3s !important
+}
+
+.table-coins_second-td, .table-coins_second-th {
     position: sticky;
     left: 0;
     z-index: 2;
@@ -2656,26 +2659,18 @@
     background-color: #11141c
 }
 
-.table-coins_second-th.scroll {
-    background-color: #050810
-}
-
-.table-coins_second-th, .table-coins_second-td {
-    transition: border-top 0.2s, box-shadow 0.2s, background-color 0.2s !important;
-}
-
 .banner {
     display: flex;
     justify-content: center;
-    margin: 15px auto -60px auto;
-    max-width: 895px;
+    margin: 15px auto -60px;
+    max-width: 895px
 }
 
 .banner img {
     max-width: 895px;
     max-height: 100px;
     border-radius: 4px;
-    object-fit: contain;
+    object-fit: contain
 }
 
 @media (max-width: 991px) {
@@ -2771,7 +2766,7 @@
 
 @media (max-width: 768px) {
     .banner {
-        margin-bottom: -29px;
+        margin-bottom: -29px
     }
 }
 

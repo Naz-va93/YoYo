@@ -10,6 +10,17 @@
     <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
+{% block head %}
+    <meta property="og:title" content="{{ page.title|striptags|truncatechars:50 }}"/>
+    <meta property="og:description"
+          content="{{ page.description|striptags|truncatechars:160 }}"/>
+    <meta property="og:image" content="{% if page.image_url %}{{ page.image_url.url }}{% endif %}"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:type" content="website"/>
+{% endblock %}
+
 {% load static %}
 {% block content %}
     <main class="main">
