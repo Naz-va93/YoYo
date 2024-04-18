@@ -2292,7 +2292,11 @@
     cursor: pointer
 }
 
-.header__nav, .table-coins_second-th.scroll {
+.header__nav {
+    background-color: #050810
+}
+
+.table-coins tbody td, .table-coins thead th {
     background-color: #050810
 }
 
@@ -2645,18 +2649,13 @@
 }
 
 .table-coins tbody td, .table-coins thead th {
-    transition: border-top .3s, box-shadow .3s, background-color .3s !important
+    transition: background-color .6s, border .6s !important
 }
 
 .table-coins_second-td, .table-coins_second-th {
     position: sticky;
     left: 0;
     z-index: 2;
-    padding-left: 5px;
-}
-
-.table-coins_second-td.scroll {
-    background-color: #11141c
 }
 
 .banner {

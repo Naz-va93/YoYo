@@ -1521,11 +1521,19 @@ containers.forEach(function(container) {
             thSecond.classList.add('scroll');
             tdSecond.forEach(function(element) {
                 element.classList.add('scroll');
+                var h3 = element.querySelector('.table-coins__coin--name');
+                var span = element.querySelector('.table-coins__coin--abbreviation');
+                if (h3) h3.classList.add('visually-hidden');
+                if (span) span.classList.add('visually-hidden');
             });
         } else {
             thSecond.classList.remove('scroll');
             tdSecond.forEach(function(element) {
                 element.classList.remove('scroll');
+                var h3 = element.querySelector('.table-coins__coin--name');
+                var span = element.querySelector('.table-coins__coin--abbreviation');
+                if (h3) h3.classList.remove('visually-hidden');
+                if (span) span.classList.remove('visually-hidden');
             });
         }
     });
