@@ -145,6 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         options: {
                             responsive: true,
+                            animation: {
+                                duration: 0
+                            },
                             plugins: {
                                 legend: {
                                     display: false
@@ -225,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             progressBar.style.width = '0%';
                         }
                     }
+
                 } else {
                     ctx.fillText('Error loading data', canvas.width / 2 - 50, canvas.height / 2);
                 }
@@ -265,6 +269,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         }]
                     },
                     options: {
+                        animation: {
+                            duration: 0
+                        },
                         tooltip: {
                             enabled: false,
                         },
