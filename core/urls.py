@@ -44,4 +44,6 @@ urlpatterns = [
     path('sort-ajax/', sort_filter_pagination_ajax, name='sort_ajax'),
     path('get_coins_table/', get_coins_table, name='get_coins_table'),
 
+    path('coin-price-history', coin_price_history, name='coin_price_history'),
+
 ]

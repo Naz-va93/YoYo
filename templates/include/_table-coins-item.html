@@ -45,10 +45,10 @@
         {% endif %}
     </td>
     <td>
-        ${{ coin.format_number }}
+        ${{ coin.market_cap|normalize_amount }}
     </td>
     <td>
-        ${{ coin.price }}
+        ${{ coin.price|normalize_amount }}
     </td>
     <td>
         7 July

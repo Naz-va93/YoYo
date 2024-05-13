@@ -8,7 +8,8 @@
     {% endblock %}
 
     <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}">
-
+    <link rel="stylesheet" href="{% static 'css/preloader.css' %}">
+    <script src="{% static 'js/preloader.min.js' %}"></script>
     {% block description %}
         <meta name="description" content="{{ page.description_seo }}">
     {% endblock %}
@@ -63,6 +64,7 @@
     <link rel="stylesheet" href="{% static 'css/style-critical.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}" media="print"
           onload="this.media='all'; this.onload=null;">
+    <link rel="stylesheet" href="{% static 'css/coin_page.css' %}">
     <link rel="stylesheet" href="{% static 'css/light-mode.css' %}" id="theme-file" media="all">
 
     <script>
@@ -85,7 +87,6 @@
     {% endblock %}
 </head>
 <body>
-
 <div class="wrapper">
     {% include 'include/_header.html' %}
 
@@ -96,7 +97,10 @@
     {% include 'include/_footer.html' %}
 
 </div>
-
+<div id="preloader" class="preloader">
+    <img src="{% static 'img/logo-light.png' %}" alt="Logo" class="logo-preloader">
+</div>
+</body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -143,11 +147,12 @@
         });
     });
 </script>
-
 <script src="{% static 'js/libs.min.js' %}" defer></script>
-<script src="{% static 'js/main.js' %}" defer></script>
+<script src="{% static 'js/main.min.js' %}" defer></script>
 <!-- <script src="{% static 'js/ajax.js' %}" defer></script> -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% block scripts %}
+{% endblock %}
 
 
 

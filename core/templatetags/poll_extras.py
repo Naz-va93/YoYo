@@ -4,6 +4,8 @@ from datetime import date, timedelta
 from django import template
 from django.utils import timezone
 
+from core.utils import get_text_by_number
+
 register = template.Library()
 
 
@@ -54,3 +56,18 @@ def time_since(value):
     else:
         days = time_difference.days
         return f"{days} days ago"
+
+
+@register.filter
+def normalize_amount(value):
+    if not value:
+        return 0
+    return get_text_by_number(value)
+
+
+@register.filter
+def divide(value, arg):
+    try:
+        return float(value) / float(arg)
+    except (ValueError, ZeroDivisionError):
+        return

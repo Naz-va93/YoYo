@@ -1,3 +1,6 @@
+import os
+
+import requests
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -242,7 +245,7 @@ class CoinDetail(DetailView):
 
     def get_queryset(self):
         today = timezone.now().date()
-        return Coin.objects.filter(slug=self.kwargs['slug'])
+        return Coin.objects.prefetch_related('exchanges__exchange').filter(slug=self.kwargs['slug'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CoinDetail, self).get_context_data(**kwargs)
@@ -590,3 +593,22 @@ def get_sorted_mixin(sort_item, sort_status, sort=None, is_promoted: bool = None
     if profile:
         coin = coin.filter(favorite=profile)
     return coin
+
+
+def coin_price_history(request):
+    coin_id = request.GET.get('coinId')
+    api_type = request.GET.get('type')
+    period = request.GET.get('period')
+
+    if api_type == 'coinranking':
+        url = f'https://api.coinranking.com/v2/coin/{coin_id}/history'
+        params = {'timePeriod': period}
+        headers = {'x-access-token': os.getenv('COINRANKING_API_KEY')}
+
+        response = requests.get(url, headers=headers, params=params)
+        if response.status_code == 200:
+            return JsonResponse(response.json(), safe=False)
+        else:
+            return JsonResponse({'error': 'Failed to retrieve data from CoinRanking'}, status=500)
+    else:
+        return JsonResponse({'error': 'Unsupported API type'}, status=400)

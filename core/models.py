@@ -79,6 +79,11 @@ class ListingPlatform(models.Model):
 
 
 class Coin(models.Model):
+    API_CHOICES = [
+        ('uniswap', 'Uniswap'),
+        ('coinranking', 'Coinranking'),
+    ]
+
     # seo
     title_seo = models.CharField(max_length=150, blank=True, null=True, verbose_name='Название для seo')
     description_seo = models.CharField(max_length=250, blank=True, null=True, verbose_name='Описание для seo')
@@ -111,9 +116,22 @@ class Coin(models.Model):
     # coin detail
     binance_smart_chain = models.CharField(null=True, blank=True, verbose_name='Контрактный адрес')
     market_cap = models.FloatField(null=True, blank=True, default=0.00, verbose_name='Капитализация')
+    fully_diluted_market_cap = models.FloatField(null=True, blank=True, default=0.00,
+                                                 verbose_name='Полностью разбавленная капитализация')
+    all_time_high = models.FloatField(null=True, blank=True, default=0.00, verbose_name='Максимум цени')
+    all_time_high_date = models.DateField(null=True, blank=True, verbose_name='Дата максимума цени')
+    volume_24h = models.FloatField(null=True, blank=True, default=0.00, verbose_name='Объем торгов за 24 часа')
     price = models.FloatField(null=True, blank=True, default=0.00, verbose_name='Цена')
     price_24h = models.FloatField(null=True, blank=True, default=0.00, verbose_name='Цена за 24 часа')
     is_api = models.BooleanField(blank=False, null=True, verbose_name='Статус api')
+    api = models.CharField(
+        null=True,
+        blank=True,
+        max_length=20,
+        choices=API_CHOICES,
+        default='coinranking',
+        help_text='Выберите API для получения данных',
+    )
     promoted_status = models.BooleanField(blank=False, null=True, default=False, verbose_name='Статус продвижения')
     is_moderate = models.BooleanField(blank=False, null=True, default=False, verbose_name='Статус модерации')
     uuid = models.CharField(blank=True, null=True)
@@ -144,35 +162,6 @@ class Coin(models.Model):
     def get_absolute_url(self):
         slug = slugify(self.coin_name)
         return reverse('core:coin-page', kwargs={'slug': slug})
-
-    def format_number(self):
-        try:
-            number = float(self.market_cap)
-        except:
-            number = 0
-
-        if number >= 1e9:  # Если число больше или равно 1 миллиарду
-            result = '{:.2f}Billion'.format(number / 1e9)  # Делим число на 1 миллиард и добавляем букву 'B'
-        elif number >= 1e6:  # Если число больше или равно 1 миллиону
-            result = '{:.2f}Million'.format(number / 1e6)  # Делим число на 1 миллион и добавляем букву 'M'
-        else:
-            result = str(number)  # Если число меньше 1 миллиона, оставляем его без изменений
-
-        return result
-
-    def get_price(self):
-        from core.utils import get_text_by_number
-
-        if not self.price:
-            return 0
-        return get_text_by_number(self.price)
-
-    def get_market_cap(self):
-        from core.utils import get_text_by_number
-
-        if not self.market_cap:
-            return 0
-        return get_text_by_number(self.market_cap)
 
 
 @receiver(pre_save, sender=Coin)
@@ -318,7 +307,8 @@ class Order(models.Model):
         (PROMOTED, 'Promoted'),
     ]
 
-    user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Пользователь')
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=False, blank=False,
+                             verbose_name='Пользователь')
     coin = models.ForeignKey(Coin, on_delete=models.CASCADE, null=False, blank=False, verbose_name='Монета')
 
     start_at = models.DateField(null=True, blank=True, verbose_name='Дата начала продвижения')
@@ -422,7 +412,8 @@ class Banner(models.Model):
     LOCATION_CHOICES = [
         ('index_under_header', 'На главной странице, под шапкой'),
     ]
-    location = models.CharField(max_length=50, choices=LOCATION_CHOICES, default='index_under_header', verbose_name='Расположение')
+    location = models.CharField(max_length=50, choices=LOCATION_CHOICES, default='index_under_header',
+                                verbose_name='Расположение')
     url = models.URLField(max_length=250, verbose_name='Ссылка')
     show = models.BooleanField(default=True, verbose_name='Показ')
 
@@ -430,4 +421,18 @@ class Banner(models.Model):
         return f"Баннер {self.get_location_display()}"
 
 
+class Exchange(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Название биржи")
+    logo = models.ImageField(upload_to='exchanges/logos/', verbose_name="Логотип биржи")
 
+    def __str__(self):
+        return self.name
+
+
+class CoinExchange(models.Model):
+    coin = models.ForeignKey(Coin, on_delete=models.CASCADE, related_name='exchanges', verbose_name='Монета')
+    exchange = models.ForeignKey(Exchange, on_delete=models.CASCADE, related_name='coins', verbose_name='Биржа')
+    url = models.URLField(max_length=200)
+
+    def __str__(self):
+        return f'{self.coin.coin_name}: {self.exchange.name}'

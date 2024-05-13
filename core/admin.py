@@ -1,3 +1,5 @@
+from django.utils.safestring import mark_safe
+
 from .models import *
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
@@ -113,7 +115,20 @@ class BannerAdmin(admin.ModelAdmin):
     list_editable = ('show',)
 
 
+class ExchangeAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+
+class CoinExchangeAdmin(admin.ModelAdmin):
+    list_display = ('coin', 'exchange', 'url')
+    list_filter = ('coin', 'exchange')
+    search_fields = ('coin__name', 'exchange__name')
+
+
 admin.site.register(Coin, CoinAdmin)
+admin.site.register(CoinExchange, CoinExchangeAdmin)
+admin.site.register(Exchange, ExchangeAdmin)
 admin.site.register(Type, TypeAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Category, CategoryAdmin)

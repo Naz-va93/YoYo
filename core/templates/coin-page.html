@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load l10n %}
+{% load poll_extras %}
 
 {% block title %}
     <title>{{ page.title_seo }}</title>
@@ -11,7 +12,8 @@
 {% endblock %}
 
 {% block head %}
-    <meta property="og:title" content="{% if coin.coin_name %}{{ coin.coin_name|striptags|truncatechars:50 }}{% endif %}"/>
+    <meta property="og:title"
+          content="{% if coin.coin_name %}{{ coin.coin_name|striptags|truncatechars:50 }}{% endif %}"/>
     <meta property="og:description"
           content="{% if coin.coin_description %}{{ coin.coin_description|striptags|truncatechars:160 }}{% endif %}"/>
     <meta property="og:image" content="{% if coin.image_url %}{{ coin.image_url.url }}{% endif %}"/>
@@ -21,6 +23,8 @@
     <meta property="og:site_name" content="CoinYoYo"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-crosshair@2.0.0/dist/chartjs-plugin-crosshair.min.js"></script>
 {% endblock %}
 
 {% load static %}
@@ -85,7 +89,6 @@
                     <div class="coin__vote">
                         <span class="coin__vote--today">Today's Vote: {{ coin.votes_today }}</span>
                         <td>
-
                             <a {% if not user.is_authenticated %}href="#authorization-popup"{% endif %}
                                class="vote-btn {% if coin not in user.vote_coins.all %}canVote{% endif %} btn {% if not user.is_authenticated %}open-popup{% endif %}"
                                type="button" data-coin-pk="{{ coin.pk }}">
@@ -102,73 +105,310 @@
                     </div>
                 </div>
                 <div class="coin__main">
-                    <div class="coin__chain">
-                        <div class="coin__chain--block">
-                            <div class="coin__chain--avatar">
-                                <img src="{{ coin.network_chain.photo.url }}" width="40" height="40" loading="lazy"
-                                     alt="">
+                    <div class="coin__info-header">
+                        <div class="coin__chart-header">
+                            <div class="coin__tab-container">
+                                <div class="coin__tabs market_price">
+                                    <button class="coin__tab market_price active" data-index="0">
+                                        {% trans 'Review' %}
+                                    </button>
+                                    <button class="coin__tab market_price" data-index="1">
+                                        {% trans 'Market' %}
+                                    </button>
+                                    <div class="coin__slider"></div>
+                                </div>
                             </div>
-                            <h3 class="coin__chain--title title _min-2">
-                                {{ coin.network_chain.name }} Chain
-                            </h3>
-                            <div class="coin__chain--address">
-                                <label>
-                                    <input type="text" name="wallet" id="chain" readonly
-                                           value="{{ coin.binance_smart_chain }}">
-                                </label>
-                                <button type="button" title="Copy" data-clipboard-target="#chain">
-                                    <svg width="16" height="16" viewBox="0 0 16 16">
-                                        <use xlink:href="{% static 'img/sprites.svg' %}#copy"></use>
-                                    </svg>
+                            <div class="coin__tab-container-prices" id="coin__tab-container-history_price">
+                                <button class="coin__tab history_price active" data-period="24h"
+                                        data-coin-api-id="{{ coin.uuid }}" data-coin-api-type="{{ coin.api }}">
+                                    {% trans '24h' %}
+                                </button>
+                                <button class="coin__tab history_price" data-period="7d"
+                                        data-coin-api-id="{{ coin.uuid }}" data-coin-api-type="{{ coin.api }}">
+                                    {% trans '7d' %}
+                                </button>
+                                <button class="coin__tab history_price" data-period="30d"
+                                        data-coin-api-id="{{ coin.uuid }}" data-coin-api-type="{{ coin.api }}">
+                                    {% trans '1m' %}
+                                </button>
+                                <button class="coin__tab history_price" data-period="3m"
+                                        data-coin-api-id="{{ coin.uuid }}" data-coin-api-type="{{ coin.api }}">
+                                    {% trans '3m' %}
+                                </button>
+                                <button class="coin__tab history_price" data-period="1y"
+                                        data-coin-api-id="{{ coin.uuid }}" data-coin-api-type="{{ coin.api }}">
+                                    {% trans '1y' %}
+                                </button>
+                                <button class="coin__tab history_price all_time" data-period="all"
+                                        data-coin-api-id="{{ coin.uuid }}" data-coin-api-type="{{ coin.api }}">
+                                    {% trans 'Max' %}
                                 </button>
                             </div>
                         </div>
-                        <div class="coin__chain--footer">
-                            <div class="coin__social">
-                                <ul>
-                                    {% if coin.website_link %}
-                                        <li>
-                                            <a href="{{ coin.website_link }}" target="_blank">
-                                                <svg width="16" height="17" viewBox="0 0 16 17">
-                                                    <use xlink:href="{% static 'img/sprites.svg' %}#link"></use>
-                                                </svg>
-                                                {% trans "Website" %}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                    {% if coin.twitter_link %}
-                                        <li>
-                                            <a href="{{ coin.twitter_link }}" target="_blank">
-                                                <svg width="16" height="17" viewBox="0 0 16 17">
-                                                    <use xlink:href="{% static 'img/sprites.svg' %}#twitter"></use>
-                                                </svg>
-                                                {% trans "Twitter" %}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                    {% if coin.telegram_link %}
-                                        <li>
-                                            <a href="{{ coin.telegram_link }}" target="_blank">
-                                                <svg width="16" height="17" viewBox="0 0 16 17">
-                                                    <use xlink:href="{% static 'img/sprites.svg' %}#telegram"></use>
-                                                </svg>
-                                                {% trans "Telegram" %}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                    {% if coin.discord_link %}
-                                        <li>
-                                            <a href="{{ coin.discord_link }}" target="_blank">
-                                                <svg width="16" height="17" viewBox="0 0 16 17">
-                                                    <use xlink:href="{% static 'img/sprites.svg' %}#discord"></use>
-                                                </svg>
-                                                {% trans "Discord" %}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                </ul>
+                        <div class="coin__info-details--price-wrapper">
+                            <div class="coin__info-details--logo-wrapper">
+                                <div class="coin__info-details--logo">
+                                    <img src="{{ coin.photo_coin.url }}" alt="Coin logo"
+                                         class="coin__info--logo">
+                                    <div class="coin__info--title-wrapper">
+                                        <h3 class="coin__info--title">
+                                            {{ coin.coin_name }}
+                                        </h3>
+                                        <h3 class="coin__info--name">
+                                            {{ coin.coin_symbol }}
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="splitter"></div>
+                                <div class="coin__info-details--price">
+                                    <div>
+                                        <span class="coin__price">${% if coin.price %}
+                                            {{ coin.price|normalize_amount }}{% else %}--{% endif %}</span>
+                                    </div>
+                                    <div class="coin__price-change-wrapper">
+                                        {% if coin.price_24h > 0 %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="7" fill="none">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#coinPriceChangeUpSymbol"></use>
+                                            </svg>
+                                            <span class="coin__price-change rise">
+                                                {{ coin.price_24h }}%
+                                            </span>
+                                        {% elif coin.price_24h < 0 %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="7" fill="none">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#coinPriceChangeDownSymbol"></use>
+                                            </svg>
+                                            <span class="coin__price-change fall">
+                                                {{ coin.price_24h }}%
+                                            </span>
+                                        {% else %}
+                                            --
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="coin__price-range">
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="progressBar" data-current-price="{{ coin.price }}"></div>
+                                </div>
+                                <div class="price-labels">
+                                    <span id="todayLowPrice"></span>
+                                    <span>
+                                        {% trans 'Range in 24hr.' %}</span>
+                                    <span id="todayHighPrice"></span>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="coin__info">
+                        <div class="coin__info-chart">
+                            <div class="coin__chart">
+                                <div class="coin__chart-wrapper period">
+                                    <canvas id="coinChartHistoryPrice"></canvas>
+                                </div>
+                                <div>
+                                    <canvas id="coinChartAllHistoryPrice"></canvas>
+                                </div>
+                            </div>
+                            <div class="coin__trading--coin__info visually-hidden">
+                                {% if coin.exchanges.exists %}
+                                    <div class="coin__trading--inner--coin__info">
+                                        <ol class="coin__trading--list">
+                                            {% for coin_exchange in coin.exchanges.all %}
+                                                <li class="coin__trading-item">
+                                                    <a href="{{ coin_exchange.url }}" class="coin__trading-item-link"
+                                                       target="_blank">
+                                                        <img src="{{ coin_exchange.exchange.logo.url }}"
+                                                             alt="{{ coin_exchange.exchange.name }} logo"
+                                                             class="coin__trading-item-logo">
+                                                        <h4 class="coin__trading-item-name">{{ coin_exchange.exchange.name }}</h4>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ol>
+                                    </div>
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="coin__info-details">
+                            <div class="coin__info--details-info coin__info--details-container">
+                                <div class="coin__info--details-info-item">
+                                    <h2>{% trans 'Price to USD' %}</h2>
+                                    <p>${% if coin.price %}{{ coin.price|normalize_amount }}{% else %}--{% endif %}</p>
+                                </div>
+                                <div class="coin__info--details-info-item">
+                                    <h2>{% trans '24h volume' %}</h2>
+                                    <div class="coin__info--details-warning">
+                                        <svg width="18" height="17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#coinDetailsWarning"></use>
+                                        </svg>
+                                        <p>${% if coin.volume_24h %}{{ coin.volume_24h|normalize_amount }}{% else %}
+                                            --{% endif %}</p>
+                                    </div>
+                                </div>
+                                <div class="coin__info--details-info-item">
+                                    <h2>{% trans 'Market cap' %}</h2>
+                                    <p>${% if coin.market_cap %}{{ coin.market_cap|normalize_amount }}{% else %}
+                                        --{% endif %}</p>
+                                </div>
+                                <div class="coin__info--details-info-item">
+                                    <h2>{% trans 'Volume / Market cap' %}</h2>
+                                    <div class="coin__info--details-warning">
+                                        <svg width="18" height="17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#coinDetailsWarning"></use>
+                                        </svg>
+                                        <p>
+                                            {% if coin.market_cap > 0 %}
+                                                {{ coin.volume_24h|divide:coin.market_cap|normalize_amount }}
+                                            {% else %}
+                                                --
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="coin__info--details-info-item">
+                                    <h2>{% trans 'Fully diluted market cap' %}</h2>
+                                    <p>${% if coin.fully_diluted_market_cap %}
+                                        {{ coin.fully_diluted_market_cap|normalize_amount }}{% else %}--{% endif %}</p>
+                                </div>
+                                <div class="coin__info--details-info-item all-time-high">
+                                    <h2>{% trans 'All-time high' %}</h2>
+                                    {% if coin.all_time_high %}
+                                        <p>${{ coin.all_time_high|normalize_amount }} <br>
+                                            <span>{% trans 'on' %} {{ coin.all_time_high_date|date:"n/j/Y" }}</span>
+                                        </p>
+                                    {% else %}
+                                        <p>--</p>
+                                    {% endif %}
+                                </div>
+                                <div class="coin__info--details-info-item">
+                                    <h2>{% trans 'Binance Smart Chain' %}</h2>
+                                    <div class="coin__chain--address">
+                                        <label>
+                                            <input type="text" name="wallet" id="chain" readonly
+                                                   value="{{ coin.binance_smart_chain }}" class="visually-hidden2">
+                                            {% if coin.binance_smart_chain %}
+                                                <span>{{ coin.binance_smart_chain|slice:":4" }}...{{ coin.binance_smart_chain|slice:"-4:" }}</span>
+                                            {% else %}
+                                                <span>--</span>
+                                            {% endif %}
+                                        </label>
+                                        <button type="button" title="Copy" data-clipboard-target="#chain">
+                                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#copy"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="coin__info--details-converter coin__info--details-container">
+                                <h2>{% trans 'Converter' %} {{ coin.coin_symbol }}</h2>
+                                <div class="coin__converter-block">
+                                    <div class="coin__converter-item from">
+                                        <input type="text" id="coin__converter-from" value="1"
+                                               data-coin-price-usd="{{ coin.price }}">
+                                        <label for="coin__converter-from">{{ coin.coin_symbol }}</label>
+                                    </div>
+                                    <div class="coin__converter-item to">
+                                        <input type="text" id="coin__converter-to" value="{{ coin.price }}" readonly>
+                                        <label for="coin__converter-to">
+                                            USD
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" fill="none">
+                                                <use xlink:href="{% static 'img/sprites.svg' %}#expandMenu"></use>
+                                            </svg>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="coin__info--details-links">
+                                <div class="coin__social">
+                                    <ul>
+                                        {% if coin.website_link %}
+                                            <li>
+                                                <a href="{{ coin.website_link }}" target="_blank">
+                                                    <svg>
+                                                        <use xlink:href="{% static 'img/sprites.svg' %}#link"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if coin.twitter_link %}
+                                            <li>
+                                                <a href="{{ coin.twitter_link }}" target="_blank">
+                                                    <svg>
+                                                        <use xlink:href="{% static 'img/sprites.svg' %}#twitter"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if coin.telegram_link %}
+                                            <li>
+                                                <a href="{{ coin.telegram_link }}" target="_blank">
+                                                    <svg>
+                                                        <use xlink:href="{% static 'img/sprites.svg' %}#telegram"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if coin.discord_link %}
+                                            <li>
+                                                <a href="{{ coin.discord_link }}" target="_blank">
+                                                    <svg>
+                                                        <use xlink:href="{% static 'img/sprites.svg' %}#discord"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if coin.reddit_link %}
+                                            <li>
+                                                <a href="{{ coin.reddit_link }}" target="_blank">
+                                                    <svg>
+                                                        <use xlink:href="{% static 'img/sprites.svg' %}#reddit"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coin__trading">
+                        {% if coin.exchanges.exists %}
+                            <div class="coin__trading--inner">
+                                <h3 class="coin__trading-title">{% trans 'Exchanges' %}</h3>
+                                <ol class="coin__trading--list">
+                                    {% for coin_exchange in coin.exchanges.all %}
+                                        <li class="coin__trading-item">
+                                            <a href="{{ coin_exchange.url }}" class="coin__trading-item-link"
+                                               target="_blank">
+                                                <img src="{{ coin_exchange.exchange.logo.url }}"
+                                                     alt="{{ coin_exchange.exchange.name }} logo"
+                                                     class="coin__trading-item-logo">
+                                                <h4 class="coin__trading-item-name">{{ coin_exchange.exchange.name }}</h4>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                            <div class="coin__trading--inner">
+                                <h3 class="coin__trading-title">{% trans 'Markets' %}</h3>
+                                <ol class="coin__trading--list">
+                                    {% for coin_exchange in coin.exchanges.all %}
+                                        <li class="coin__trading-item">
+                                            <a href="{{ coin_exchange.url }}" class="coin__trading-item-link"
+                                               target="_blank">
+                                                <img src="{{ coin_exchange.exchange.logo.url }}"
+                                                     alt="{{ coin_exchange.exchange.name }} logo"
+                                                     class="coin__trading-item-logo">
+                                                <h4 class="coin__trading-item-name">{{ coin_exchange.exchange.name }}</h4>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="coin__descr">
                         <h3 class="coin__descr--title">
@@ -188,46 +428,6 @@
                             </p>
                         </div>
                     </div>
-                    <ul class="coin__min-info">
-                        <li class="coin__min-info--element">
-							<span>
-								{% trans "Marketcap" %}
-							</span>
-                            <b>${{ coin.get_market_cap }}</b>
-                        </li>
-                        <li class="coin__min-info--element">
-							<span>
-								{% trans "Price" %}
-							</span>
-                            <b>${{ coin.get_price }}</b>
-                        </li>
-                        <li class="coin__min-info--element">
-							<span>
-								{% trans "Launch Date" %}
-							</span>
-                            <b>{{ coin.publish_date }}</b>
-                        </li>
-                        <li class="coin__min-info--element">
-							<span>
-								24H
-							</span>
-                            {% if coin.price_24h > 0 %}
-                                <b class="grow-value">
-                                    <svg width="16" height="16" viewBox="0 0 16 16">
-                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
-                                    </svg>
-                                    {{ coin.price_24h|floatformat:2 }}%
-                                </b>
-                            {% else %}
-                                <b class="danger-value">
-                                    <svg width="16" height="16" viewBox="0 0 16 16">
-                                        <use xlink:href="{% static 'img/sprites.svg' %}#arrow-grow"></use>
-                                    </svg>
-                                    {{ coin.price_24h|floatformat:2 }}%
-                                </b>
-                            {% endif %}
-                        </li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -238,4 +438,8 @@
 
     </main>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/coin_page.min.js' %}"></script>
 {% endblock %}

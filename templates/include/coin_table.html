@@ -50,14 +50,14 @@
         </td>
         <td>
             {% if coin.price %}
-                ${{ coin.get_price }}
+                ${{ coin.price|normalize_amount }}
             {% else %}
                 ---
             {% endif %}
         </td>
         <td>
             {% if coin.market_cap %}
-                ${{ coin.get_market_cap }}
+                ${{ coin.market_cap|normalize_amount }}
             {% else %}
                 ---
             {% endif %}
