@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gradient.addColorStop(0, 'rgba(30, 116, 254, 0.4)');
         gradient.addColorStop(0.78966, 'rgba(30, 116, 254, 0)');
 
-        fetch(`http://127.0.0.1:8000/coin-price-history?coinId=${coinApiId}&type=${coinApiType}&period=${period}`)
+        fetch(`https://coinyoyo.io/coin-price-history?coinId=${coinApiId}&type=${coinApiType}&period=${period}`)
             .then(response => response.json())
             .then(response => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const allTimeCtx = allTimeCanvas.getContext('2d');
     allTimeCanvas.height = 80;
 
-    fetch(`http://127.0.0.1:8000/coin-price-history?coinId=${coinApiId}&type=${coinApiType}&period=all`)
+    fetch(`https://coinyoyo.io/coin-price-history?coinId=${coinApiId}&type=${coinApiType}&period=all`)
         .then(response => response.json())
         .then(response => {
             if (response.status === "success") {
