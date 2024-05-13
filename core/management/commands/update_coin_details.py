@@ -28,6 +28,7 @@ def update_coin_details_coinranking(coin):
         data = json.loads(response.text)
 
         if data['status'] == 'fail':
+            print(f"Failed to update coin details for {coin.coin_name} ({coin.coin_symbol})")
             return
 
         if data['data']['coin'].get('price'):

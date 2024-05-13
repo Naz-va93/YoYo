@@ -10,11 +10,14 @@ from django.db.models import Count, Q, When, Case, BooleanField
 
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
+from dotenv import load_dotenv
 
 from core.forms import CreateCoin, CaptchaForm
 from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing, AdvertisingItem, \
     Banner
 from core.utils import increment_metrik, increment_counter, get_text_by_number
+
+load_dotenv()
 
 
 def page(request, slug):
