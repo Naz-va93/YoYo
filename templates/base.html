@@ -87,7 +87,7 @@
     {% endblock %}
 </head>
 <body>
-<div class="wrapper" style="display: none;">
+<div class="wrapper" style="visibility: hidden;">
     {% include 'include/_header.html' %}
 
     {% block content %}
@@ -95,7 +95,6 @@
     {% endblock %}
 
     {% include 'include/_footer.html' %}
-
 </div>
 <div id="preloader" class="preloader">
     <img src="{% static 'img/logo-light.png' %}" alt="Logo" class="logo-preloader">

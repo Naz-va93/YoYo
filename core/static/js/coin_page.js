@@ -222,6 +222,20 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         },
                     });
+
+                    function updateChartMaxTicksLimit() {
+                        const isSmallScreen = window.innerWidth < 600; // або інше значення для малих екранів
+                        const maxTicksLimit = isSmallScreen ? 4 : 6; // зменшуємо кількість міток для малих екранів
+
+                        if (chart && chart.options && chart.options.scales && chart.options.scales.x) {
+                            chart.options.scales.x.ticks.maxTicksLimit = maxTicksLimit;
+                            chart.update();
+                        }
+                    }
+
+                    updateChartMaxTicksLimit();
+
+                    window.addEventListener('resize', updateChartMaxTicksLimit);
                     if (period === '24h') {
                         minPrice = Math.min(...prices);
                         maxPrice = Math.max(...prices);
