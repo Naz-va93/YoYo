@@ -210,11 +210,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                         font: {
                                             family: 'Commissioner',
                                             size: 12
-                                        }
+                                        },
+                                        padding: 0,
+                                        maxRotation: 0,
+                                        minRotation: 0
                                     },
                                     grid: {
                                         display: false
-                                    }
+                                    },
                                 }
                             }
                         },
