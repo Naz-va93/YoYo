@@ -224,8 +224,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
 
                     function updateChartMaxTicksLimit() {
-                        const isSmallScreen = window.innerWidth < 600; // або інше значення для малих екранів
-                        const maxTicksLimit = isSmallScreen ? 4 : 6; // зменшуємо кількість міток для малих екранів
+                        const isSmallScreen = window.innerWidth < 600;
+                        const maxTicksLimit = isSmallScreen ? 4 : 6;
 
                         if (chart && chart.options && chart.options.scales && chart.options.scales.x) {
                             chart.options.scales.x.ticks.maxTicksLimit = maxTicksLimit;
@@ -237,8 +237,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     window.addEventListener('resize', updateChartMaxTicksLimit);
                     if (period === '24h') {
-                        minPrice = Math.min(...prices);
-                        maxPrice = Math.max(...prices);
+                        const minPrice = Math.min(...prices);
+                        const maxPrice = Math.max(...prices);
                         todayLowPriceElement.textContent = `$${minPrice ? formatNumber(minPrice) : '--'}`;
                         todayHighPriceElement.textContent = `$${maxPrice ? formatNumber(maxPrice) : '--'}`;
                         if (maxPrice - minPrice !== 0) {
@@ -273,7 +273,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = response.data.history;
                 data.sort((a, b) => a.timestamp - b.timestamp);
                 const prices = data.map(item => item.price);
-                const labels = data.map(item => new Date(item.timestamp * 1000).getFullYear());
+                const years = [...new Set(data.map(item => new Date(item.timestamp * 1000).getFullYear()))];
+                const labels = data.map(item => {
+                    const date = new Date(item.timestamp * 1000);
+                    if (years.length === 1) {
+                        return date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+                    } else {
+                        return date.getFullYear();
+                    }
+                });
+
                 allTimeChart = new Chart(allTimeCtx, {
                     type: 'line',
                     data: {
@@ -353,6 +362,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
                 });
+
+                function updateAllTimeChartTicksLimit() {
+                    const isSmallScreen = window.innerWidth < 600;
+                    const maxTicksLimit = isSmallScreen ? 4 : 6;
+
+                    if (allTimeChart && allTimeChart.options && allTimeChart.options.scales && allTimeChart.options.scales.x) {
+                        allTimeChart.options.scales.x.ticks.maxTicksLimit = maxTicksLimit;
+                        allTimeChart.update();
+                    }
+                }
+
+                updateAllTimeChartTicksLimit();
+
+                window.addEventListener('resize', updateAllTimeChartTicksLimit);
             }
         });
 });

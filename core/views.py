@@ -621,26 +621,57 @@ def coin_price_history(request):
         start_date = end_date - timedelta(days=days)
         start_timestamp = int(start_date.timestamp())
         end_timestamp = int(end_date.timestamp())
-        url = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3'
-        query = '''
-            {
-                tokenDayDatas(where: { token: "%s", date_gte: %d, date_lte: %d }, orderBy: date, orderDirection: desc) {
-                    priceUSD
-                    date
+        if period == '24h':
+            interval = 'hour'
+            query = '''
+                {
+                    tokenHourDatas(where: { token: "%s", periodStartUnix_gte: %d, periodStartUnix_lte: %d }, orderBy: periodStartUnix, orderDirection: desc) {
+                        priceUSD
+                        periodStartUnix
+                    }
                 }
-            }
-            ''' % (coin_id, start_timestamp, end_timestamp)
+                ''' % (coin_id, start_timestamp, end_timestamp)
+        elif period == '7d':
+            interval = '12h'
+            query = '''
+                {
+                    tokenHourDatas(where: { token: "%s", periodStartUnix_gte: %d, periodStartUnix_lte: %d }, orderBy: periodStartUnix, orderDirection: desc) {
+                        priceUSD
+                        periodStartUnix
+                    }
+                }
+                ''' % (coin_id, start_timestamp, end_timestamp)
+        else:
+            interval = 'day'
+            query = '''
+                {
+                    tokenDayDatas(where: { token: "%s", date_gte: %d, date_lte: %d }, orderBy: date, orderDirection: desc) {
+                        priceUSD
+                        date
+                    }
+                }
+                ''' % (coin_id, start_timestamp, end_timestamp)
+        url = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3'
         response = requests.post(url, json={'query': query})
-
         if response.status_code == 200:
             data = response.json()
-            history = [
-                {
-                    'price': item['priceUSD'],
-                    'timestamp': item['date']
-                }
-                for item in data['data']['tokenDayDatas']
-            ]
+            if period == '24h' or period == '7d':
+                history = [
+                    {
+                        'price': item['priceUSD'],
+
+                        'timestamp': item['periodStartUnix']
+                    }
+                    for item in data['data']['tokenHourDatas']
+                ]
+            else:
+                history = [
+                    {
+                        'price': item['priceUSD'],
+                        'timestamp': item['date']
+                    }
+                    for item in data['data']['tokenDayDatas']
+                ]
             result = {
                 'status': 'success',
                 'data': {
