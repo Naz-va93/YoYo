@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return formattedNumber.replace(/(\.\d*[1-9])0+$|\.0*$/, '$1');
     }
 
-
     const coinTradingCoinInfo = document.querySelector('.coin__trading--coin__info');
     const coinChart = document.querySelector('.coin__chart');
     const marketPriceTabs = document.querySelectorAll('.coin__tab.market_price');
@@ -69,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const sliderWidth = e.target.offsetWidth;
         document.querySelector('.coin__slider').style.transform = `translateX(${index * sliderWidth}px)`;
     }
-
 
     const historyPriceTabs = document.querySelectorAll('.coin__tab.history_price');
     let chart = null;
@@ -144,9 +142,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             }]
                         },
                         options: {
-                            responsive: true,
+                            responsive: false,
                             animation: {
                                 duration: 0
+                            },
+                            interaction: {
+                                mode: 'nearest',
+                                axis: 'x',
+                                intersect: false
                             },
                             plugins: {
                                 legend: {
@@ -271,6 +274,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     options: {
                         animation: {
                             duration: 0
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
                         },
                         tooltip: {
                             enabled: false,
