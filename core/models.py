@@ -136,7 +136,7 @@ class Coin(models.Model):
     is_moderate = models.BooleanField(blank=False, null=True, default=False, verbose_name='Статус модерации')
     uuid = models.CharField(blank=True, null=True)
     counter_link_usage = models.IntegerField(blank=True, null=True, default=0, verbose_name='Метрика посещений')
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True, unique=True)
 
     # price info
     price_for_promote = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, default='0.15',

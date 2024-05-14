@@ -84,6 +84,7 @@ def custom_set_language(request):
         )
     return response
 
+
 def search_coins_ajax(request):
     query = request.GET.get('q', '')
 
@@ -115,7 +116,6 @@ def sort_filter_pagination_ajax(request):
     else:
         page = int(page)
         page *= 2
-
 
     coins = ''
     if promote:
@@ -182,7 +182,6 @@ def sort_filter_pagination_ajax(request):
     if type:
         coins = coins.filter(type__slug=type)
 
-
     if not coins:
         coins = Coin.objects.filter(is_moderate=True).annotate(counter_like=Count('vote'),
                                                                counter_like_today=Count('vote',
@@ -190,8 +189,9 @@ def sort_filter_pagination_ajax(request):
                                                                                             vote__date_new__date=today))).order_by(
             '-counter_like')
 
-    response = JsonResponse({'html': render(request, '_table-coins-item_1.html', {'coins': coins[page-2:page]}).content.decode('utf-8'),
-                             'coin_counter': list(Paginator(coins, 2).page_range)})
+    response = JsonResponse(
+        {'html': render(request, '_table-coins-item_1.html', {'coins': coins[page - 2:page]}).content.decode('utf-8'),
+         'coin_counter': list(Paginator(coins, 2).page_range)})
     response['Access-Control-Allow-Origin'] = '*'
     return response
 
@@ -213,7 +213,7 @@ def increment_counter_like_ajax(request, pk):
         expires = datetime.utcnow() + timedelta(hours=12)
         response = redirect('core:index')
         response.set_cookie('liked', str(datetime.now().timestamp()), expires=expires)
-     #   return JsonResponse('_table-coins-item.html', {'coins': coins}, request)
+    #   return JsonResponse('_table-coins-item.html', {'coins': coins}, request)
     return
 
 
@@ -241,9 +241,9 @@ def get_text_by_number(number):
             while full_number.split('.')[1][cnt_0_fractional] == '0':
                 cnt_0_fractional += 1
 
-            number_part = full_number.split('.')[1][cnt_0_fractional-1:]
-            nulls_part = f"0{''.join(subscript_dict[char] for char in str(cnt_0_fractional-1) if char in subscript_dict)}"
-            return f"0.{nulls_part}{''.join(number_part[:6-(len(nulls_part)-1)])}".rstrip('0')
+            number_part = full_number.split('.')[1][cnt_0_fractional - 1:]
+            nulls_part = f"0{''.join(subscript_dict[char] for char in str(cnt_0_fractional - 1) if char in subscript_dict)}"
+            return f"0.{nulls_part}{''.join(number_part[:6 - (len(nulls_part) - 1)])}".rstrip('0')
 
         else:
             cnt_0_fractional = 0
@@ -265,4 +265,18 @@ def num_of_zeros(n):
     return len(s) - len(s.lstrip('0'))
 
 
-
+def convert_period_to_days(period):
+    if period == '24h':
+        return 1
+    elif period == '7d':
+        return 7
+    elif period == '30d' or period == '1m':
+        return 30
+    elif period == '3m':
+        return 90
+    elif period == '1y':
+        return 365
+    elif period == 'all':
+        return 3650
+    else:
+        return 1

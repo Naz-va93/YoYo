@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timedelta
 
 import requests
 from django.contrib.auth.models import User
@@ -15,7 +16,7 @@ from dotenv import load_dotenv
 from core.forms import CreateCoin, CaptchaForm
 from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing, AdvertisingItem, \
     Banner
-from core.utils import increment_metrik, increment_counter, get_text_by_number
+from core.utils import increment_metrik, increment_counter, get_text_by_number, convert_period_to_days
 
 load_dotenv()
 
@@ -613,5 +614,42 @@ def coin_price_history(request):
             return JsonResponse(response.json(), safe=False)
         else:
             return JsonResponse({'error': 'Failed to retrieve data from CoinRanking'}, status=500)
+
+    elif api_type == 'uniswap':
+        days = convert_period_to_days(period)
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days)
+        start_timestamp = int(start_date.timestamp())
+        end_timestamp = int(end_date.timestamp())
+        url = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3'
+        query = '''
+            {
+                tokenDayDatas(where: { token: "%s", date_gte: %d, date_lte: %d }, orderBy: date, orderDirection: desc) {
+                    priceUSD
+                    date
+                }
+            }
+            ''' % (coin_id, start_timestamp, end_timestamp)
+        response = requests.post(url, json={'query': query})
+
+        if response.status_code == 200:
+            data = response.json()
+            history = [
+                {
+                    'price': item['priceUSD'],
+                    'timestamp': item['date']
+                }
+                for item in data['data']['tokenDayDatas']
+            ]
+            result = {
+                'status': 'success',
+                'data': {
+                    'change': None,
+                    'history': history
+                }
+            }
+            return JsonResponse(result, safe=False)
+        else:
+            return JsonResponse({'error': 'Failed to retrieve data from Uniswap'}, status=500)
     else:
         return JsonResponse({'error': 'Unsupported API type'}, status=400)
