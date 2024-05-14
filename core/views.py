@@ -622,10 +622,10 @@ def coin_price_history(request):
         start_timestamp = int(start_date.timestamp())
         end_timestamp = int(end_date.timestamp())
         if period == '24h':
-            interval = 'hour'
+            interval = '20m'
             query = '''
                 {
-                    tokenHourDatas(where: { token: "%s", periodStartUnix_gte: %d, periodStartUnix_lte: %d }, orderBy: periodStartUnix, orderDirection: desc) {
+                    tokenMinuteDatas(where: { token: "%s", periodStartUnix_gte: %d, periodStartUnix_lte: %d }, orderBy: periodStartUnix, orderDirection: desc) {
                         priceUSD
                         periodStartUnix
                     }
@@ -655,11 +655,18 @@ def coin_price_history(request):
         response = requests.post(url, json={'query': query})
         if response.status_code == 200:
             data = response.json()
-            if period == '24h' or period == '7d':
+            if period == '24h':
                 history = [
                     {
                         'price': item['priceUSD'],
-
+                        'timestamp': item['periodStartUnix']
+                    }
+                    for item in data['data']['tokenMinuteDatas']
+                ]
+            elif period == '7d':
+                history = [
+                    {
+                        'price': item['priceUSD'],
                         'timestamp': item['periodStartUnix']
                     }
                     for item in data['data']['tokenHourDatas']
