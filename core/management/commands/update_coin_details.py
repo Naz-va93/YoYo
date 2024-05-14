@@ -113,15 +113,15 @@ def update_coin_details_uniswap(coins):
     def get_price_change_24h(token_address):
         query = f"""
         {{
-          tokenDayDatas(first: 2, orderBy: date, orderDirection: desc, where: {{ token: "{token_address}" }}) {{
-            close
+          tokenHourDatas(first: 25, orderBy: periodStartUnix, orderDirection: desc, where: {{ token: "{token_address}" }}) {{
+            close: priceUSD
           }}
         }}
         """
         result = run_query(query)
-        if result and len(result['data']['tokenDayDatas']) == 2:
-            latest_price = float(result['data']['tokenDayDatas'][0]['close'])
-            previous_price = float(result['data']['tokenDayDatas'][1]['close'])
+        if result and len(result['data']['tokenHourDatas']) >= 25:
+            latest_price = float(result['data']['tokenHourDatas'][0]['close'])
+            previous_price = float(result['data']['tokenHourDatas'][24]['close'])
             price_change_24h = ((latest_price - previous_price) / previous_price) * 100
             return round(price_change_24h, 2)
         return None
