@@ -112,8 +112,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (response.status === "success") {
                     const data = response.data.history;
                     data.sort((a, b) => a.timestamp - b.timestamp);
-                    const prices = data.map(item => item.price);
-                    const labels = data.map(item => {
+
+                    const filteredData = data.filter(item => item.price !== null);
+                    const prices = filteredData.map(item => item.price);
+                    const labels = filteredData.map(item => {
                         const date = new Date(item.timestamp * 1000);
                         if (period === '24h') {
                             return date.toLocaleTimeString('en-GB', {
@@ -272,9 +274,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.status === "success") {
                 const data = response.data.history;
                 data.sort((a, b) => a.timestamp - b.timestamp);
-                const prices = data.map(item => item.price);
-                const years = [...new Set(data.map(item => new Date(item.timestamp * 1000).getFullYear()))];
-                const labels = data.map(item => {
+
+                const filteredData = data.filter(item => item.price !== null);
+                const prices = filteredData.map(item => item.price);
+                const years = [...new Set(filteredData.map(item => new Date(item.timestamp * 1000).getFullYear()))];
+                const labels = filteredData.map(item => {
                     const date = new Date(item.timestamp * 1000);
                     if (years.length === 1) {
                         return date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
