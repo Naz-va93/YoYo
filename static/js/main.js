@@ -1516,10 +1516,13 @@ function createNotification(isVoted, typeNotification) {
 // =-=-=-=-=-=-=-=-=-=-=-=- <text copied notification> -=-=-=-=-=-=-=-=-=-=-=-=
 
 const notificationCopySuccess = document.getElementById('notification-copy-success');
+const copyButton = document.querySelector('button[title="Copy"]');
 
-document.querySelector('button[title="Copy"]').addEventListener('click', function (event) {
-    createNotification(false, 'copy');
-});
+if (copyButton) {
+    copyButton.addEventListener('click', function (event) {
+        createNotification(false, 'copy');
+    });
+}
 
 // =-=-=-=-=-=-=-=-=-=-=-=- </text copied notification> -=-=-=-=-=-=-=-=-=-=-=-=
 
