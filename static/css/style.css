@@ -374,7 +374,7 @@
     align-self: self-end
 }
 
-.coin__aside, .coin__main {
+.coin__aside {
     align-self: self-start;
     display: grid
 }
@@ -601,10 +601,6 @@
     padding: 9px 15px
 }
 
-.coin__main {
-    gap: 20px
-}
-
 .coin__chain--block {
     display: grid;
     grid-template-columns:52px auto;
@@ -638,18 +634,10 @@
     fill: var(--primary-active)
 }
 
-.coin__social {
-    padding: 12px 20px
-}
-
 .coin__social ul {
     display: flex;
     flex-wrap: wrap;
-    margin: -4px
-}
-
-.coin__social li {
-    margin: 4px
+    gap: 8px
 }
 
 .coin__descr--title img, .promote__block--banner span:not(:first-child) svg {
@@ -667,7 +655,7 @@
     background: var(--shade);
     border-radius: 29px;
     fill: var(--secondary);
-    padding: 10px 16px;
+    padding: 11px 31px;
     transition: background .3s, color .3s
 }
 
@@ -882,7 +870,7 @@
     min-width: calc(320px - var(--container-padding) * 2)
 }
 
-.jsCalendar thead tr, .promote__social--list {
+.jsCalendar thead tr, .notification.copy-text.vote-accepted, .promote__social--list {
     display: flex
 }
 
@@ -2049,10 +2037,6 @@
         grid-row: 2
     }
 
-    .coin__main {
-        grid-template-columns:60% auto
-    }
-
     .coin__chain {
         grid-column: 2 span
     }
@@ -2063,10 +2047,6 @@
 
     .coin__social a {
         font-size: .875rem
-    }
-
-    .coin__social a svg {
-        margin-right: 8px
     }
 
     .coin__min-info {
@@ -2578,7 +2558,6 @@
     padding: 0;
     margin: 0;
     font-size: 24px;
-    font-weight: 500;
     color: #fff
 }
 
@@ -2587,7 +2566,9 @@
     margin-bottom: 8px;
     border-radius: 10px;
     opacity: 0;
-    transition: opacity .8s, background .6s
+    transition: opacity .8s, background .6s;
+    width: fit-content;
+    margin-left: auto;
 }
 
 .notification-inner {
@@ -2603,6 +2584,19 @@
 
 .notification.try-vote-later {
     background: linear-gradient(167.35deg, #11141b 44.671%, #3476f5 127.381%)
+}
+
+.notification-copy-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff
+}
+
+.notification-inner.copy-text {
+    padding: 3px 4px;
+    background-color: #1e74fe;
+    border-radius: 10px;
+    width: fit-content;
 }
 
 .close-notification {
@@ -2655,8 +2649,7 @@
 }
 
 .banner {
-    margin: 15px 0;
-    margin-bottom: -60px;
+    margin: 15px 0 -60px
 }
 
 .banner img {
@@ -2664,7 +2657,7 @@
     height: 118px;
     object-fit: cover;
     max-width: 100%;
-    border-radius: 12px;
+    border-radius: 12px
 }
 
 @media (max-width: 991px) {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-12 23:20+0300\n"
+"POT-Creation-Date: 2024-05-16 13:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -503,43 +503,43 @@ msgstr ""
 msgid "24h volume"
 msgstr ""
 
-#: .\core\templates\coin-page.html:251
+#: .\core\templates\coin-page.html:248
 msgid "Market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:256
+#: .\core\templates\coin-page.html:253
 msgid "Volume / Market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:271
+#: .\core\templates\coin-page.html:265
 msgid "Fully diluted market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:276
+#: .\core\templates\coin-page.html:270
 msgid "All-time high"
 msgstr ""
 
-#: .\core\templates\coin-page.html:279
+#: .\core\templates\coin-page.html:273
 msgid "on"
 msgstr ""
 
-#: .\core\templates\coin-page.html:286
+#: .\core\templates\coin-page.html:280
 msgid "Binance Smart Chain"
 msgstr ""
 
-#: .\core\templates\coin-page.html:306
+#: .\core\templates\coin-page.html:300
 msgid "Converter"
 msgstr ""
 
-#: .\core\templates\coin-page.html:380
+#: .\core\templates\coin-page.html:374
 msgid "Exchanges"
 msgstr ""
 
-#: .\core\templates\coin-page.html:396
+#: .\core\templates\coin-page.html:390
 msgid "Markets"
 msgstr ""
 
-#: .\core\templates\coin-page.html:423
+#: .\core\templates\coin-page.html:417
 msgid "Description"
 msgstr ""
 
@@ -837,6 +837,10 @@ msgstr ""
 
 #: .\templates\include\_footer.html:295
 msgid "Your vote is accepted"
+msgstr ""
+
+#: .\templates\include\_footer.html:306
+msgid "Text copied!"
 msgstr ""
 
 #: .\templates\include\_header.html:21 .\templates\include\_header.html:38

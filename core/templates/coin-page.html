@@ -240,9 +240,6 @@
                                 <div class="coin__info--details-info-item">
                                     <h2>{% trans '24h volume' %}</h2>
                                     <div class="coin__info--details-warning">
-                                        <svg width="18" height="17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <use xlink:href="{% static 'img/sprites.svg' %}#coinDetailsWarning"></use>
-                                        </svg>
                                         <p>${% if coin.volume_24h %}{{ coin.volume_24h|normalize_amount }}{% else %}
                                             --{% endif %}</p>
                                     </div>
@@ -255,9 +252,6 @@
                                 <div class="coin__info--details-info-item">
                                     <h2>{% trans 'Volume / Market cap' %}</h2>
                                     <div class="coin__info--details-warning">
-                                        <svg width="18" height="17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <use xlink:href="{% static 'img/sprites.svg' %}#coinDetailsWarning"></use>
-                                        </svg>
                                         <p>
                                             {% if coin.market_cap > 0 %}
                                                 {{ coin.volume_24h|divide:coin.market_cap|normalize_amount }}

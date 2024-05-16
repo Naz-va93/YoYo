@@ -1479,8 +1479,13 @@ containerNotifications.addEventListener('click', function (event) {
     }
 });
 
-function createNotification(isVoted) {
-    const notification = isVoted ? notificationVoteAccepted.cloneNode(true) : notificationVoteTryLater.cloneNode(true);
+function createNotification(isVoted, typeNotification) {
+    let notification;
+    if (typeNotification === 'copy') {
+        notification = notificationCopySuccess.cloneNode(true);
+    } else {
+        notification = isVoted ? notificationVoteAccepted.cloneNode(true) : notificationVoteTryLater.cloneNode(true);
+    }
 
     if (containerNotifications.children.length >= 5) {
         containerNotifications.removeChild(containerNotifications.firstChild);
@@ -1507,6 +1512,16 @@ function createNotification(isVoted) {
         }, 5000);
     }, 50);
 }
+
+// =-=-=-=-=-=-=-=-=-=-=-=- <text copied notification> -=-=-=-=-=-=-=-=-=-=-=-=
+
+const notificationCopySuccess = document.getElementById('notification-copy-success');
+
+document.querySelector('button[title="Copy"]').addEventListener('click', function (event) {
+    createNotification(false, 'copy');
+});
+
+// =-=-=-=-=-=-=-=-=-=-=-=- </text copied notification> -=-=-=-=-=-=-=-=-=-=-=-=
 
 // =-=-=-=-=-=-=-=-=-=-=-=- <table coins scroll> -=-=-=-=-=-=-=-=-=-=-=-=
 
