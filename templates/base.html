@@ -8,8 +8,8 @@
     {% endblock %}
 
     <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}">
-    <link rel="stylesheet" href="{% static 'css/preloader.css' %}">
-    <script src="{% static 'js/preloader.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/preloader.min.css' %}">
+    <script src="{% static 'js/preloader.js' %}"></script>
     {% block description %}
         <meta name="description" content="{{ page.description_seo }}">
     {% endblock %}
@@ -87,7 +87,7 @@
     {% endblock %}
 </head>
 <body>
-<div class="wrapper" style="visibility: hidden;">
+<div class="wrapper" style="display: none;">
     {% include 'include/_header.html' %}
 
     {% block content %}

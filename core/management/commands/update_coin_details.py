@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 
 from django.core.management import BaseCommand
 
-from core.models import Coin
+from core.management.commands.utils import update_currency_price_to_usd
+from core.models import Coin, ReferenceCurrency
 
 load_dotenv()
 
@@ -197,6 +198,15 @@ def update_coin_details():
         update_coin_details_uniswap(coins_with_uniswap_api)
 
 
+def update_reference_crypto_currencies():
+    crypto_currencies = ReferenceCurrency.objects.filter(currency_type='crypto')
+
+    for currency in crypto_currencies:
+        update_currency_price_to_usd(currency)
+        time.sleep(0.2)
+
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         update_coin_details()
+        update_reference_crypto_currencies()

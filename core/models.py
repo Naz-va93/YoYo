@@ -1,14 +1,16 @@
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 from ckeditor.fields import RichTextField
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.db.models.signals import pre_save, post_migrate
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
 from slugify import slugify
 from django.utils import timezone
+
+from core.management.commands.utils import get_currency_price_to_usd
 
 
 class NetworkChain(models.Model):
@@ -436,3 +438,26 @@ class CoinExchange(models.Model):
 
     def __str__(self):
         return f'{self.coin.coin_name}: {self.exchange.name}'
+
+
+class ReferenceCurrency(models.Model):
+    CURRENCY_TYPE_CHOICES = [
+        ('fiat', 'Fiat Currency'),
+        ('crypto', 'Cryptocurrency'),
+    ]
+    uuid = models.CharField(max_length=36, unique=True)
+    symbol = models.CharField(max_length=10, help_text='Наименование валюты (BTC, USD, ETH, ...)')
+    name = models.CharField(max_length=50, blank=True, null=True,
+                            help_text='Полное наименование валюты (Bitcoin, US Dollar, Ethereum, ...)')
+    price_to_usd = models.FloatField(default=0.0, help_text='Цена валюты к USD')
+    currency_type = models.CharField(max_length=10, choices=CURRENCY_TYPE_CHOICES, default='fiat')
+
+    class Meta:
+        ordering = ['symbol']
+
+    def __str__(self):
+        return self.name or self.symbol
+
+    def save(self, *args, **kwargs):
+        self.price_to_usd = get_currency_price_to_usd(self)
+        super().save(*args, **kwargs)

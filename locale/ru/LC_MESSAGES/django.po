@@ -534,7 +534,7 @@ msgstr "Полностью разбавленная капитализация"
 
 #: .\core\templates\coin-page.html:270
 msgid "All-time high"
-msgstr "Максимум цени"
+msgstr "Исторический максимум"
 
 #: .\core\templates\coin-page.html:273
 msgid "on"
@@ -885,7 +885,7 @@ msgstr "Контакты"
 
 #: .\templates\include\_header.html:101 .\templates\include\_header.html:248
 msgid "Sign up"
-msgstr "Регистрация"
+msgstr "Авторизация"
 
 #: .\templates\include\_header.html:111 .\templates\include\_header.html:254
 #: .\user\templates\account-liked-coins.html:96

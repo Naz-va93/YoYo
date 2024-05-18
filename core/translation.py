@@ -10,7 +10,9 @@ class PageTranslationOptions(TranslationOptions):
 
 @register(Setting)
 class SettingTranslationOptions(TranslationOptions):
-    fields = ('stat_title', 'stat_text', 'contacts_title', 'copyright', 'footer_text', 'promote_text', 'promote_text_spot', 'promote_text_banner')
+    fields = (
+    'stat_title', 'stat_text', 'contacts_title', 'copyright', 'footer_text', 'promote_text', 'promote_text_spot',
+    'promote_text_banner')
 
 
 @register(Coin)
@@ -41,3 +43,8 @@ class ListingPlatformTranslationOptions(TranslationOptions):
 @register(Listing)
 class ListingTranslationOptions(TranslationOptions):
     fields = ('title',)
+
+
+@register(ReferenceCurrency)
+class ReferenceCurrencyTranslationOptions(TranslationOptions):
+    fields = ('name',)

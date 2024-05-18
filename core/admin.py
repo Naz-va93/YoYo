@@ -126,6 +126,13 @@ class CoinExchangeAdmin(admin.ModelAdmin):
     search_fields = ('coin__name', 'exchange__name')
 
 
+class ReferenceCurrencyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'symbol')
+    list_display_links = ('id', 'name', 'symbol')
+    search_fields = ('id', 'name', 'symbol', 'uuid')
+    # exclude = ('price_to_usd',)
+
+
 admin.site.register(Coin, CoinAdmin)
 admin.site.register(CoinExchange, CoinExchangeAdmin)
 admin.site.register(Exchange, ExchangeAdmin)
@@ -137,6 +144,7 @@ admin.site.register(ListingPlatform, ListingPlatformAdmin)
 admin.site.register(AdvertisingItem, AdvertisingItemAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Banner, BannerAdmin)
+admin.site.register(ReferenceCurrency, ReferenceCurrencyAdmin)
 admin.site.register(Social)
 admin.site.register(Listing)
 admin.site.register(Setting)

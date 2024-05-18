@@ -1,22 +1,72 @@
 document.addEventListener('DOMContentLoaded', function () {
     const progressBar = document.getElementById('progressBar');
-    const currentPrice = parseFloat(progressBar.getAttribute('data-current-price'));
-    const inputCoinFrom = document.getElementById('coin__converter-from');
-    const inputCoinTo = document.getElementById('coin__converter-to');
-    const initialCoinPrice = parseFloat(inputCoinTo.value.replace(',', '.').replace(' ', ''));
     const todayLowPriceElement = document.getElementById('todayLowPrice');
     const todayHighPriceElement = document.getElementById('todayHighPrice');
-    inputCoinTo.value = formatNumber(initialCoinPrice);
+
+    const currentPrice = parseFloat(progressBar.getAttribute('data-current-price').replace(',', '.'));
+    const inputCoinFrom = document.getElementById('coin__converter-from');
+    const inputCoinTo = document.getElementById('coin__converter-to');
+    inputCoinTo.value = formatNumber(parseFloat(inputCoinFrom.getAttribute('data-coin-price-usd').replace(',', '.')))
+
     inputCoinFrom.addEventListener('input', function () {
-        updateConversion();
+        updateConversionFrom();
     });
 
-    function updateConversion() {
-        const coinPrice = parseFloat(inputCoinFrom.getAttribute('data-coin-price-usd').replace(',', '.').replace(' ', ''));
-        const numCoinsValue = inputCoinFrom.value.replace(',', '.');
-        const numCoins = numCoinsValue ? parseFloat(numCoinsValue) : 0;
-        const conversionResult = numCoins * coinPrice;
+    inputCoinTo.addEventListener('input', function () {
+        updateConversionTo();
+    });
+
+    function updateConversionFrom() {
+        const coinPriceUsd = parseFloat(inputCoinFrom.getAttribute('data-coin-price-usd').replace(',', '.'));
+        const coinPriceCurrencyToUsd = parseFloat(inputCoinFrom.getAttribute('data-coin-price-currency-to-usd').replace(',', '.'));
+        const numCoinsValue = parseInputValue(inputCoinFrom.value);
+
+        const currentCurrencySymbol = document.getElementById('current-currency').innerText.toLowerCase();
+        const converterCryptoSymbol = document.getElementById('converter-crypto-symbol').innerText.toLowerCase();
+        console.log(currentCurrencySymbol, converterCryptoSymbol);
+        if (currentCurrencySymbol === converterCryptoSymbol) {
+            inputCoinTo.value = formatNumber(numCoinsValue);
+            return;
+        }
+        const numCoins = numCoinsValue ? numCoinsValue : 0;
+        const conversionResult = numCoins * coinPriceUsd * coinPriceCurrencyToUsd;
         inputCoinTo.value = formatNumber(conversionResult);
+    }
+
+    function updateConversionTo() {
+        const coinPriceUsd = parseFloat(inputCoinFrom.getAttribute('data-coin-price-usd').replace(',', '.'));
+        const coinPriceCurrencyToUsd = parseFloat(inputCoinFrom.getAttribute('data-coin-price-currency-to-usd').replace(',', '.'));
+        const numCurrenciesValue = parseInputValue(inputCoinTo.value);
+
+        const currentCurrencySymbol = document.getElementById('current-currency').innerText.toLowerCase();
+        const converterCryptoSymbol = document.getElementById('converter-crypto-symbol').innerText.toLowerCase();
+        if (currentCurrencySymbol === converterCryptoSymbol) {
+            inputCoinFrom.value = formatNumber(numCurrenciesValue);
+            return;
+        }
+
+        const numCurrencies = numCurrenciesValue ? numCurrenciesValue : 0;
+        const conversionResult = (numCurrencies / coinPriceCurrencyToUsd) / coinPriceUsd;
+        inputCoinFrom.value = formatNumber(conversionResult);
+    }
+
+    function parseInputValue(value) {
+        const numberPattern = /^[0-9\s,.]+$/;
+
+        if (numberPattern.test(value)) {
+            value = value.replace(/\s+/g, '');
+            value = value.replace(/,/g, '.');
+
+            let parsedValue = parseFloat(value);
+
+            if (isNaN(parsedValue)) {
+                return 0;
+            }
+
+            return parsedValue;
+        } else {
+            return 0;
+        }
     }
 
     function formatNumber(num) {
@@ -24,9 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
             num = parseFloat(num);
         }
 
-        if (num === 0) {
+        if (isNaN(num) || num === 0) {
             return '0';
         }
+
         const magnitude = Math.abs(num);
         let decimalPlaces = 2;
         if (magnitude !== 0 && magnitude < 1) {
@@ -35,9 +86,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formattedNumber = num.toLocaleString('en-US', {
             minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces
-        });
-        return formattedNumber.replace(/(\.\d*[1-9])0+$|\.0*$/, '$1');
+            maximumFractionDigits: decimalPlaces,
+            useGrouping: true
+        }).replace(/,/g, ' ').replace(/\./g, ',');
+
+        return formattedNumber.replace(/(\,\d*[1-9])0+$|\,0*$/, '$1').replace(/,/g, '.');
     }
 
     const coinTradingCoinInfo = document.querySelector('.coin__trading--coin__info');
@@ -281,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const labels = filteredData.map(item => {
                     const date = new Date(item.timestamp * 1000);
                     if (years.length === 1) {
-                        return date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+                        return date.toLocaleDateString('en-GB', {month: 'short', year: 'numeric'});
                     } else {
                         return date.getFullYear();
                     }
@@ -382,4 +435,58 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.addEventListener('resize', updateAllTimeChartTicksLimit);
             }
         });
+
+    //===============================<converter script>================================
+    const currencyLabel = document.getElementById('currency-label');
+    const currencyDropdown = document.getElementById('currency-dropdown');
+    const currentCurrency = document.getElementById('current-currency');
+
+    currencyLabel.addEventListener('click', function (event) {
+        event.stopPropagation();
+        if (currencyDropdown.classList.contains('show')) {
+            currencyDropdown.classList.remove('show');
+            setTimeout(() => {
+                currencyDropdown.style.display = 'none';
+            }, 300);
+        } else {
+            currencyDropdown.style.display = 'block';
+            setTimeout(() => {
+                currencyDropdown.classList.add('show');
+            }, 10);
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!currencyDropdown.contains(event.target) && event.target !== currencyLabel) {
+            if (currencyDropdown.classList.contains('show')) {
+                currencyDropdown.classList.remove('show');
+                setTimeout(() => {
+                    currencyDropdown.style.display = 'none';
+                }, 300);
+            }
+        }
+    });
+
+    currencyDropdown.addEventListener('click', function (event) {
+        if (event.target.tagName.toLowerCase() === 'li') {
+            const currencySymbol = event.target.getAttribute('data-currency-symbol');
+            const currencyPriceToUsd = event.target.getAttribute('data-currency-price-to-usd');
+            currentCurrency.textContent = currencySymbol;
+
+            inputCoinFrom.setAttribute('data-coin-price-currency-to-usd', currencyPriceToUsd);
+            updateConversionFrom();
+            const liElements = currencyDropdown.querySelectorAll('li');
+            liElements.forEach(li => {
+                li.classList.remove('selected');
+            });
+
+            event.target.classList.add('selected');
+
+            currencyDropdown.classList.remove('show');
+            setTimeout(() => {
+                currencyDropdown.style.display = 'none';
+            }, 300);
+        }
+    });
+    //===============================</converter script>================================
 });

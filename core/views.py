@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 from core.forms import CreateCoin, CaptchaForm
 from core.models import Coin, Category, NetworkChain, ListingPlatform, Page, Type, Social, Listing, AdvertisingItem, \
-    Banner
+    Banner, ReferenceCurrency
 from core.utils import increment_metrik, increment_counter, get_text_by_number, convert_period_to_days
 
 load_dotenv()
@@ -256,6 +256,7 @@ class CoinDetail(DetailView):
         context['coins'] = Coin.objects.filter(is_moderate=True, promoted_status=True)[:6]
         context['promoted'] = Listing.objects.get(slug='promoted')
         context['disable_filter'] = True
+        context['reference_currencies'] = ReferenceCurrency.objects.all()
         increment_metrik(self.request, self.kwargs['slug'])
         return context
 

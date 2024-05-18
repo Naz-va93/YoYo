@@ -3,6 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var content = document.querySelector('.wrapper');
     setTimeout(function () {
         preloader.style.display = 'none';
-        content.style.visibility = 'visible';
+        content.style.display = 'block';
     }, 900);
 });

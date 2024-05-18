@@ -188,7 +188,8 @@
                             </div>
                             <div class="coin__price-range">
                                 <div class="progress-container">
-                                    <div class="progress-bar" id="progressBar" data-current-price="{{ coin.price }}"></div>
+                                    <div class="progress-bar" id="progressBar"
+                                         data-current-price="{{ coin.price }}"></div>
                                 </div>
                                 <div class="price-labels">
                                     <span id="todayLowPrice"></span>
@@ -301,17 +302,33 @@
                                 <div class="coin__converter-block">
                                     <div class="coin__converter-item from">
                                         <input type="text" id="coin__converter-from" value="1"
-                                               data-coin-price-usd="{{ coin.price }}">
-                                        <label for="coin__converter-from">{{ coin.coin_symbol }}</label>
+                                               data-coin-price-usd="{{ coin.price }}"
+                                               data-coin-price-currency-to-usd="1"
+                                        >
+                                        <label for="coin__converter-from" id="converter-crypto-symbol">{{ coin.coin_symbol }}</label>
                                     </div>
                                     <div class="coin__converter-item to">
-                                        <input type="text" id="coin__converter-to" value="{{ coin.price }}" readonly>
-                                        <label for="coin__converter-to">
-                                            USD
+                                        <input type="text" id="coin__converter-to" value="{{ coin.price }}">
+                                        <label for="coin__converter-to" id="currency-label">
+                                            <span id="current-currency">USD</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" fill="none">
                                                 <use xlink:href="{% static 'img/sprites.svg' %}#expandMenu"></use>
                                             </svg>
                                         </label>
+                                        <div id="currency-dropdown" class="currency-dropdown">
+                                        {% if reference_currencies %}
+                                            <ul>
+                                                {% for currency in reference_currencies %}
+                                                    <li class="currency-item {% if currency.symbol == 'USD'%}selected{% endif %}" data-currency-symbol="{{ currency.symbol }}" data-currency-price-to-usd="{{ currency.price_to_usd }}">
+                                                        {{ currency.symbol }}
+                                                        {% if currency.name %}
+                                                            - {{ currency.name }}
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
