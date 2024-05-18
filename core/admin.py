@@ -130,7 +130,7 @@ class ReferenceCurrencyAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'symbol')
     list_display_links = ('id', 'name', 'symbol')
     search_fields = ('id', 'name', 'symbol', 'uuid')
-    # exclude = ('price_to_usd',)
+    exclude = ('price_to_usd',)
 
 
 admin.site.register(Coin, CoinAdmin)
