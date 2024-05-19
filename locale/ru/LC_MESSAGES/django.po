@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 13:06+0300\n"
+"POT-Creation-Date: 2024-05-19 17:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -508,55 +508,55 @@ msgstr "1г"
 msgid "Max"
 msgstr "Макс"
 
-#: .\core\templates\coin-page.html:196
+#: .\core\templates\coin-page.html:197
 msgid "Range in 24hr."
 msgstr "Диапазон за 24ч."
 
-#: .\core\templates\coin-page.html:237
+#: .\core\templates\coin-page.html:238
 msgid "Price to USD"
 msgstr "Цена в USD"
 
-#: .\core\templates\coin-page.html:241
+#: .\core\templates\coin-page.html:242
 msgid "24h volume"
 msgstr "24ч объем"
 
-#: .\core\templates\coin-page.html:248
+#: .\core\templates\coin-page.html:249
 msgid "Market cap"
 msgstr "Капитализация"
 
-#: .\core\templates\coin-page.html:253
+#: .\core\templates\coin-page.html:254
 msgid "Volume / Market cap"
 msgstr "Объем / Капитализация"
 
-#: .\core\templates\coin-page.html:265
+#: .\core\templates\coin-page.html:266
 msgid "Fully diluted market cap"
 msgstr "Полностью разбавленная капитализация"
 
-#: .\core\templates\coin-page.html:270
+#: .\core\templates\coin-page.html:271
 msgid "All-time high"
 msgstr "Исторический максимум"
 
-#: .\core\templates\coin-page.html:273
+#: .\core\templates\coin-page.html:274
 msgid "on"
 msgstr "в"
 
-#: .\core\templates\coin-page.html:280
+#: .\core\templates\coin-page.html:281
 msgid "Binance Smart Chain"
 msgstr ""
 
-#: .\core\templates\coin-page.html:300
+#: .\core\templates\coin-page.html:301
 msgid "Converter"
 msgstr "Конвертер"
 
-#: .\core\templates\coin-page.html:374
+#: .\core\templates\coin-page.html:391
 msgid "Exchanges"
 msgstr "Биржи"
 
-#: .\core\templates\coin-page.html:390
+#: .\core\templates\coin-page.html:407
 msgid "Markets"
 msgstr "Рынки"
 
-#: .\core\templates\coin-page.html:417
+#: .\core\templates\coin-page.html:434
 msgid "Description"
 msgstr "Описание"
 
@@ -804,7 +804,8 @@ msgstr "Условия использования"
 msgid "Privacy policy"
 msgstr "Политика конфиденциальности"
 
-#: .\templates\include\_footer.html:62
+#: .\templates\include\_footer.html:62 .\templates\include\_header.html:101
+#: .\templates\include\_header.html:248
 msgid "Authorization"
 msgstr "Авторизация"
 
@@ -882,10 +883,6 @@ msgstr "Продвигаемые"
 #: .\templates\include\_header.html:83
 msgid "Contacts"
 msgstr "Контакты"
-
-#: .\templates\include\_header.html:101 .\templates\include\_header.html:248
-msgid "Sign up"
-msgstr "Авторизация"
 
 #: .\templates\include\_header.html:111 .\templates\include\_header.html:254
 #: .\user\templates\account-liked-coins.html:96
