@@ -48,8 +48,8 @@ def coin_list(request, slug):
         'coins': coins,
         'is_paginated': is_paginated,
         'page': Page.objects.get(slug='coin-list'),
-        'categories': Category.objects.all(),
-        'chains': NetworkChain.objects.all(),
+        'categories': Category.objects.filter(draft=False),
+        'chains': NetworkChain.objects.filter(draft=False),
         'types': Type.objects.all(),
         'disable_filter': disable_filter,
     }
@@ -195,8 +195,8 @@ class Index(TemplateView):
             '-counter_like')[:4]
         context['coin_counter'] = len(Coin.objects.filter(is_moderate=True))
         context['page'] = Page.objects.get(slug='index')
-        context['categories'] = Category.objects.all()
-        context['chains'] = NetworkChain.objects.all()
+        context['categories'] = Category.objects.filter(draft=False)
+        context['chains'] = NetworkChain.objects.filter(draft=False)
         context['types'] = Type.objects.all()
         total_trading = [coin.market_cap for coin in Coin.objects.all()]
         total_vote = [vote for vote in Vote.objects.all()]
@@ -226,20 +226,53 @@ class AddCoin(CreateView):
     model = Coin
     success_url = reverse_lazy('core:index')
 
+    def post(self, request, *args, **kwargs):
+        data = request.POST.copy()
+        files = request.FILES
+
+        if data.get('network_chain') == 'other':
+            if data.get('network_chain_other'):
+                network_chain = NetworkChain.objects.create(name=data.get('network_chain_other'))
+                data['network_chain'] = network_chain.pk
+            else:
+                data['network_chain'] = None
+
+        if data.get('category') == 'other':
+            if data.get('category_other'):
+                category = Category.objects.create(name=data.get('category_other'))
+                data['category'] = category.pk
+            else:
+                data['category'] = None
+
+        if data.get('listing_platform') == 'other':
+            if data.get('listing_platform_other'):
+                listing_platform = ListingPlatform.objects.create(name=data.get('listing_platform_other'))
+                data['listing_platform'] = listing_platform.pk
+            else:
+                data['listing_platform'] = None
+
+        form = self.form_class(data, files)
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def form_valid(self, form):
         self.object = form.save()
         return JsonResponse({'status': 'success'})
 
     def form_invalid(self, form):
         errors = form.errors.as_json()
+        print(errors)
         return JsonResponse({'status': 'error', 'errors': errors})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AddCoin, self).get_context_data(**kwargs)
         context['page'] = Page.objects.get(slug='add-coin')
-        context['categorys'] = Category.objects.all()
-        context['listing_platforms'] = ListingPlatform.objects.all()
-        context['network_chain'] = NetworkChain.objects.all()
+        context['categorys'] = Category.objects.filter(draft=False)
+        context['listing_platforms'] = ListingPlatform.objects.filter(draft=False)
+        context['network_chain'] = NetworkChain.objects.filter(draft=False)
         return context
 
 
@@ -284,8 +317,8 @@ class NewlistingList(ListView):
         context['page'] = Page.objects.get(slug='coin-list')
         context['sort_item'] = self.request.path.split('/')[-1]
         context['sort_item_2'] = self.request.path.split('/')[-2]
-        context['categories'] = Category.objects.all()
-        context['chains'] = NetworkChain.objects.all()
+        context['categories'] = Category.objects.filter(draft=False)
+        context['chains'] = NetworkChain.objects.filter(draft=False)
         context['types'] = Type.objects.all()
         context['name_filter'] = 'New Listings'
 
@@ -334,8 +367,8 @@ class NewlistingListCategory(ListView):
         context['page'] = Page.objects.get(slug='coin-list')
         context['sort_item'] = self.request.path.split('/')[-1]
         context['sort_item_2'] = self.request.path.split('/')[-2]
-        context['categories'] = Category.objects.all()
-        context['chains'] = NetworkChain.objects.all()
+        context['categories'] = Category.objects.filter(draft=False)
+        context['chains'] = NetworkChain.objects.filter(draft=False)
         context['types'] = Type.objects.all()
         if self.kwargs.get('sort_item'):
             context['del_block'] = True
@@ -358,8 +391,8 @@ class NewlistingListPromote(ListView):
         context['page'] = Page.objects.get(slug='coin-list')
         context['sort_item'] = self.request.path.split('/')[-1]
         context['sort_item_2'] = self.request.path.split('/')[-2]
-        context['categories'] = Category.objects.all()
-        context['chains'] = NetworkChain.objects.all()
+        context['categories'] = Category.objects.filter(draft=False)
+        context['chains'] = NetworkChain.objects.filter(draft=False)
         context['types'] = Type.objects.all()
         context['if_promote'] = True
         if self.kwargs.get('sort_item'):
@@ -387,8 +420,8 @@ class NewlistingListChain(ListView):
         context['page'] = Page.objects.get(slug='coin-list')
         context['sort_item'] = self.request.path.split('/')[-1]
         context['sort_item_2'] = self.request.path.split('/')[-2]
-        context['categories'] = Category.objects.all()
-        context['chains'] = NetworkChain.objects.all()
+        context['categories'] = Category.objects.filter(draft=False)
+        context['chains'] = NetworkChain.objects.filter(draft=False)
         context['types'] = Type.objects.all()
         if self.kwargs.get('sort_item'):
             context['del_block'] = True
@@ -414,8 +447,8 @@ class NewlistingListType(ListView):
         context['page'] = Page.objects.get(slug='coin-list')
         context['sort_item'] = self.request.path.split('/')[-1]
         context['sort_item_2'] = self.request.path.split('/')[-2]
-        context['categories'] = Category.objects.all()
-        context['chains'] = NetworkChain.objects.all()
+        context['categories'] = Category.objects.filter(draft=False)
+        context['chains'] = NetworkChain.objects.filter(draft=False)
         context['types'] = Type.objects.all()
         if self.kwargs.get('sort_item'):
             context['del_block'] = True

@@ -14,8 +14,8 @@ def context_controller(request):
         'settings': settings,
         'socials': Social.objects.all(),
     }
-    context['categories'] = Category.objects.all()
-    context['chains'] = NetworkChain.objects.all()
+    context['categories'] = Category.objects.filter(draft=False)
+    context['chains'] = NetworkChain.objects.filter(draft=False)
     context['types'] = Type.objects.all()
 
     return context

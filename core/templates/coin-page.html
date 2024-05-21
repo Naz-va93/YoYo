@@ -278,23 +278,25 @@
                                     {% endif %}
                                 </div>
                                 <div class="coin__info--details-info-item">
-                                    <h2>{% trans 'Binance Smart Chain' %}</h2>
-                                    <div class="coin__chain--address">
-                                        <label>
-                                            <input type="text" name="wallet" id="chain" readonly
-                                                   value="{{ coin.binance_smart_chain }}" class="visually-hidden2">
-                                            {% if coin.binance_smart_chain %}
-                                                <span>{{ coin.binance_smart_chain|slice:":4" }}...{{ coin.binance_smart_chain|slice:"-4:" }}</span>
-                                            {% else %}
-                                                <span>--</span>
-                                            {% endif %}
-                                        </label>
-                                        <button type="button" title="Copy" data-clipboard-target="#chain">
-                                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                                <use xlink:href="{% static 'img/sprites.svg' %}#copy"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
+                                    {% if coin.network_name %}
+                                        <h2>{{ coin.network_name }}</h2>
+                                        <div class="coin__chain--address">
+                                            <label>
+                                                <input type="text" name="wallet" id="chain" readonly
+                                                       value="{{ coin.contract_address }}" class="visually-hidden2">
+                                                {% if coin.contract_address %}
+                                                    <span>{{ coin.contract_address|slice:":4" }}...{{ coin.contract_address|slice:"-4:" }}</span>
+                                                {% else %}
+                                                    <span>--</span>
+                                                {% endif %}
+                                            </label>
+                                            <button type="button" title="Copy" data-clipboard-target="#chain">
+                                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                                    <use xlink:href="{% static 'img/sprites.svg' %}#copy"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="coin__info--details-converter coin__info--details-container">
@@ -305,7 +307,8 @@
                                                data-coin-price-usd="{{ coin.price }}"
                                                data-coin-price-currency-to-usd="1"
                                         >
-                                        <label for="coin__converter-from" id="converter-crypto-symbol">{{ coin.coin_symbol }}</label>
+                                        <label for="coin__converter-from"
+                                               id="converter-crypto-symbol">{{ coin.coin_symbol }}</label>
                                     </div>
                                     <div class="coin__converter-item to">
                                         <input type="text" id="coin__converter-to" value="{{ coin.price }}">
@@ -316,18 +319,20 @@
                                             </svg>
                                         </label>
                                         <div id="currency-dropdown" class="currency-dropdown">
-                                        {% if reference_currencies %}
-                                            <ul>
-                                                {% for currency in reference_currencies %}
-                                                    <li class="currency-item {% if currency.symbol == 'USD'%}selected{% endif %}" data-currency-symbol="{{ currency.symbol }}" data-currency-price-to-usd="{{ currency.price_to_usd }}">
-                                                        {{ currency.symbol }}
-                                                        {% if currency.name %}
-                                                            - {{ currency.name }}
-                                                        {% endif %}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% endif %}
+                                            {% if reference_currencies %}
+                                                <ul>
+                                                    {% for currency in reference_currencies %}
+                                                        <li class="currency-item {% if currency.symbol == 'USD' %}selected{% endif %}"
+                                                            data-currency-symbol="{{ currency.symbol }}"
+                                                            data-currency-price-to-usd="{{ currency.price_to_usd }}">
+                                                            {{ currency.symbol }}
+                                                            {% if currency.name %}
+                                                                - {{ currency.name }}
+                                                            {% endif %}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

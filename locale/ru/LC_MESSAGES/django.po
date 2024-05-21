@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 17:00+0300\n"
+"POT-Creation-Date: 2024-05-21 21:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,7 +369,7 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 
-#: .\core\templates\add-coin.html:49 .\core\templates\coin-page.html:54
+#: .\core\templates\add-coin.html:50 .\core\templates\coin-page.html:54
 #: .\core\templates\new-listing.html:34 .\core\templates\privacy-police.html:58
 #: .\core\templates\promoted-list.html:34
 #: .\order\templates\order-lookup.html:31
@@ -378,96 +378,102 @@ msgstr ""
 msgid "Home"
 msgstr "Главная"
 
-#: .\core\templates\add-coin.html:59 .\templates\include\_header.html:234
+#: .\core\templates\add-coin.html:60 .\templates\include\_header.html:234
 msgid "Add coin"
 msgstr "Добавить"
 
-#: .\core\templates\add-coin.html:65
+#: .\core\templates\add-coin.html:66
 msgid "Add Your Coin"
 msgstr "Добавить свою монету"
 
-#: .\core\templates\add-coin.html:90
+#: .\core\templates\add-coin.html:92
 msgid "Add coin image"
 msgstr "Добавить изображение монеты"
 
-#: .\core\templates\add-coin.html:98
+#: .\core\templates\add-coin.html:100
 msgid "Coin Name"
 msgstr "Название монеты"
 
-#: .\core\templates\add-coin.html:102
+#: .\core\templates\add-coin.html:104
 msgid "Coin Symbol"
 msgstr "Символ монеты"
 
-#: .\core\templates\add-coin.html:106
+#: .\core\templates\add-coin.html:108
 msgid "Network/Chain"
 msgstr "Сеть Цепь"
 
-#: .\core\templates\add-coin.html:121
+#: .\core\templates\add-coin.html:116 .\core\templates\add-coin.html:124
+#: .\core\templates\add-coin.html:165 .\core\templates\add-coin.html:173
+#: .\core\templates\add-coin.html:195 .\core\templates\add-coin.html:203
+msgid "Other"
+msgstr "Другое"
+
+#: .\core\templates\add-coin.html:133
 msgid "Launch Date"
 msgstr "Дата запуска"
 
-#: .\core\templates\add-coin.html:128
+#: .\core\templates\add-coin.html:141
 msgid "Project in presale phase?"
 msgstr "Проект на стадии предпродажи?"
 
-#: .\core\templates\add-coin.html:132
+#: .\core\templates\add-coin.html:145
 #: .\venv\Lib\site-packages\django\forms\widgets.py:795
 msgid "Yes"
 msgstr "Да"
 
-#: .\core\templates\add-coin.html:136
+#: .\core\templates\add-coin.html:149
 #: .\venv\Lib\site-packages\django\forms\widgets.py:796
 msgid "No"
 msgstr "Нет"
 
-#: .\core\templates\add-coin.html:144
+#: .\core\templates\add-coin.html:157
 msgid "Listings Platform"
 msgstr "Листинговая платформа"
 
-#: .\core\templates\add-coin.html:159
+#: .\core\templates\add-coin.html:182
 msgid "Listing Link"
 msgstr "Ссылка на листинг"
 
-#: .\core\templates\add-coin.html:164 .\core\templates\promoted-list.html:168
+#: .\core\templates\add-coin.html:187 .\core\templates\promoted-list.html:168
 #: .\core\templates\promoted-list.html:280
 #: .\templates\include\full_coin_table.html:65
 #: .\templates\include\full_coin_table.html:175
 msgid "Category"
 msgstr "Категория"
 
-#: .\core\templates\add-coin.html:179
+#: .\core\templates\add-coin.html:212
 msgid "Contract Address"
 msgstr "Адрес контракта"
 
-#: .\core\templates\add-coin.html:183
+#: .\core\templates\add-coin.html:217
 msgid "Coin Description"
 msgstr "Описание монеты"
 
-#: .\core\templates\add-coin.html:192
+#: .\core\templates\add-coin.html:226
 msgid "Website Link"
 msgstr "Ссылка на веб-сайт"
 
-#: .\core\templates\add-coin.html:197
+#: .\core\templates\add-coin.html:231
 msgid "Twitter Link"
 msgstr "Ссылка на Twitter"
 
-#: .\core\templates\add-coin.html:201
+#: .\core\templates\add-coin.html:235
 msgid "Telegram Link"
 msgstr "Ссылка на Telegram"
 
-#: .\core\templates\add-coin.html:205
+#: .\core\templates\add-coin.html:239
 msgid "Discord Link"
 msgstr "Ссылка на Discord"
 
-#: .\core\templates\add-coin.html:209
+#: .\core\templates\add-coin.html:243
 msgid "Telegram Contact"
 msgstr "Telegram Контакт"
 
-#: .\core\templates\add-coin.html:214
+#: .\core\templates\add-coin.html:248
 msgid "Reddit Link"
 msgstr "Ссылка на Reddit"
 
-#: .\core\templates\add-coin.html:220 .\templates\include\_footer.html:137
+#: .\core\templates\add-coin.html:254 .\templates\include\_footer.html:137
 #: .\templates\include\_footer.html:251
 msgid "Send"
 msgstr "Отправить"
@@ -540,23 +546,19 @@ msgstr "Исторический максимум"
 msgid "on"
 msgstr "в"
 
-#: .\core\templates\coin-page.html:281
-msgid "Binance Smart Chain"
-msgstr ""
-
-#: .\core\templates\coin-page.html:301
+#: .\core\templates\coin-page.html:303
 msgid "Converter"
 msgstr "Конвертер"
 
-#: .\core\templates\coin-page.html:391
+#: .\core\templates\coin-page.html:396
 msgid "Exchanges"
 msgstr "Биржи"
 
-#: .\core\templates\coin-page.html:407
+#: .\core\templates\coin-page.html:412
 msgid "Markets"
 msgstr "Рынки"
 
-#: .\core\templates\coin-page.html:434
+#: .\core\templates\coin-page.html:439
 msgid "Description"
 msgstr "Описание"
 

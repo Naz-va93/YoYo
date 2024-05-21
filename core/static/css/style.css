@@ -2568,7 +2568,7 @@
     opacity: 0;
     transition: opacity .8s, background .6s;
     width: fit-content;
-    margin-left: auto;
+    margin-left: auto
 }
 
 .notification-inner {
@@ -2596,7 +2596,7 @@
     padding: 3px 4px;
     background-color: #1e74fe;
     border-radius: 10px;
-    width: fit-content;
+    width: fit-content
 }
 
 .close-notification {
@@ -2658,6 +2658,27 @@
     object-fit: cover;
     max-width: 100%;
     border-radius: 12px
+}
+
+.other__input input {
+    border: none;
+    background-color: transparent;
+}
+
+label .other svg {
+    transform: rotate(90deg);
+    cursor: pointer;
+    margin-right: 20px;
+    fill: #c8c9ca;
+}
+
+label .other {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--gray);
+    border-radius: 12px;
+    background-color: #11141c;
 }
 
 @media (max-width: 991px) {

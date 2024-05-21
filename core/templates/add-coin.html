@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block description %}
-<meta name="description" content="{{ page.description_seo }}">
+    <meta name="description" content="{{ page.description_seo }}">
 {% endblock %}
 
 {% block head %}
@@ -25,204 +25,241 @@
 
 {% load static %}
 {% block content %}
-<main class="main">
-    <section class="add-coin">
-        <div class="hero-banner container">
-            <div class="hero-banner__bg">
-                <picture class="hero__bg-picture-dark">
-                    <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
-                            media="(min-width: 550px)">
-                    <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
-                    <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
-                </picture>
-                <picture class="hero__bg-picture-light">
-                    <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp"
-                            media="(min-width: 550px)">
-                    <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp">
-                    <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0" class="lazy">
-                </picture>
-            </div>
-            <div class="hero-banner__page-address page-address">
-                <ul>
-                    <li>
-                        <a href="#">
-                            {% trans "Home" %}
-                        </a>
-                    </li>
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 16 16">
-                            <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
-                        </svg>
-                    </li>
-                    <li>
-                        <a href="#">
-                            {% trans "Add coin" %}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <h1 class="hero-banner__title title">
-                {% trans "Add Your Coin" %}
-            </h1>
-        </div>
-
-        <div class="add-coin__container container">
-            {% if form.errors %}
-            <div class="alert alert-danger">
-                {% for field, errors in form.errors.items %}
-                <strong>{{ field|title }}</strong>:
-                {% for error in errors %}
-                {{ error }}
-                {% endfor %}
-                <br>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <form action="{% url 'core:add-coin' %}" method="post" class="add-coin__form" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="add-coin__avatar">
-                    <label>
-                        <input type="file" name="photo_coin" class="visually-hidden">
-                        <b>
-                            <svg width="40" height="40" viewBox="0 0 40 40">
-                                <use xlink:href="{% static 'img/sprites.svg' %}#upload"></use>
-                            </svg>
-                            {% trans "Add coin image" %} <br> (400x400px)
-                        </b>
-                    </label>
+    <main class="main">
+        <section class="add-coin">
+            <div class="hero-banner container">
+                <div class="hero-banner__bg">
+                    <picture class="hero__bg-picture-dark">
+                        <source data-srcset="{% static 'img/index/hero/bg.webp' %}" type="image/webp"
+                                media="(min-width: 550px)">
+                        <source data-srcset="{% static 'img/index/hero/bg-mob-2.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/hero/bg.png' %}" alt="" width="0" height="0" class="lazy">
+                    </picture>
+                    <picture class="hero__bg-picture-light">
+                        <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp"
+                                media="(min-width: 550px)">
+                        <source data-srcset="{% static 'img/index/hero/bg-light.webp' %}" type="image/webp">
+                        <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0"
+                             class="lazy">
+                    </picture>
                 </div>
-                <div class="add-coin__form-block">
-                    <fieldset class="add-coin__fieldset">
-                        <div class="add-coin__form--row">
-                            <label>
-                                <span>{% trans "Coin Name" %}</span>
-                                <input type="text" name="coin_name" placeholder="Bitcoin" required class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Coin Symbol" %}</span>
-                                <input type="text" name="coin_symbol" placeholder="BTC" required class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Network/Chain" %}</span>
-                                <span class="select">
+                <div class="hero-banner__page-address page-address">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                {% trans "Home" %}
+                            </a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <use xlink:href="{% static 'img/sprites.svg' %}#arrow-next"></use>
+                            </svg>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {% trans "Add coin" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <h1 class="hero-banner__title title">
+                    {% trans "Add Your Coin" %}
+                </h1>
+            </div>
+
+            <div class="add-coin__container container">
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {% for field, errors in form.errors.items %}
+                            <strong>{{ field|title }}</strong>:
+                            {% for error in errors %}
+                                {{ error }}
+                            {% endfor %}
+                            <br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <form action="{% url 'core:add-coin' %}" method="post" class="add-coin__form"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="add-coin__avatar">
+                        <label>
+                            <input type="file" name="photo_coin" class="visually-hidden">
+                            <b>
+                                <svg width="40" height="40" viewBox="0 0 40 40">
+                                    <use xlink:href="{% static 'img/sprites.svg' %}#upload"></use>
+                                </svg>
+                                {% trans "Add coin image" %} <br> (400x400px)
+                            </b>
+                        </label>
+                    </div>
+                    <div class="add-coin__form-block">
+                        <fieldset class="add-coin__fieldset">
+                            <div class="add-coin__form--row">
+                                <label>
+                                    <span>{% trans "Coin Name" %}</span>
+                                    <input type="text" name="coin_name" placeholder="Bitcoin" required class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Coin Symbol" %}</span>
+                                    <input type="text" name="coin_symbol" placeholder="BTC" required class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Network/Chain" %}</span>
+                                    <span class="select">
 										<select name="network_chain" required>
                                             {% for network in network_chain %}
-											<option value="{{ network.id }}" checked>
-												{{ network.name }}
-											</option>
+                                                <option value="{{ network.id }}" checked>
+												    {{ network.name }}
+											    </option>
                                             {% endfor %}
+                                            <option value="other">{% trans 'Other' %}...</option>
 										</select>
 										<svg width="16" height="16" viewBox="0 0 16 16">
 											<use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
 										</svg>
 									</span>
-                            </label>
-                            <label>
-                                <span>{% trans "Launch Date" %}</span>
-                                <input type="text" name="launch_date" placeholder="12.09.2022" required class="input">
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="add-coin__fieldset">
-                        <div class="add-coin__question">
-                            <span>{% trans "Project in presale phase?" %}</span>
-                            <div class="add-coin__question--answear">
-                                <label class="add-coin__question--btn">
-                                    <input type="radio" name="project_presale" checked required value="1">
-                                    <span>{% trans "Yes" %}</span>
+                                    <span class="other">
+                                        <span class="other__input">
+                                            <input type="text" name="network_chain_other" placeholder="{% trans 'Other' %}..."
+                                                   class="input">
+                                        </span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                                        </svg>
+                                    </span>
                                 </label>
-                                <label class="add-coin__question--btn">
-                                    <input type="radio" name="project_presale" required value="2">
-                                    <span>{% trans "No" %}</span>
+                                <label>
+                                    <span>{% trans "Launch Date" %}</span>
+                                    <input type="text" name="launch_date" placeholder="12.09.2022" required
+                                           class="input">
                                 </label>
                             </div>
-                        </div>
-                    </fieldset>
-                    <fieldset class="add-coin__fieldset">
-                        <div class="add-coin__form--row">
-                            <label>
-                                <span>{% trans "Listings Platform" %}</span>
-                                <span class="select">
-										<select name="listing_platform" required>
+                        </fieldset>
+                        <fieldset class="add-coin__fieldset">
+                            <div class="add-coin__question">
+                                <span>{% trans "Project in presale phase?" %}</span>
+                                <div class="add-coin__question--answear">
+                                    <label class="add-coin__question--btn">
+                                        <input type="radio" name="project_presale" checked required value="1">
+                                        <span>{% trans "Yes" %}</span>
+                                    </label>
+                                    <label class="add-coin__question--btn">
+                                        <input type="radio" name="project_presale" required value="2">
+                                        <span>{% trans "No" %}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="add-coin__fieldset">
+                            <div class="add-coin__form--row">
+                                <label>
+                                    <span>{% trans "Listings Platform" %}</span>
+                                    <span class="select">
+										<select name="listing_platform">
                                             {% for platform in listing_platforms %}
-											<option value="{{ platform.id }}" checked>
+                                                <option value="{{ platform.id }}">
 												{{ platform.name }}
 											</option>
                                             {% endfor %}
+                                            <option value="other">{% trans 'Other' %}...</option>
 										</select>
 										<svg width="16" height="16" viewBox="0 0 16 16">
 											<use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
 										</svg>
 									</span>
-                            </label>
-                            <label>
-                                <span>{% trans "Listing Link" %}</span>
-                                <input type="text" name="listing_link" placeholder="Listing Link" required
-                                       class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Category" %}</span>
-                                <span class="select">
+                                    <span class="other">
+                                        <span class="other__input">
+                                            <input type="text" name="listing_platform_other" placeholder="{% trans 'Other' %}..."
+                                                   class="input">
+                                        </span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                                        </svg>
+                                    </span>
+                                </label>
+                                <label>
+                                    <span>{% trans "Listing Link" %}</span>
+                                    <input type="text" name="listing_link" placeholder="Listing Link"
+                                           class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Category" %}</span>
+                                    <span class="select">
 										<select name="category" required>
                                             {% for platform in categorys %}
-											<option value="{{ platform.id }}" checked>
+                                                <option value="{{ platform.id }}" checked>
 												{{ platform.name }}
 											</option>
                                             {% endfor %}
+                                            <option value="other">{% trans 'Other' %}...</option>
 										</select>
 										<svg width="16" height="16" viewBox="0 0 16 16">
 											<use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
 										</svg>
 									</span>
-                            </label>
-                            <label>
-                                <span>{% trans "Contract Address" %}</span>
-                                <input type="text" name="contact_address" required placeholder="Contract Address" class="input">
-                            </label>
-                            <label class="full">
-                                <span>{% trans "Coin Description" %}</span>
-                                <textarea name="coin_description" placeholder="Add description" rows="7" required
-                                          class="textarea"></textarea>
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="add-coin__fieldset">
-                        <div class="add-coin__form--row">
-                            <label>
-                                <span>{% trans "Website Link" %}</span>
-                                <input type="text" name="website_link" placeholder="Website Link" required
-                                       class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Twitter Link" %}</span>
-                                <input type="text" name="twitter_link" placeholder="Twitter Link" class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Telegram Link" %}</span>
-                                <input type="text" name="telegram_link" placeholder="Telegram Link" class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Discord Link" %}</span>
-                                <input type="text" name="discord_link" placeholder="Discord Link" class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Telegram Contact" %}</span>
-                                <input type="text" name="telegram_contact" placeholder="Telegram Contact"
-                                       class="input">
-                            </label>
-                            <label>
-                                <span>{% trans "Reddit Link" %}</span>
-                                <input type="text" name="reddit_link" placeholder="Reddit Link" class="input">
-                            </label>
-                        </div>
-                    </fieldset>
-                    <button class="add-coin__form--submit btn" type="submit">
-                        {% trans "Send" %}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </section>
-</main>
+                                    <span class="other">
+                                        <span class="other__input">
+                                            <input type="text" name="category_other" placeholder="{% trans 'Other' %}..."
+                                                   class="input">
+                                        </span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <use xlink:href="{% static 'img/sprites.svg' %}#select-arrow"></use>
+                                        </svg>
+                                    </span>
+                                </label>
+                                <label>
+                                    <span>{% trans "Contract Address" %}</span>
+                                    <input type="text" name="contact_address" required placeholder="Contract Address"
+                                           class="input">
+                                </label>
+                                <label class="full">
+                                    <span>{% trans "Coin Description" %}</span>
+                                    <textarea name="coin_description" placeholder="Add description" rows="7" required
+                                              class="textarea"></textarea>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="add-coin__fieldset">
+                            <div class="add-coin__form--row">
+                                <label>
+                                    <span>{% trans "Website Link" %}</span>
+                                    <input type="text" name="website_link" placeholder="Website Link" required
+                                           class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Twitter Link" %}</span>
+                                    <input type="text" name="twitter_link" placeholder="Twitter Link" class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Telegram Link" %}</span>
+                                    <input type="text" name="telegram_link" placeholder="Telegram Link" class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Discord Link" %}</span>
+                                    <input type="text" name="discord_link" placeholder="Discord Link" class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Telegram Contact" %}</span>
+                                    <input type="text" name="telegram_contact" placeholder="Telegram Contact"
+                                           class="input">
+                                </label>
+                                <label>
+                                    <span>{% trans "Reddit Link" %}</span>
+                                    <input type="text" name="reddit_link" placeholder="Reddit Link" class="input">
+                                </label>
+                            </div>
+                        </fieldset>
+                        <button class="add-coin__form--submit btn" type="submit">
+                            {% trans "Send" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
 
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/add_coin.min.js' %}"></script>
 {% endblock %}

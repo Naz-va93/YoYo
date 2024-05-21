@@ -1,14 +1,15 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 
+from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
-from slugify import slugify
 from django.utils import timezone
+from slugify import slugify
 
 from core.management.commands.utils import get_currency_price_to_usd
 
@@ -16,8 +17,9 @@ from core.management.commands.utils import get_currency_price_to_usd
 class NetworkChain(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
     slug = models.SlugField(max_length=100, blank=True, null=True)
-    photo = models.FileField(blank=False, null=True, verbose_name='Фото')
+    photo = models.FileField(blank=True, null=True, verbose_name='Фото')
     order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Порядок')
+    draft = models.BooleanField(default=True, verbose_name='Черновик')
 
     class Meta:
         ordering = ['order']
@@ -40,6 +42,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
     slug = models.SlugField(max_length=100, blank=True, null=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Порядок')
+    draft = models.BooleanField(default=True, verbose_name='Черновик')
 
     class Meta:
         ordering = ['order']
@@ -75,6 +78,7 @@ class Type(models.Model):
 
 class ListingPlatform(models.Model):
     name = models.CharField(max_length=100, blank=False, verbose_name='Название')
+    draft = models.BooleanField(default=True, verbose_name='Черновик')
 
     def __str__(self):
         return self.name
@@ -94,7 +98,7 @@ class Coin(models.Model):
     # for form only
     coin_name = models.CharField(max_length=50, blank=False, verbose_name='Название')
     coin_symbol = models.CharField(max_length=10, blank=False, verbose_name='Абревиатура коина')
-    listing_link = models.URLField(blank=True, verbose_name='Ссылка на листинг')
+    listing_link = models.URLField(blank=True, null=True, verbose_name='Ссылка на листинг')
     contact_address = models.CharField(max_length=100, verbose_name='Контактный адрес')
     coin_description = models.TextField(max_length=1000, blank=False, verbose_name='Описание коина')
     website_link = models.URLField(blank=False)
@@ -116,7 +120,8 @@ class Coin(models.Model):
     favorite = models.ManyToManyField('user.User', blank=True)
 
     # coin detail
-    binance_smart_chain = models.CharField(null=True, blank=True, verbose_name='Контрактный адрес')
+    network_name = models.CharField(null=True, blank=True, verbose_name='Название сети')
+    contract_address = models.CharField(null=True, blank=True, verbose_name='Контрактный адрес')
     market_cap = models.FloatField(null=True, blank=True, default=0.00, verbose_name='Капитализация')
     fully_diluted_market_cap = models.FloatField(null=True, blank=True, default=0.00,
                                                  verbose_name='Полностью разбавленная капитализация')
@@ -138,7 +143,7 @@ class Coin(models.Model):
     is_moderate = models.BooleanField(blank=False, null=True, default=False, verbose_name='Статус модерации')
     uuid = models.CharField(blank=True, null=True)
     counter_link_usage = models.IntegerField(blank=True, null=True, default=0, verbose_name='Метрика посещений')
-    slug = models.SlugField(blank=True, null=True, unique=True)
+    slug = AutoSlugField(populate_from='coin_name', unique=True, verbose_name='Слаг')
 
     # price info
     price_for_promote = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, default='0.15',
@@ -154,15 +159,11 @@ class Coin(models.Model):
     def get_publish_date(self):
         return self.publish_date.strftime('%d.%m.%Y')
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.coin_name)
-        super(Coin, self).save(*args, **kwargs)
-
     def __str__(self):
         return self.coin_name
 
     def get_absolute_url(self):
-        slug = slugify(self.coin_name)
+        slug = self.slug
         return reverse('core:coin-page', kwargs={'slug': slug})
 
 
