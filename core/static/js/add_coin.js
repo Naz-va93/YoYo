@@ -36,4 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    document.querySelectorAll('input[name="project_presale"]').forEach(radio => {
+    radio.addEventListener('click', function(event) {
+        if (this.previousChecked === true) {
+            this.checked = false;
+            this.previousChecked = false;
+        } else {
+            document.querySelectorAll('input[name="project_presale"]').forEach(r => r.previousChecked = false);
+            this.previousChecked = true;
+        }
+    });
+});
 });

@@ -264,7 +264,6 @@ class AddCoin(CreateView):
 
     def form_invalid(self, form):
         errors = form.errors.as_json()
-        print(errors)
         return JsonResponse({'status': 'error', 'errors': errors})
 
     def get_context_data(self, *, object_list=None, **kwargs):
