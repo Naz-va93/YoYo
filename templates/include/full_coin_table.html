@@ -300,7 +300,6 @@
             url: actionUrl,
             data: form.serialize(),
             success: function (data) {
-                console.log(data);
                 form.parent().find('.coin-table-' + slug + ' table tbody').empty();
                 form.parent().find('.coin-table-' + slug + ' table tbody').append(data.table);
 

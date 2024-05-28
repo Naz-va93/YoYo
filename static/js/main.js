@@ -822,11 +822,11 @@ body.addEventListener('click', function (event) {
     const paginationButton = $(".pagination__list button")
     if (paginationButton) {
 
-        const tbody = paginationButton.closest('section').querySelector('.table-coins tbody'),
-            list = paginationButton.closest('.pagination__list'),
-            currentButton = paginationButton.parentElement.querySelector('.pagination__list button.current');
+        const currentButton = paginationButton.parentElement.querySelector('.pagination__list button.current');
 
-        currentButton.classList.remove('current');
+        if (currentButton) {
+            currentButton.classList.remove('current');
+        }
         paginationButton.classList.add('current');
 
     }

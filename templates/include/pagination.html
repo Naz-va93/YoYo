@@ -33,8 +33,6 @@
         var input = $(this).closest('section').find('input.page');
         input.val($(this).attr('data-page'));
 
-        console.log(input.val());
-
         sendFormAjax($(this).closest('section').find('form'), '{{ listing.slug }}');
     });
 
