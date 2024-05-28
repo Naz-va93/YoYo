@@ -835,8 +835,9 @@ body.addEventListener('click', function (event) {
     if (paginationArrow) {
 
         const currentButton = paginationArrow.parentElement.querySelector('.pagination__list button.current');
-        currentButton.classList.remove('current');
-
+        if (currentButton) {
+            currentButton.classList.remove('current');
+        }
     }
 
     // =-=-=-=-=-=-=-=-=-=-=-=- </pagination> -=-=-=-=-=-=-=-=-=-=-=-=

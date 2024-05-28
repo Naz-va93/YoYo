@@ -101,7 +101,7 @@ def get_coins_table(request):
 
     pagination = None
     if request.GET.get('is_paginated'):
-        pagination = render(request, 'include/pagination.html', context={'page_obj': page}).content.decode("utf-8")
+        pagination = render(request, 'include/pagination.html', context={'page_obj': page, "listing": listing}).content.decode("utf-8")
 
     return JsonResponse({
         'table': render(request, 'include/coin_table.html', context=context).content.decode("utf-8"),
