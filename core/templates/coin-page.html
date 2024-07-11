@@ -4,11 +4,11 @@
 {% load poll_extras %}
 
 {% block title %}
-    <title>{{ page.title_seo }}</title>
+    <title>{{ coin.coin_name }} ({{ coin.coin_symbol }}): {{ coin.market_cap }} </title>
 {% endblock %}
 
 {% block description %}
-    <meta name="description" content="{{ page.description_seo }}">
+    <meta name="description" content="{{ coin.description_seo }}">
 {% endblock %}
 
 {% block head %}
@@ -76,9 +76,9 @@
                         </picture>
                     </div>
                     <div class="coin__header-info">
-                        <h2 class="coin__title title">
+                        <h1 class="coin__title title">
                             {{ coin.coin_name }}
-                        </h2>
+                        </h1>
                         <span class="coin__name">
 							{{ coin.coin_symbol }}
 						</span>
