@@ -29,12 +29,12 @@ urlpatterns = [
     path('coin-type/<slug:slug>/', NewlistingListType.as_view(), name='coin-list-type'),
     path('coin-type/<str:sort_item>/<str:sort_status>/<str:slug>', NewlistingListType.as_view(), name='type_sorted_item'),
     path('custom_set_language/', custom_set_language, name='custom_set_language'),
-    path('add_like/<int:pk>/', increment_counter, name='add_like'),
+    # path('add_like/<int:pk>/', increment_counter, name='add_like')2,
 
     path('coin-promoted/', NewlistingListPromote.as_view(), name='promote-coin'),
     path('coin-promoted/<str:sort_item>/<str:sort_status>/', NewlistingListPromote.as_view(), name='promote-sort'),
 
-    path('captcha/', captcha_view, name='captcha'),
+    path('captcha/', captcha_view, name='captcha'),#`1
     path('sort/', get_sort_status_promoted, name='sort'),
     path('sort-promote/', get_sort_status_promote, name='sort-promote'),
     path('sort-list/', get_sort_status_list, name='sort-list'),
