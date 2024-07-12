@@ -71,3 +71,15 @@ def divide(value, arg):
         return float(value) / float(arg)
     except (ValueError, ZeroDivisionError):
         return
+
+
+@register.filter
+def format_price(value):
+    try:
+        value = float(str(value).replace(',', '.'))
+        if value >= 1:
+            return f"{value:.2f}"
+        else:
+            return f"{value:.15f}".rstrip('0').rstrip('.')
+    except (ValueError, TypeError):
+        return value

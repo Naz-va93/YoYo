@@ -476,7 +476,7 @@
         "@type": "Offer",
         "url": "{{ request.build_absolute_uri }}",
         "priceCurrency": "USD",
-        "price": "{{ coin.price }}",
+        "price": "{{ coin.price|format_price }}",
         "itemCondition": "https://schema.org/NewCondition",
         "availability": "https://schema.org/InStock"
       },
