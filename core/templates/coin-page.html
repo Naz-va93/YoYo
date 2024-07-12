@@ -463,23 +463,50 @@
           "@context": "https://schema.org/",
           "@type": "Product",
           "name": "{{ coin.coin_name }}",
-          "image": [
-            "{{ coin.photo_coin.url }}"
-          ],
-          "description": "{{ coin.coin_description|striptags }}",
-          "sku": "{{ coin.coin_symbol }}",
-          "brand": {
-            "@type": "Brand",
-            "name": "{{ coin.coin_name }}"
-          },
-          "offers": {
-            "@type": "Offer",
-            "url": "{{ request.build_absolute_uri }}",
-            "priceCurrency": "USD",
-            "price": "{{ coin.price }}",
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock"
-          }
+      "image": [
+        "{{ coin.photo_coin.url }}"
+      ],
+      "description": "{{ coin.coin_description|striptags }}",
+      "sku": "{{ coin.coin_symbol }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "{{ coin.coin_name }}"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ request.build_absolute_uri }}",
+        "priceCurrency": "USD",
+        "price": "{{ coin.price|normalize_amount }}",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/InStock"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Market Capitalization",
+          "value": "${{ coin.market_cap|normalize_amount }}"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Trade Volume",
+          "value": "${{ coin.volume_24h|normalize_amount }}"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "All Time High",
+          "value": "${{ coin.all_time_high|normalize_amount }}"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Votes",
+          "value": "⇧ {{ coin.votes }}"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Votes Today",
+          "value": "⇧ {{ coin.votes_today }}"
         }
+      ]
+    }
     </script>
 {% endblock %}
