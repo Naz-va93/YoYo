@@ -24,6 +24,22 @@
     <meta property="og:site_name" content="CoinYoYo"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
+    
+    <!-- JSON-LD Structured Data for BreadcrumbList -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "{% trans "Home" %}",
+              "item": "{% url 'core:index' %}"
+            },
+          ]
+        }
+    </script>
 {% endblock %}
 
 {% block content %}

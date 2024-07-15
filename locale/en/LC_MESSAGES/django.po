@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-21 21:59+0300\n"
+"POT-Creation-Date: 2024-07-15 11:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,31 +35,31 @@ msgstr ""
 msgid "This account is inactive."
 msgstr ""
 
-#: .\core\templates\account\base.html:16
+#: .\core\templates\account\base.html:29
 msgid "Messages:"
 msgstr ""
 
-#: .\core\templates\account\base.html:26
+#: .\core\templates\account\base.html:39
 msgid "Menu:"
 msgstr ""
 
-#: .\core\templates\account\base.html:29
+#: .\core\templates\account\base.html:42
 msgid "Change E-mail"
 msgstr ""
 
-#: .\core\templates\account\base.html:30 .\core\templates\account\logout.html:5
+#: .\core\templates\account\base.html:43 .\core\templates\account\logout.html:5
 #: .\core\templates\account\logout.html:8
 #: .\core\templates\account\logout.html:17
 msgid "Sign Out"
 msgstr ""
 
-#: .\core\templates\account\base.html:32 .\core\templates\account\login.html:6
+#: .\core\templates\account\base.html:45 .\core\templates\account\login.html:6
 #: .\core\templates\account\login.html:10
 #: .\core\templates\account\login.html:43
 msgid "Sign In"
 msgstr ""
 
-#: .\core\templates\account\base.html:33 .\core\templates\account\signup.html:8
+#: .\core\templates\account\base.html:46 .\core\templates\account\signup.html:8
 #: .\core\templates\account\signup.html:18
 msgid "Sign Up"
 msgstr ""
@@ -352,12 +352,17 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 
-#: .\core\templates\add-coin.html:50 .\core\templates\coin-page.html:54
-#: .\core\templates\new-listing.html:34 .\core\templates\privacy-police.html:58
+#: .\core\templates\add-coin.html:50 .\core\templates\coin-page.html:87
+#: .\core\templates\coin-page.html:127 .\core\templates\index.html:37
+#: .\core\templates\new-listing.html:34 .\core\templates\new-listing.html:57
+#: .\core\templates\privacy-police.html:34
+#: .\core\templates\privacy-police.html:80
 #: .\core\templates\promoted-list.html:34
+#: .\core\templates\promoted-list.html:56
 #: .\order\templates\order-lookup.html:31
 #: .\user\templates\account-liked-coins.html:51
-#: .\user\templates\account-profile.html:54
+#: .\user\templates\account-profile.html:36
+#: .\user\templates\account-profile.html:76
 msgid "Home"
 msgstr ""
 
@@ -417,8 +422,8 @@ msgstr ""
 msgid "Listing Link"
 msgstr ""
 
-#: .\core\templates\add-coin.html:187 .\core\templates\promoted-list.html:168
-#: .\core\templates\promoted-list.html:280
+#: .\core\templates\add-coin.html:187 .\core\templates\promoted-list.html:190
+#: .\core\templates\promoted-list.html:302
 #: .\templates\include\full_coin_table.html:65
 #: .\templates\include\full_coin_table.html:175
 msgid "Category"
@@ -461,120 +466,125 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: .\core\templates\coin-page.html:64
-msgid "Coin page"
-msgstr ""
-
-#: .\core\templates\coin-page.html:113
-msgid "Review"
-msgstr ""
-
-#: .\core\templates\coin-page.html:116
-msgid "Market"
-msgstr ""
-
-#: .\core\templates\coin-page.html:124
-msgid "24h"
-msgstr ""
-
-#: .\core\templates\coin-page.html:128
-msgid "7d"
-msgstr ""
-
-#: .\core\templates\coin-page.html:132
-msgid "1m"
-msgstr ""
-
-#: .\core\templates\coin-page.html:136
-msgid "3m"
-msgstr ""
-
-#: .\core\templates\coin-page.html:140
-msgid "1y"
-msgstr ""
-
-#: .\core\templates\coin-page.html:144
-msgid "Max"
-msgstr ""
-
-#: .\core\templates\coin-page.html:197
-msgid "Range in 24hr."
-msgstr ""
-
-#: .\core\templates\coin-page.html:238
-msgid "Price to USD"
-msgstr ""
-
-#: .\core\templates\coin-page.html:242
-msgid "24h volume"
-msgstr ""
-
-#: .\core\templates\coin-page.html:249
+#: .\core\templates\coin-page.html:56 .\core\templates\coin-page.html:322
 msgid "Market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:254
-msgid "Volume / Market cap"
+#: .\core\templates\coin-page.html:61 .\core\templates\coin-page.html:315
+msgid "24h volume"
 msgstr ""
 
-#: .\core\templates\coin-page.html:266
-msgid "Fully diluted market cap"
-msgstr ""
-
-#: .\core\templates\coin-page.html:271
+#: .\core\templates\coin-page.html:66 .\core\templates\coin-page.html:344
 msgid "All-time high"
 msgstr ""
 
-#: .\core\templates\coin-page.html:274
-msgid "on"
-msgstr ""
-
-#: .\core\templates\coin-page.html:303
-msgid "Converter"
-msgstr ""
-
-#: .\core\templates\coin-page.html:396
-msgid "Exchanges"
-msgstr ""
-
-#: .\core\templates\coin-page.html:412
-msgid "Markets"
-msgstr ""
-
-#: .\core\templates\coin-page.html:439
-msgid "Description"
-msgstr ""
-
-#: .\core\templates\index.html:137 .\templates\include\_header.html:43
-msgid "New Listings"
-msgstr ""
-
-#: .\core\templates\index.html:172
-msgid "Top today"
-msgstr ""
-
-#: .\core\templates\index.html:221
-msgid "Top all time"
-msgstr ""
-
-#: .\core\templates\index.html:287
-msgid "Cryptocurrencies"
-msgstr ""
-
-#: .\core\templates\index.html:295 .\core\templates\promoted-list.html:334
+#: .\core\templates\coin-page.html:71 .\core\templates\index.html:311
+#: .\core\templates\promoted-list.html:356
 #: .\templates\include\full_coin_table.html:227
 msgid "Votes"
 msgstr ""
 
+#: .\core\templates\coin-page.html:137
+msgid "Coin page"
+msgstr ""
+
+#: .\core\templates\coin-page.html:186
+msgid "Review"
+msgstr ""
+
+#: .\core\templates\coin-page.html:189
+msgid "Market"
+msgstr ""
+
+#: .\core\templates\coin-page.html:197
+msgid "24h"
+msgstr ""
+
+#: .\core\templates\coin-page.html:201
+msgid "7d"
+msgstr ""
+
+#: .\core\templates\coin-page.html:205
+msgid "1m"
+msgstr ""
+
+#: .\core\templates\coin-page.html:209
+msgid "3m"
+msgstr ""
+
+#: .\core\templates\coin-page.html:213
+msgid "1y"
+msgstr ""
+
+#: .\core\templates\coin-page.html:217
+msgid "Max"
+msgstr ""
+
+#: .\core\templates\coin-page.html:270
+msgid "Range in 24hr."
+msgstr ""
+
+#: .\core\templates\coin-page.html:311
+msgid "Price to USD"
+msgstr ""
+
+#: .\core\templates\coin-page.html:327
+msgid "Volume / Market cap"
+msgstr ""
+
+#: .\core\templates\coin-page.html:339
+msgid "Fully diluted market cap"
+msgstr ""
+
+#: .\core\templates\coin-page.html:347
+msgid "on"
+msgstr ""
+
+#: .\core\templates\coin-page.html:376
+msgid "Converter"
+msgstr ""
+
+#: .\core\templates\coin-page.html:469
+msgid "Exchanges"
+msgstr ""
+
+#: .\core\templates\coin-page.html:485
+msgid "Markets"
+msgstr ""
+
+#: .\core\templates\coin-page.html:512
+msgid "Description"
+msgstr ""
+
+#: .\core\templates\index.html:153 .\templates\include\_header.html:43
+msgid "New Listings"
+msgstr ""
+
+#: .\core\templates\index.html:188
+msgid "Top today"
+msgstr ""
+
+#: .\core\templates\index.html:237
+msgid "Top all time"
+msgstr ""
+
 #: .\core\templates\index.html:303
+msgid "Cryptocurrencies"
+msgstr ""
+
+#: .\core\templates\index.html:319
 msgid "Total trading volume"
 msgstr ""
 
-#: .\core\templates\index.html:311
+#: .\core\templates\index.html:327
 msgid "Total users on platform"
 msgstr ""
 
-#: .\core\templates\new-listing.html:44 .\core\templates\promoted-list.html:44
+#: .\core\templates\new-listing.html:40
+msgid "New listings"
+msgstr ""
+
+#: .\core\templates\new-listing.html:67 .\core\templates\promoted-list.html:66
 msgid "Coin List"
 msgstr ""
 
@@ -582,62 +592,70 @@ msgstr ""
 msgid "OpenID Sign In"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:115
+#: .\core\templates\privacy-police.html:40 .\templates\include\_footer.html:44
+msgid "Privacy policy"
+msgstr ""
+
+#: .\core\templates\promoted-list.html:40
+msgid "Promoted Coins"
+msgstr ""
+
+#: .\core\templates\promoted-list.html:137
 #: .\templates\include\full_coin_table.html:22
 msgid "Filter"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:125
-#: .\core\templates\promoted-list.html:131
+#: .\core\templates\promoted-list.html:147
+#: .\core\templates\promoted-list.html:153
 msgid "Todays's Best"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:138
-#: .\core\templates\promoted-list.html:144 .\templates\include\_header.html:59
+#: .\core\templates\promoted-list.html:160
+#: .\core\templates\promoted-list.html:166 .\templates\include\_header.html:59
 #: .\templates\include\full_coin_table.html:41
 msgid "All Time Best"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:175
-#: .\core\templates\promoted-list.html:207
-#: .\core\templates\promoted-list.html:239
+#: .\core\templates\promoted-list.html:197
+#: .\core\templates\promoted-list.html:229
+#: .\core\templates\promoted-list.html:261
 #: .\templates\include\full_coin_table.html:71
 #: .\templates\include\full_coin_table.html:101
 #: .\templates\include\full_coin_table.html:131
 msgid "All"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:200
-#: .\core\templates\promoted-list.html:283
+#: .\core\templates\promoted-list.html:222
+#: .\core\templates\promoted-list.html:305
 #: .\templates\include\full_coin_table.html:95
 #: .\templates\include\full_coin_table.html:178
 msgid "Chain"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:232
+#: .\core\templates\promoted-list.html:254
 #: .\order\templates\order-lookup.html:151 .\order\templates\promote.html:295
 #: .\templates\include\full_coin_table.html:125
-#: .\user\templates\account-profile.html:143
-#: .\user\templates\account-profile.html:192
+#: .\user\templates\account-profile.html:165
+#: .\user\templates\account-profile.html:214
 msgid "Type"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:274
+#: .\core\templates\promoted-list.html:296
 msgid "Rank"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:277
+#: .\core\templates\promoted-list.html:299
 #: .\templates\include\full_coin_table.html:169
-#: .\user\templates\account-profile.html:131
+#: .\user\templates\account-profile.html:153
 msgid "Coin"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:306
+#: .\core\templates\promoted-list.html:328
 #: .\templates\include\full_coin_table.html:205
 msgid "Marketcap"
 msgstr ""
 
-#: .\core\templates\promoted-list.html:320
+#: .\core\templates\promoted-list.html:342
 #: .\order\templates\order-lookup.html:154 .\order\templates\promote.html:298
 #: .\templates\include\full_coin_table.html:195
 msgid "Price"
@@ -663,24 +681,24 @@ msgstr ""
 msgid "Add a 3rd Party Account"
 msgstr ""
 
-#: .\core\templates\socialaccount\login.html:12
+#: .\core\templates\socialaccount\login.html:25
 msgid "Connect"
 msgstr ""
 
-#: .\core\templates\socialaccount\login.html:14
+#: .\core\templates\socialaccount\login.html:27
 msgid "You are about to connect a new third party account from"
 msgstr ""
 
-#: .\core\templates\socialaccount\login.html:16
+#: .\core\templates\socialaccount\login.html:29
 msgid "Sign In via social network"
 msgstr ""
 
-#: .\core\templates\socialaccount\login.html:18
+#: .\core\templates\socialaccount\login.html:31
 msgid ""
 "You are about to sign in using a third party account from social network"
 msgstr ""
 
-#: .\core\templates\socialaccount\login.html:23
+#: .\core\templates\socialaccount\login.html:36
 msgid "Continue"
 msgstr ""
 
@@ -767,6 +785,36 @@ msgstr ""
 msgid "Go to my order"
 msgstr ""
 
+#: .\templates\base.html:37
+msgid "What is cryptocurrency?"
+msgstr ""
+
+#: .\templates\base.html:40
+msgid ""
+"Cryptocurrency is a type of digital or virtual currency that uses "
+"cryptography for security. It operates independently of a central bank."
+msgstr ""
+
+#: .\templates\base.html:45
+msgid "What is cryptocurrency used for?"
+msgstr ""
+
+#: .\templates\base.html:48
+msgid ""
+"Cryptocurrency can be used for a variety of purposes, including online "
+"purchases, investment, and as a means of transferring value between parties."
+msgstr ""
+
+#: .\templates\base.html:53
+msgid "How can I buy cryptocurrency?"
+msgstr ""
+
+#: .\templates\base.html:56
+msgid ""
+"You can buy cryptocurrency on various online exchanges using traditional "
+"currency or other cryptocurrencies."
+msgstr ""
+
 #: .\templates\include\_account-profile-item.html:12
 msgid "Ethereum"
 msgstr ""
@@ -777,10 +825,6 @@ msgstr ""
 
 #: .\templates\include\_footer.html:39
 msgid "Terms of Use"
-msgstr ""
-
-#: .\templates\include\_footer.html:44
-msgid "Privacy policy"
 msgstr ""
 
 #: .\templates\include\_footer.html:62 .\templates\include\_header.html:101
@@ -865,8 +909,9 @@ msgstr ""
 
 #: .\templates\include\_header.html:111 .\templates\include\_header.html:254
 #: .\user\templates\account-liked-coins.html:96
-#: .\user\templates\account-profile.html:64
-#: .\user\templates\account-profile.html:99
+#: .\user\templates\account-profile.html:42
+#: .\user\templates\account-profile.html:86
+#: .\user\templates\account-profile.html:121
 msgid "Profile"
 msgstr ""
 
@@ -904,32 +949,32 @@ msgstr ""
 
 #: .\user\templates\account-liked-coins.html:74
 #: .\user\templates\account-liked-coins.html:108
-#: .\user\templates\account-profile.html:77
-#: .\user\templates\account-profile.html:111
+#: .\user\templates\account-profile.html:99
+#: .\user\templates\account-profile.html:133
 msgid "Log out"
 msgstr ""
 
 #: .\user\templates\account-liked-coins.html:79
-#: .\user\templates\account-profile.html:82
+#: .\user\templates\account-profile.html:104
 msgid "My account"
 msgstr ""
 
 #: .\user\templates\account-liked-coins.html:89
-#: .\user\templates\account-profile.html:92
+#: .\user\templates\account-profile.html:114
 msgid "Liked coins"
 msgstr ""
 
-#: .\user\templates\account-profile.html:134
-#: .\user\templates\account-profile.html:168
+#: .\user\templates\account-profile.html:156
+#: .\user\templates\account-profile.html:190
 msgid "Link usage"
 msgstr ""
 
-#: .\user\templates\account-profile.html:137
-#: .\user\templates\account-profile.html:176
+#: .\user\templates\account-profile.html:159
+#: .\user\templates\account-profile.html:198
 msgid "Start at"
 msgstr ""
 
-#: .\user\templates\account-profile.html:140
-#: .\user\templates\account-profile.html:184
+#: .\user\templates\account-profile.html:162
+#: .\user\templates\account-profile.html:206
 msgid "Finish at"
 msgstr ""
