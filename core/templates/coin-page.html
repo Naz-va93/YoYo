@@ -5,11 +5,11 @@
 {% load poll_extras %}
 
 {% block title %}
-    <title>{{ coin.coin_name }} ({{ coin.coin_symbol }}): {{ coin.market_cap }} </title>
+    <title>{{ coin.coin_name }} ({{ coin.coin_symbol }}): {{ coin.title_seo }}</title>
 {% endblock %}
 
 {% block description %}
-    <meta name="description" content="{{ coin.description_seo }}">
+    <meta name="description" content="{{ coin.coin_name }} ({{ coin.coin_symbol }}): {{ coin.description_seo }}">
 {% endblock %}
 
 {% block head %}
