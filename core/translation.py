@@ -17,7 +17,7 @@ class SettingTranslationOptions(TranslationOptions):
 
 @register(Coin)
 class CoinTranslationOptions(TranslationOptions):
-    fields = ('coin_description',)
+    fields = ('title_seo', 'description_seo', 'coin_description',)
 
 
 @register(NetworkChain)
