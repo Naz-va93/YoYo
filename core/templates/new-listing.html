@@ -22,7 +22,6 @@
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
 
-    <!-- JSON-LD Structured Data for BreadcrumbList -->
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -31,8 +30,8 @@
             {
               "@type": "ListItem",
               "position": 1,
-              "name": "{% trans "Home" %}",
-              "item": "{% url 'core:index' %}"
+              "name": "{% trans 'Home' %}",
+              "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:index' %}"
             },
             {
               "@type": "ListItem",
@@ -43,7 +42,7 @@
           ]
         }
     </script>
-    
+
 {% endblock %}
 
 {% load static %}

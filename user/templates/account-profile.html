@@ -34,7 +34,7 @@
               "@type": "ListItem",
               "position": 1,
               "name": "{% trans "Home" %}",
-              "item": "{% url 'core:index' %}"
+              "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:index' %}"
             },
             {
               "@type": "ListItem",
