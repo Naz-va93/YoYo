@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-15 11:35+0300\n"
+"POT-Creation-Date: 2024-07-17 22:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,8 +352,8 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 
-#: .\core\templates\add-coin.html:50 .\core\templates\coin-page.html:87
-#: .\core\templates\coin-page.html:127 .\core\templates\index.html:37
+#: .\core\templates\add-coin.html:50 .\core\templates\coin-page.html:100
+#: .\core\templates\coin-page.html:140 .\core\templates\index.html:37
 #: .\core\templates\new-listing.html:34 .\core\templates\new-listing.html:57
 #: .\core\templates\privacy-police.html:34
 #: .\core\templates\privacy-police.html:80
@@ -466,93 +466,106 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: .\core\templates\coin-page.html:56 .\core\templates\coin-page.html:322
+#: .\core\templates\coin-page.html:13
+msgid ""
+"Rate chart, capitalization and value, price today, calculator (USD, EUR, "
+"BTC) | Converter and quotes"
+msgstr ""
+
+#: .\core\templates\coin-page.html:23
+msgid ""
+"View 📈 period rate chart and price for today in 🕘 real time, 💰 market "
+"capitalization, value and trading volume. 💻 Exchange calculator to other "
+"currencies!"
+msgstr ""
+
+#: .\core\templates\coin-page.html:69 .\core\templates\coin-page.html:335
 msgid "Market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:61 .\core\templates\coin-page.html:315
+#: .\core\templates\coin-page.html:74 .\core\templates\coin-page.html:328
 msgid "24h volume"
 msgstr ""
 
-#: .\core\templates\coin-page.html:66 .\core\templates\coin-page.html:344
+#: .\core\templates\coin-page.html:79 .\core\templates\coin-page.html:357
 msgid "All-time high"
 msgstr ""
 
-#: .\core\templates\coin-page.html:71 .\core\templates\index.html:311
+#: .\core\templates\coin-page.html:84 .\core\templates\index.html:311
 #: .\core\templates\promoted-list.html:356
 #: .\templates\include\full_coin_table.html:227
 msgid "Votes"
 msgstr ""
 
-#: .\core\templates\coin-page.html:137
+#: .\core\templates\coin-page.html:150
 msgid "Coin page"
 msgstr ""
 
-#: .\core\templates\coin-page.html:186
+#: .\core\templates\coin-page.html:199
 msgid "Review"
 msgstr ""
 
-#: .\core\templates\coin-page.html:189
+#: .\core\templates\coin-page.html:202
 msgid "Market"
 msgstr ""
 
-#: .\core\templates\coin-page.html:197
+#: .\core\templates\coin-page.html:210
 msgid "24h"
 msgstr ""
 
-#: .\core\templates\coin-page.html:201
+#: .\core\templates\coin-page.html:214
 msgid "7d"
 msgstr ""
 
-#: .\core\templates\coin-page.html:205
+#: .\core\templates\coin-page.html:218
 msgid "1m"
 msgstr ""
 
-#: .\core\templates\coin-page.html:209
+#: .\core\templates\coin-page.html:222
 msgid "3m"
 msgstr ""
 
-#: .\core\templates\coin-page.html:213
+#: .\core\templates\coin-page.html:226
 msgid "1y"
 msgstr ""
 
-#: .\core\templates\coin-page.html:217
+#: .\core\templates\coin-page.html:230
 msgid "Max"
 msgstr ""
 
-#: .\core\templates\coin-page.html:270
+#: .\core\templates\coin-page.html:283
 msgid "Range in 24hr."
 msgstr ""
 
-#: .\core\templates\coin-page.html:311
+#: .\core\templates\coin-page.html:324
 msgid "Price to USD"
 msgstr ""
 
-#: .\core\templates\coin-page.html:327
+#: .\core\templates\coin-page.html:340
 msgid "Volume / Market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:339
+#: .\core\templates\coin-page.html:352
 msgid "Fully diluted market cap"
 msgstr ""
 
-#: .\core\templates\coin-page.html:347
+#: .\core\templates\coin-page.html:360
 msgid "on"
 msgstr ""
 
-#: .\core\templates\coin-page.html:376
+#: .\core\templates\coin-page.html:389
 msgid "Converter"
 msgstr ""
 
-#: .\core\templates\coin-page.html:469
+#: .\core\templates\coin-page.html:482
 msgid "Exchanges"
 msgstr ""
 
-#: .\core\templates\coin-page.html:485
+#: .\core\templates\coin-page.html:498
 msgid "Markets"
 msgstr ""
 
-#: .\core\templates\coin-page.html:512
+#: .\core\templates\coin-page.html:525
 msgid "Description"
 msgstr ""
 

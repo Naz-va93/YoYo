@@ -5,11 +5,24 @@
 {% load poll_extras %}
 
 {% block title %}
-    <title>{{ coin.coin_name }} ({{ coin.coin_symbol }}): {{ coin.title_seo }}</title>
+    <title>
+        {{ coin.coin_name }} ({{ coin.coin_symbol }}):
+        {% if coin.title_seo %}
+            {{ coin.title_seo }}
+        {% else %}
+            {% trans 'Rate chart, capitalization and value, price today, calculator (USD, EUR, BTC) | Converter and quotes' %}
+        {% endif %}
+    </title>
 {% endblock %}
 
 {% block description %}
-    <meta name="description" content="{{ coin.coin_name }} ({{ coin.coin_symbol }}): {{ coin.description_seo }}">
+    <meta name="description" content="{{ coin.coin_name }} ({{ coin.coin_symbol }}): 
+        {% if coin.description_seo %}
+            {{ coin.description_seo }}
+        {% else %}
+            {% trans 'View 📈 period rate chart and price for today in 🕘 real time, 💰 market capitalization, value and trading volume. 💻 Exchange calculator to other currencies!' %}
+        {% endif %}
+    ">
 {% endblock %}
 
 {% block head %}
