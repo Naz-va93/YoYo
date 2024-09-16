@@ -19,15 +19,17 @@
         </td>
         <td class="table-coins_third-td">
             <a href="{{ coin.get_absolute_url }}"><h3 class="table-coins__coin--name">{{ coin.coin_name }}</h3></a>
-                <span class="table-coins__coin--abbreviation">{{ coin.coin_symbol }}</span>
+            <span class="table-coins__coin--abbreviation">{{ coin.coin_symbol }}</span>
         </td>
         <td>
             {{ coin.category.name }}
         </td>
         <td>
             <span class="table-coins__chain">
-            <img src="{{ coin.network_chain.photo.url }}" width="20" height="20" alt="">
-            <b>{{ coin.network_chain.name }}</b>
+                {% if coin.network_chain.photo.url %}
+                    <img src="{{ coin.network_chain.photo.url }}" width="20" height="20" alt="">
+                {% endif %}
+                <b>{{ coin.network_chain.name }}</b>
             </span>
         </td>
         <td> {% if coin.price_24h > 0 %}
