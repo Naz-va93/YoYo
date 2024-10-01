@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 {% load static %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
+{% get_available_languages as languages %}
+{% get_current_language as CURRENT_LANGUAGE_CODE %}
+<html lang="{{ CURRENT_LANGUAGE_CODE }}">
 <head>
     {% block title %}
         <title>{{ page.title_seo }}</title>
@@ -9,6 +11,13 @@
 
     <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}">
     <link rel="stylesheet" href="" id="preloader-css">
+    {% for lang_code, lang_name in languages %}
+        {% if lang_code != CURRENT_LANGUAGE_CODE %}
+            <link rel="alternate" href="https://coinyoyo.io/{{ lang_code }}/" hreflang="{{ lang_code }}"/>
+        {% endif %}
+    {% endfor %}
+    <link rel="alternate" href="https://coinyoyo.io/{{ CURRENT_LANGUAGE_CODE }}/" hreflang="{{ CURRENT_LANGUAGE_CODE }}"/>
+    <link rel="alternate" href="https://coinyoyo.io/en/" hreflang="x-default"/>
     <script src="{% static 'js/preloader.min.js' %}"></script>
     {% block description %}
         <meta name="description" content="{{ page.description_seo }}">
