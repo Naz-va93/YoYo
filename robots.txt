@@ -1,7 +1,10 @@
-User-agent: *
-Allow: /
-
 User-agent: GPTBot
 Disallow: /
 
-Sitemap: https://coinyoyo.io/sitemap-custom.xml
+User-agent: *
+Allow: /
+Disallow: /en/search/
+Disallow: /ru/search/
+
+Sitemap: https://coinyoyo.io/ru/sitemap.xml
+Sitemap: https://coinyoyo.io/en/sitemap.xml
