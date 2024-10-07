@@ -6,11 +6,11 @@
 
 {% block title %}
     <title>
-        {{ coin.coin_name }} ({{ coin.coin_symbol }}):
+        {{ coin.coin_name }}:
         {% if coin.title_seo %}
             {{ coin.title_seo }}
         {% else %}
-            {% trans 'Rate chart, capitalization and value, price today, calculator (USD, EUR, BTC) | Converter and quotes' %}
+            {% trans 'Price, Rate Сhart, Capitalization | CoinYoYo' %}
         {% endif %}
     </title>
 {% endblock %}
