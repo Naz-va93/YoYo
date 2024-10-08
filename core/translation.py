@@ -5,7 +5,7 @@ from .models import *
 
 @register(Page)
 class PageTranslationOptions(TranslationOptions):
-    fields = ('title', 'description', 'text_field_1', 'text_field_3', 'text_field_4')
+    fields = ('title_seo', 'description_seo', 'title', 'description', 'text_field_1', 'text_field_3', 'text_field_4')
 
 
 @register(Setting)
@@ -42,7 +42,7 @@ class ListingPlatformTranslationOptions(TranslationOptions):
 
 @register(Listing)
 class ListingTranslationOptions(TranslationOptions):
-    fields = ('title',)
+    fields = ('title_seo', 'title',)
 
 
 @register(ReferenceCurrency)
