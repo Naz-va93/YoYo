@@ -330,6 +330,7 @@ class Order(models.Model):
 
 class Listing(models.Model):
     title_seo = models.CharField(max_length=150, blank=True, null=True, verbose_name='Название для seo')
+    description_seo = models.CharField(max_length=250, blank=True, null=True, verbose_name='Описание для seo')
     title = models.CharField('Название', max_length=100)
     slug = models.SlugField(max_length=100, blank=True, null=True)
     filter_by = models.CharField('Фильтровать', max_length=100, default='all')

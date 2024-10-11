@@ -20,7 +20,7 @@
         {% if coin.description_seo %}
             {{ coin.description_seo }}
         {% else %}
-            {% trans 'View 📈 period rate chart and price for today in 🕘 real time, 💰 market capitalization, value and trading volume. 💻 Exchange calculator to other currencies!' %}
+            {% blocktrans with coin_name=coin.coin_name %}See 🕘today's price, 💰live market data, 📈charts, and trading volume. Convert {{ coin_name }} to other currencies with our 💻exchange calculator.{% endblocktrans %}
         {% endif %}
     ">
 {% endblock %}

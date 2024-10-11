@@ -42,7 +42,7 @@ class ListingPlatformTranslationOptions(TranslationOptions):
 
 @register(Listing)
 class ListingTranslationOptions(TranslationOptions):
-    fields = ('title_seo', 'title',)
+    fields = ('title_seo', 'description_seo', 'title',)
 
 
 @register(ReferenceCurrency)
