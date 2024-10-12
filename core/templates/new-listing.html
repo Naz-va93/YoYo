@@ -83,9 +83,9 @@
                     <img data-src="{% static 'img/index/hero/bg-light.png' %}" alt="" width="0" height="0" class="lazy">
                 </picture>
             </div>
-            <h1 class="hero__title main-title">
-                {{ page.title }}
-            </h1>
+{#            <h1 class="hero__title main-title">#}
+{#                {{ page.title }}#}
+{#            </h1>#}
             <div class="hero__text">
                 <p>
                     {{ page.description|safe }}
@@ -123,7 +123,7 @@
             </div>
         </section>
 
-        {% include 'include/full_coin_table.html' %}
+        {% include 'include/full_coin_table.html' with listing_page=True %}
 
     </main>
 

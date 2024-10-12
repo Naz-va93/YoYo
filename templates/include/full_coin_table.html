@@ -11,9 +11,15 @@
                 <input class="page" type="hidden" name="page" value="1">
                 <input type="hidden" name="is_paginated" value="True">
             {% endif %}
-            <h2 class="{% if listing.filter_by == 'best_today' %}today__title{% endif %} best__title title">
-                {{ listing.title }}
-            </h2>
+            {% if listing_page %}
+                <h1 class="{% if listing.filter_by == 'best_today' %}today__title{% endif %} best__title title">
+                    {{ listing.title }}
+                </h1>
+            {% else %}
+                <h2 class="{% if listing.filter_by == 'best_today' %}today__title{% endif %} best__title title">
+                    {{ listing.title }}
+                </h2>
+            {% endif %}
             {% if not disable_filter %}
                 <button class="filter__btn btn _clear" type="button">
                     <svg width="20" height="20" viewBox="0 0 20 20">
