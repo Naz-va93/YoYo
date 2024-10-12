@@ -40,54 +40,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-crosshair@2.0.0/dist/chartjs-plugin-crosshair.min.js"></script>
 
-    <!-- JSON-LD Structured Data for Product -->
-    <script type="application/ld+json">
-        {
-          "@context": "https://schema.org/",
-          "@type": "Product",
-          "name": "{{ coin.coin_name }}",
-          "image": [
-            "{{ coin.photo_coin.url }}"
-          ],
-          "description": "{{ coin.coin_description|striptags }}",
-          "sku": "{{ coin.coin_symbol }}",
-          "brand": {
-            "@type": "Brand",
-            "name": "{{ coin.coin_name }}"
-          },
-          "offers": {
-            "@type": "Offer",
-            "url": "{{ request.build_absolute_uri }}",
-            "priceCurrency": "USD",
-            "price": "{{ coin.price|format_price }}",
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock"
-          },
-          "additionalProperty": [
-            {
-              "@type": "PropertyValue",
-              "name": "{% trans 'Market cap' %}",
-              "value": "${{ coin.market_cap|normalize_amount }}"
-            },
-            {
-              "@type": "PropertyValue",
-              "name": "{% trans '24h volume' %}",
-              "value": "${{ coin.volume_24h|normalize_amount }}"
-            },
-            {
-              "@type": "PropertyValue",
-              "name": "{% trans 'All-time high' %}",
-              "value": "${{ coin.all_time_high|normalize_amount }}"
-            },
-            {
-              "@type": "PropertyValue",
-              "name": "{% trans 'Votes' %}",
-              "value": "⇧ {{ coin.votes }}"
-            }
-          ]
-        }
-    </script>
-
     <!-- JSON-LD Structured Data for BreadcrumbList -->
     <script type="application/ld+json">
         {

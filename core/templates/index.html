@@ -24,7 +24,7 @@
     <meta property="og:site_name" content="CoinYoYo"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    
+
     <!-- JSON-LD Structured Data for BreadcrumbList -->
     <script type="application/ld+json">
         {
@@ -40,6 +40,52 @@
           ]
         }
     </script>
+    <!-- JSON-LD Structured Data: FAQPage -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "{% trans 'What is cryptocurrency?' %}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{% trans 'Cryptocurrency is a type of digital or virtual currency that uses cryptography for security. It operates independently of a central bank.' %}"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "{% trans 'What is cryptocurrency used for?' %}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{% trans 'Cryptocurrency can be used for a variety of purposes, including online purchases, investment, and as a means of transferring value between parties.' %}"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "{% trans 'How can I buy cryptocurrency?' %}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{% trans 'You can buy cryptocurrency on various online exchanges using traditional currency or other cryptocurrencies.' %}"
+              }
+            }
+          ]
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "CoinYoYo",
+          "alternateName": "CoinYoYo",
+          "url": "https://coinyoyo.io/en/",
+          "logo": "https://coinyoyo.io/static/img/logo.svg",
+          "sameAs": "https://x.com/CoinYoYo_io"
+        }
+    </script>
+    <link rel="stylesheet" href="{% static 'css/faq.css' %}">
+    <script src="{% static 'js/faq.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -358,6 +404,8 @@
         {% endwith %}
 
         {% include 'include/_contact-us.html' %}
+    
+        {% include 'include/_faq.html' %}
     </main>
 
 {% endblock %}
