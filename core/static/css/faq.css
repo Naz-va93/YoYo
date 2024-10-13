@@ -5,9 +5,9 @@
     align-items: center;
     gap: 4rem;
     height: 90vh;
-    padding: 2rem;
     color: #64748b;
     font-family: Commissioner, sans-serif;
+    padding: 2rem 2rem 20px;
 }
 
 .d-details,
@@ -27,19 +27,22 @@ details summary {
     cursor: pointer;
     font-weight: 400;
     font-size: 1.5rem;
+    position: relative;
 }
 
 details summary:after {
     content: "›";
     font-size: 2rem;
-    transition: 0.3s;
+    transition: transform 0.3s;
     transform: rotate(90deg);
+    transform-origin: center center;
 }
 
 details {
-    margin-bottom: 1rem;
+    margin-bottom: 12px;
     height: 4rem;
     transition: height 0.3s ease;
+    overflow: hidden;
 }
 
 details[open] {
@@ -47,14 +50,20 @@ details[open] {
 }
 
 details p {
-    height: fit-content;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     padding: 1rem;
 }
 
-details[open] summary:after {
-    transform: rotate(-90deg);
+details[open] p {
+    visibility: visible;
+    opacity: 1;
 }
 
+/*details[open] summary:after {*/
+/*    transform: rotate(0deg);*/
+/*}*/
 
 .d-display {
     height: fit-content;
@@ -65,4 +74,3 @@ details[open] summary:after {
     justify-content: center;
     padding: 2rem 0;
 }
-
