@@ -8,7 +8,7 @@
     {% block title %}
         <title>{{ page.title_seo }}</title>
     {% endblock %}
-
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}">
     <link rel="stylesheet" href="" id="preloader-css">
     {% for lang_code, lang_name in languages %}
