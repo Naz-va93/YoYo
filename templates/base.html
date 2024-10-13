@@ -16,7 +16,8 @@
             <link rel="alternate" href="https://coinyoyo.io/{{ lang_code }}/" hreflang="{{ lang_code }}"/>
         {% endif %}
     {% endfor %}
-    <link rel="alternate" href="https://coinyoyo.io/{{ CURRENT_LANGUAGE_CODE }}/" hreflang="{{ CURRENT_LANGUAGE_CODE }}"/>
+    <link rel="alternate" href="https://coinyoyo.io/{{ CURRENT_LANGUAGE_CODE }}/"
+          hreflang="{{ CURRENT_LANGUAGE_CODE }}"/>
     <link rel="alternate" href="https://coinyoyo.io/en/" hreflang="x-default"/>
     <script src="{% static 'js/preloader.min.js' %}"></script>
     {% block description %}
@@ -30,8 +31,11 @@
         {
           "@context": "https://schema.org",
           "@type": "Organization",
-          "url": "https://coinyoyo.io",
-          "logo": "https://coinyoyo.io/static/img/favicon.svg"
+          "name": "CoinYoYo",
+          "alternateName": "CoinYoYo",
+          "url": "https://coinyoyo.io/en/",
+          "logo": "https://coinyoyo.io/static/img/logo.svg",
+          "sameAs": "https://x.com/CoinYoYo_io"
         }
     </script>
     <style>
