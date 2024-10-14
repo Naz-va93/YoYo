@@ -13,12 +13,11 @@
     <link rel="stylesheet" href="" id="preloader-css">
     {% for lang_code, lang_name in languages %}
         {% if lang_code != CURRENT_LANGUAGE_CODE %}
-            <link rel="alternate" href="https://coinyoyo.io/{{ lang_code }}/" hreflang="{{ lang_code }}"/>
+            <link rel="alternate" href="{{ request.scheme }}://{{ request.get_host }}/{{ lang_code }}/{{ request.path|slice:"4:" }}" hreflang="{{ lang_code }}"/>
         {% endif %}
     {% endfor %}
-    <link rel="alternate" href="https://coinyoyo.io/{{ CURRENT_LANGUAGE_CODE }}/"
-          hreflang="{{ CURRENT_LANGUAGE_CODE }}"/>
-    <link rel="alternate" href="https://coinyoyo.io/en/" hreflang="x-default"/>
+    <link rel="alternate" href="{{ request.build_absolute_uri }}" hreflang="{{ CURRENT_LANGUAGE_CODE }}"/>
+    <link rel="alternate" href="{{ request.scheme }}://{{ request.get_host }}/en/{{ request.path|slice:"4:" }}" hreflang="x-default"/>
     <script src="{% static 'js/preloader.min.js' %}"></script>
     {% block description %}
         <meta name="description" content="{{ page.description_seo }}">
