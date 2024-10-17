@@ -157,7 +157,7 @@ class Coin(models.Model):
         ordering = ['-votes']
 
     def get_publish_date(self):
-        return self.publish_date.strftime('%d.%m.%Y')
+        return timezone.localtime(self.publish_date.strftime('%d.%m.%Y'))
 
     def __str__(self):
         return self.coin_name
