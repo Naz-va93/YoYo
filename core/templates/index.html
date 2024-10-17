@@ -204,7 +204,7 @@
                                     <span>{{ coin.coin_symbol }}</span>
                                 </div>
                                 <div class="promoted__info-card--days">
-                                    {{ coin.publish_date|time_since }}
+                                    {{ coin.publish_date|localtime|time_since }}
                                 </div>
                             </li>
                         {% endfor %}
