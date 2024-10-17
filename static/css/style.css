@@ -1677,6 +1677,10 @@
     font-weight: 400
 }
 
+.d-display {
+    color: rgb(200, 201, 202)
+}
+
 .footer {
     flex: 0 0 auto;
     background: var(--shade-2)
@@ -1698,6 +1702,19 @@
     justify-content: space-between;
     padding-top: 20px;
     padding-bottom: 20px
+}
+
+.faq-btn {
+    color: var(--gray);
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    background: none;
+}
+
+.footer__row > div:first-child {
+    display: flex;
+    align-items: center;
 }
 
 .footer__row:nth-child(2) > * {

@@ -5,20 +5,25 @@
 
 <footer class="footer">
     <div class="footer__row container">
-        <a href="{% url 'core:index' %}" class="footer__logo">
-            <img
-                    src="{% static 'img/logo.svg' %}"
-                    src-light="{% static 'img/logo-light.png' %}"
-                    src-dark="{% static 'img/logo.svg' %}"
-                    width="143"
-                    height="32"
-                    loading="lazy"
-                    alt="Logo"
-                    class="footer__logo--img">
-        </a>
-        <div class="footer__accent-text">
-            <b>{{ settings.footer_text }}</b>
+        <div>
+            <a href="{% url 'core:index' %}" class="footer__logo">
+                <img
+                        src="{% static 'img/logo.svg' %}"
+                        src-light="{% static 'img/logo-light.png' %}"
+                        src-dark="{% static 'img/logo.svg' %}"
+                        width="143"
+                        height="32"
+                        loading="lazy"
+                        alt="Logo"
+                        class="footer__logo--img">
+            </a>
+            <div class="footer__accent-text">
+                <b>{{ settings.footer_text }}</b>
+            </div>
         </div>
+        <button class="faq-btn">
+            FAQ
+        </button>
     </div>
     <div id="contact" class="footer__row container">
         <div class="footer__social">

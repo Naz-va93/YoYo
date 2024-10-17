@@ -1,21 +1,25 @@
 .d-display {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 4rem;
-    height: 90vh;
-    color: #64748b;
+    justify-content: center;
+    height: fit-content;
     font-family: Commissioner, sans-serif;
-    padding: 2rem 2rem 20px;
+    padding: 15px;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.d-display.show {
+    max-height: 90vh;
+    opacity: 1;
 }
 
 .d-details,
 details[open],
-details summary,
-.d-imgs {
+details summary {
     display: block;
-    width: 500px !important;
+    width: 500px;
 }
 
 details summary {
@@ -26,8 +30,8 @@ details summary {
     width: 100%;
     cursor: pointer;
     font-weight: 400;
-    font-size: 1.5rem;
     position: relative;
+    font-size: 20px;
 }
 
 details summary:after {
@@ -61,16 +65,35 @@ details[open] p {
     opacity: 1;
 }
 
-/*details[open] summary:after {*/
-/*    transform: rotate(0deg);*/
-/*}*/
+@media (max-width: 768px) {
+    details summary {
+        font-size: 18px;
+    }
 
-.d-display {
-    height: fit-content;
-    width: 100%;
+    details p {
+        font-size: 16px;
+    }
+
+    .d-details,
+    details[open],
+    details summary {
+        width: 500px;
+    }
 }
 
-.d-display {
-    justify-content: center;
-    padding: 2rem 0;
+@media (max-width: 500px) {
+    details summary {
+        font-size: 16px;
+    }
+
+    details p {
+        font-size: 14px;
+    }
+
+    .d-details,
+    details[open],
+    details summary {
+        width: 100%;
+    }
 }
+
