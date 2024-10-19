@@ -1760,6 +1760,11 @@
     justify-content: center
 }
 
+.footer__social svg {
+    width: 20px;
+    height: 18px;
+}
+
 .footer__social a {
     display: block;
     padding: 8px
