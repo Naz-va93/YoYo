@@ -152,9 +152,22 @@ class Coin(models.Model):
 
     votes = models.IntegerField('Голоса', default=0)
     votes_today = models.IntegerField('Голоса за сегодня', default=0)
+    is_read_by_admin = models.BooleanField(default=False, verbose_name="Прочитано администратором")
 
     class Meta:
         ordering = ['-votes']
+
+    def mark_as_read_by_admin(self):
+        self.is_read_by_admin = True
+        self.save()
+
+    def get_admin_unread_records_count(self):
+        return Coin.objects.filter(is_read_by_admin=False).count()
+
+    @property
+    def has_admin_read_tracked_records(self):
+        # This property always returns True, indicating that the admin read tracking feature is enabled.
+        return True
 
     def get_publish_date(self):
         return timezone.localtime(self.publish_date.strftime('%d.%m.%Y'))
@@ -297,6 +310,19 @@ class AdvertisingItem(models.Model):
     name = models.CharField(max_length=100, verbose_name="Имя пользователя")
     email = models.EmailField(verbose_name="Email пользователя")
     question = models.TextField(verbose_name="Вопрос пользователя")
+    is_read_by_admin = models.BooleanField(default=False, verbose_name="Прочитано администратором")
+
+    def mark_as_read_by_admin(self):
+        self.is_read_by_admin = True
+        self.save()
+
+    def get_admin_unread_records_count(self):
+        return AdvertisingItem.objects.filter(is_read_by_admin=False).count()
+
+    @property
+    def has_admin_read_tracked_records(self):
+        # This property always returns True, indicating that the admin read tracking feature is enabled.
+        return True
 
     def __str__(self):
         return f"Сообщение от {self.email}"

@@ -1,3 +1,4 @@
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 from .models import *
@@ -6,10 +7,11 @@ from adminsortable2.admin import SortableAdminMixin
 
 
 class CoinAdmin(admin.ModelAdmin):
-    list_display = ('id', 'coin_name')
+    list_display = ('id', 'coin_name', 'is_read_by_admin')
     list_display_links = ('id', 'coin_name')
     search_fields = ('id', 'coin_name')
-    exclude = ('slug', 'contact_address')
+    exclude = ('slug', 'contact_address', 'is_read_by_admin')
+    list_filter = ('is_read_by_admin',)
 
     actions = ['create_multiple_votes_100', 'create_multiple_votes_10', 'create_multiple_votes_1000']
 
@@ -18,9 +20,9 @@ class CoinAdmin(admin.ModelAdmin):
             for i in range(100):
                 Vote.objects.create(coin=coin)
 
-        self.message_user(request, f"Успешное добавление 1000 голосов {queryset.count()}")
+        self.message_user(request, f"Успешное добавление 100 голосов {queryset.count()}")
 
-    create_multiple_votes_100.short_description = "Добавления 100 голосов"  # Название действия в админ панели
+    create_multiple_votes_100.short_description = "Добавления 100 голосов"
 
     def create_multiple_votes_1000(self, request, queryset):
         for coin in queryset:
@@ -29,7 +31,7 @@ class CoinAdmin(admin.ModelAdmin):
 
         self.message_user(request, f"Успешное добавление 1000 голосов {queryset.count()}")
 
-    create_multiple_votes_1000.short_description = "Добавления 1000 голосов"  # Название действия в админ панели
+    create_multiple_votes_1000.short_description = "Добавления 1000 голосов"
 
     def create_multiple_votes_10(self, request, queryset):
         for coin in queryset:
@@ -38,7 +40,19 @@ class CoinAdmin(admin.ModelAdmin):
 
         self.message_user(request, f"Успешное добавление 10 голосов {queryset.count()}")
 
-    create_multiple_votes_10.short_description = "Добавления 10 голосов"  # Название действия в админ панели
+    create_multiple_votes_10.short_description = "Добавления 10 голосов"
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        obj = self.get_object(request, object_id)
+        if obj and not obj.is_read_by_admin:
+            obj.mark_as_read_by_admin()
+
+        return super().change_view(request, object_id, form_url, extra_context)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.is_read_by_admin = True
+        super().save_model(request, obj, form, change)
 
 
 class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
@@ -90,9 +104,23 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 
 class AdvertisingItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email')
+    list_display = ('id', 'name', 'email', 'is_read_by_admin')
     list_display_links = ('id', 'name', 'email')
     search_fields = ('id', 'name', 'email')
+    exclude = ('is_read_by_admin',)
+    list_filter = ('is_read_by_admin',)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        obj = self.get_object(request, object_id)
+        if obj and not obj.is_read_by_admin:
+            obj.mark_as_read_by_admin()
+
+        return super().change_view(request, object_id, form_url, extra_context)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.is_read_by_admin = True
+        super().save_model(request, obj, form, change)
 
 
 class OrderAdmin(admin.ModelAdmin):
