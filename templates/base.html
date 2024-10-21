@@ -13,11 +13,14 @@
     <link rel="stylesheet" href="" id="preloader-css">
     {% for lang_code, lang_name in languages %}
         {% if lang_code != CURRENT_LANGUAGE_CODE %}
-            <link rel="alternate" href="{{ request.scheme }}://{{ request.get_host }}/{{ lang_code }}/{{ request.path|slice:"4:" }}" hreflang="{{ lang_code }}"/>
+            <link rel="alternate"
+                  href="{{ request.scheme }}://{{ request.get_host }}/{{ lang_code }}/{{ request.path|slice:"4:" }}"
+                  hreflang="{{ lang_code }}"/>
         {% endif %}
     {% endfor %}
     <link rel="alternate" href="{{ request.build_absolute_uri }}" hreflang="{{ CURRENT_LANGUAGE_CODE }}"/>
-    <link rel="alternate" href="{{ request.scheme }}://{{ request.get_host }}/en/{{ request.path|slice:"4:" }}" hreflang="x-default"/>
+    <link rel="alternate" href="{{ request.scheme }}://{{ request.get_host }}/en/{{ request.path|slice:"4:" }}"
+          hreflang="x-default"/>
     <script src="{% static 'js/preloader.min.js' %}"></script>
     {% block description %}
         <meta name="description" content="{{ page.description_seo }}">
@@ -74,9 +77,10 @@
         }
     </style>
     <link rel="stylesheet" href="{% static 'css/style-critical.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.min.css' %}" media="print"
-          onload="this.media='all'; this.onload=null;">
-    <link rel="stylesheet" href="{% static 'css/coin_page.css' %}">
+    <link rel="preload" href="{% static 'css/style.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    </noscript>
     <link rel="stylesheet" href="" id="theme-file" media="all">
 
     <script>
@@ -129,7 +133,7 @@
     <img alt="Logo" class="logo-preloader">
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{#<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
 <script>
     $(document).ready(function () {
         var typingTimer; // Таймер для задержки перед выполнением AJAX-запроса
@@ -175,10 +179,10 @@
         });
     });
 </script>
-<script src="{% static 'js/libs.min.js' %}" defer></script>
+{#<script src="{% static 'js/libs.min.js' %}" defer></script>#}
 <script src="{% static 'js/main.min.js' %}" defer></script>
 <!-- <script src="{% static 'js/ajax.js' %}" defer></script> -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{#<script src="https://www.google.com/recaptcha/api.js" async defer></script>#}
 {% block scripts %}
 {% endblock %}
 
