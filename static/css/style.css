@@ -1757,7 +1757,8 @@
 .footer__social ul {
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    width: 100%
 }
 
 .footer__social svg {
