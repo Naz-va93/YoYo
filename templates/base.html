@@ -76,6 +76,8 @@
             font-weight: 400
         }
     </style>
+    {% block head %}
+    {% endblock %}
     <link rel="stylesheet" href="{% static 'css/style-critical.min.css' %}">
     <link rel="preload" href="{% static 'css/style.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -102,8 +104,6 @@
     <script>
         document.querySelector('html').style.setProperty("--vh", window.innerHeight * 0.01 + "px");
     </script>
-    {% block head %}
-    {% endblock %}
 
     <!-- Google Analytics 4 tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDRWKZNCKB"></script>
@@ -179,7 +179,7 @@
         });
     });
 </script>
-{#<script src="{% static 'js/libs.min.js' %}" defer></script>#}
+<script src="{% static 'js/libs.min.js' %}" defer></script>
 <script src="{% static 'js/main.min.js' %}" defer></script>
 <!-- <script src="{% static 'js/ajax.js' %}" defer></script> -->
 {#<script src="https://www.google.com/recaptcha/api.js" async defer></script>#}
