@@ -286,7 +286,7 @@ class CoinDetail(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CoinDetail, self).get_context_data(**kwargs)
         listing_promoted = Listing.objects.get(slug='promoted')
-        context['coins'] = listing_promoted.get_coins()[:9]
+        context['coins'] = listing_promoted.get_coins()
         context['promoted'] = listing_promoted
         context['disable_filter'] = True
         context['reference_currencies'] = ReferenceCurrency.objects.all()
