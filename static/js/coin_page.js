@@ -297,7 +297,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         todayLowPriceElement.textContent = `$${minPrice ? formatNumber(minPrice) : '--'}`;
                         todayHighPriceElement.textContent = `$${maxPrice ? formatNumber(maxPrice) : '--'}`;
                         if (maxPrice - minPrice !== 0) {
-                            const percent = ((currentPrice - minPrice) / (maxPrice - minPrice)) * 100;
+                            let percent = ((currentPrice - minPrice) / (maxPrice - minPrice)) * 100;
+                            if (percent > 100) {
+                                percent = 100;
+                            }
                             progressBar.style.width = `${percent}%`;
                         } else {
                             progressBar.style.width = '0%';
